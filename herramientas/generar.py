@@ -166,9 +166,9 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 """
 
 
-def logo(a, alt="Frenoteca"):
-    # Logo original del sitio (366 × 99 px, PNG transparente): se usa tal cual sobre el rojo de marca.
-    return f'<img class="logo" src="{a}assets/img/logo-frenoteca.png" width="366" height="99" alt="{alt}">'
+def logo(a, alt="Frenoteca", clase="logo"):
+    # Logo original del sitio vectorizado (trazado sobre el PNG de 366 × 99 px, ver README) para verse nítido en grande.
+    return f'<img class="{clase}" src="{a}assets/img/logo-frenoteca.svg" width="366" height="99" alt="{alt}">'
 
 
 # ---------------------------------------------------------------- Sitio: cabecera y pie
@@ -185,10 +185,11 @@ def cabecera(s, a, activo=""):
     <nav class="nav" id="menu" aria-label="Principal">
       <ul class="nav-list">
         <li class="has-sub">
-          <button class="nav-sub-btn" type="button" aria-expanded="false" aria-controls="sub-servicios">Servicios {ic("chev")}</button>
+          <a class="nav-sub-btn" href="{s}#servicios" aria-haspopup="true">Servicios {ic("chev")}</a>
           <ul class="sub" id="sub-servicios">{items}</ul>
         </li>
         <li><a href="{s}#cita">Pedir cita</a></li>
+        <li><a href="{s}#preguntas">Preguntas</a></li>
         <li><a href="{s}#visitenos">Cómo llegar</a></li>
       </ul>
       <div class="nav-cta">
@@ -224,7 +225,7 @@ def visitenos(a, compacto=False):
     return f"""<section class="section visit" id="visitenos" aria-labelledby="visit-t">
   <div class="wrap visit-grid{" visit-compact" if compacto else ""}">
     <div class="visit-info reveal">
-      <h2 class="title" id="visit-t">Cómo llegar</h2>
+      <h2 class="title" id="visit-t">Cómo llegar a Frenoteca</h2>
       {estado_horario()}
       <p class="visit-dir">{ic("pin")}<span>Carrera 50 # 39-87<br>Medellín</span></p>
       {horario_lista()}
@@ -247,7 +248,7 @@ def cita(preseleccion=""):
     return f"""<section class="section cita bg-negro on-dark" id="cita" aria-labelledby="cita-t">
   <div class="wrap cita-grid">
     <div class="reveal">
-      <h2 class="title" id="cita-t">Pida su cita</h2>
+      <h2 class="title" id="cita-t">Pida su cita en Frenoteca</h2>
       <p class="lead">Escoja el servicio y el día. Le confirmamos por WhatsApp.</p>
     </div>
     <form class="form reveal" data-agenda data-wa="{WA}" data-code="{code}" novalidate>
@@ -312,12 +313,25 @@ def tile(x, s, a):
 </a>"""
 
 
-def faq_html(items):
+FAQ = [
+    ("¿Necesito pedir cita?", "No. Puede venir en nuestro horario. Si pide cita por WhatsApp, lo atendemos más rápido."),
+    ("¿Venden solo el repuesto?", "Sí. Se lo lleva o se lo instalamos en el taller."),
+    ("¿Cómo sé si mis frenos están mal?", "Si chillan, vibran, el pedal se siente blando o el carro tarda en frenar, tráigalo a revisión."),
+    ("¿Qué marcas tienen?", "Brembo, Bosch, Incolbestos e importadas, en repuestos originales y homologados."),
+    ("¿Trabajan carros blindados?", "Sí. Tenemos pastillas especiales para carros blindados."),
+    ("¿Cuál es el horario?", "Lunes a viernes de 8:00 a. m. a 5:15 p. m. y sábados de 8:00 a. m. a 1:15 p. m., en jornada continua."),
+    ("¿Dónde quedan?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir su carro."),
+]
+
+
+def faq_html(items, titulo=None):
     if not items:
         return ""
     qs = "".join(f"""<details class="faq-item"><summary><span>{q}</span>{ic("chev")}</summary><p>{r}</p></details>""" for q, r in items)
-    return f"""<section class="section section-tight" aria-label="Preguntas">
-  <div class="wrap faq-wrap"><div class="faq reveal">{qs}</div></div>
+    head = f'<h2 class="title reveal" id="preguntas-t">{titulo}</h2>' if titulo else ""
+    attrs = ' id="preguntas" aria-labelledby="preguntas-t"' if titulo else ' aria-label="Preguntas"'
+    return f"""<section class="section section-tight"{attrs}>
+  <div class="wrap faq-wrap">{head}<div class="faq reveal">{qs}</div></div>
 </section>"""
 
 
@@ -367,7 +381,7 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Patio de Frenoteca con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <h1 class="hero-t">Frenos para su carro <em>en Medellín</em></h1>
+      <h1 class="hero-t">{logo(a, "Frenoteca", "hero-logo")}<span>Frenos para su carro en Medellín</span></h1>
       <p class="lead">Repuestos y taller en un solo lugar. Más de 35 años de experiencia.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-rojo btn-xl" href="{CEL_HREF}">{ic("phone")} Llamar ahora</a>
@@ -417,10 +431,12 @@ def inicio():
   <section class="section section-tight reviews bg-rojo on-red" aria-labelledby="rev-t">
     <div class="wrap reviews-in reveal">
       <p class="rev-num" id="rev-t">4,6 <span class="stars">{estrellas}</span></p>
-      <p class="rev-txt">360 clientes opinan en Google</p>
+      <p class="rev-txt">360 clientes opinan sobre Frenoteca en Google</p>
       <a class="btn btn-blanco btn-lg" href="{RESENAS}" target="_blank" rel="noopener">Leer opiniones {ic("arrow")}</a>
     </div>
   </section>
+
+  {faq_html(FAQ, "Preguntas frecuentes")}
 
   {visitenos(a)}
 </main>
@@ -540,7 +556,8 @@ def propuesta():
       <img src="assets/img/hero-movil.webp" alt="" width="768" height="1024" fetchpriority="high">
     </picture>
     <div class="wrap p-hero-grid"><div class="p-hero-in">
-      <p class="eyebrow">Propuesta para Frenoteca</p>
+      <div class="p-brand">{logo(a, "Frenoteca", "p-logo")}</div>
+      <p class="eyebrow">Propuesta de crecimiento</p>
       <h1 class="p-title">Ustedes tienen la reputación. <em>Nosotros les traemos más clientes desde Google.</em></h1>
       <div class="btn-col">
         <a class="btn btn-rojo btn-xl" href="{s}">Ver mi página nueva {ic("arrow")}</a>
@@ -589,7 +606,7 @@ def propuesta():
 
   <section class="p-final bg-rojo on-red" aria-labelledby="fin-t">
     <div class="wrap p-final-in reveal">
-      <h2 class="title" id="fin-t">Su página nueva ya está lista</h2>
+      <h2 class="title" id="fin-t">La nueva página de Frenoteca ya está lista</h2>
       <p class="lead">Ábrala en el celular, como la verán sus clientes.</p>
       <div class="phones" aria-hidden="true">
         {telefono("pastillas/")}

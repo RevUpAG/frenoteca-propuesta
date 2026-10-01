@@ -27,7 +27,6 @@
     $$('#menu a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
     addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); menuBtn.focus(); } });
   }
-  $$('.nav-sub-btn').forEach((b) => b.addEventListener('click', () => b.setAttribute('aria-expanded', b.getAttribute('aria-expanded') !== 'true')));
 
   /* ---------- Horario: "abierto ahora" en hora de Medellín ---------- */
   // ponytail: no contempla festivos; si hace falta, añadir una lista de fechas cerradas.

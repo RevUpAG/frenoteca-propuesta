@@ -5,9 +5,10 @@
 
 .p-header { background: var(--rojo); color: var(--blanco); }
 .p-header-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: var(--header-h); }
-.p-header .logo { height: 40px; width: auto; }
+.p-header .logo { height: 50px; width: auto; }
 .p-tag { font-size: 1.0625rem; }
-@media (min-width: 800px) { .p-header .logo { height: 48px; } }
+@media (min-width: 800px) { .p-header .logo { height: 58px; } }
+.p-logo { display: block; width: min(100%, 560px); height: auto; padding: 1rem 1.25rem; margin-bottom: 1.75rem; background: var(--rojo); border-radius: 12px; box-shadow: 0 16px 40px rgb(0 0 0 / .45); }
 
 /* ---------- Hero ---------- */
 .p-hero { position: relative; isolation: isolate; background: var(--negro); color: var(--blanco); display: flex; align-items: flex-end; min-height: min(86svh, 760px); }

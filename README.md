@@ -33,7 +33,7 @@ Todo se extrajo de `frenoteca.com`; nada se inventó.
 - **Tipografía** — **Didact Gothic** (títulos y texto) y **Abel** (etiquetas), las dos que carga el sitio actual.
   Alojadas en el propio sitio (WOFF2, ≈ 21 KB). Solo existen en peso regular, así que la jerarquía se hace
   con tamaño, mayúsculas y color, como en el sitio original.
-- **Logo** — el PNG original del sitio (366 × 99 px, transparente), sin modificar, sobre el mismo rojo que lo usa hoy.
+- **Logo** — el sitio solo lo publica en PNG de 366 × 99 px. Se vectorizó trazando ese mismo archivo (sin redibujarlo): `assets/img/logo-frenoteca.svg`, con el negro de la F y la A y el blanco de RENOTEC y las líneas, superpuesto al original para comprobar que calza. Se usa sobre el mismo rojo de su web.
 - **Fotos** — las del taller y de productos publicadas en su web, convertidas a WebP.
 
 ## Datos a confirmar con el cliente
