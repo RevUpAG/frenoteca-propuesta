@@ -58,6 +58,8 @@
   .nav-list a[aria-current="page"] { color: var(--blanco); background: var(--negro-12); }
   .sub { position: absolute; top: calc(100% + 8px); left: 0; min-width: 280px; background: var(--blanco); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .5rem; }
   .sub a { padding: 0 .75rem; border-radius: var(--radius-sm); }
+  /* Puente invisible sobre el hueco entre el botón y el menú: el hover no se pierde al bajar */
+  .sub::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 24px; }
   .sub a:hover { background: var(--rojo-08); }
   .has-sub:hover .sub, .has-sub:focus-within .sub { display: grid; }
   .nav-cta { display: flex; align-items: center; margin: 0; gap: 1rem; }
