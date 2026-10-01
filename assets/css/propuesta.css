@@ -15,9 +15,10 @@
 .p-hero { position: relative; isolation: isolate; background: var(--negro); color: var(--blanco); display: flex; align-items: flex-end; }
 .p-hero-bg, .p-hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
 .p-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(0 0 0 / .3), rgb(0 0 0 / .75) 50%, #000 100%); }
+.p-hero-grid { width: 100%; }
 .p-hero-in { padding-block: 2.75rem 2.25rem; }
-.p-title { font-size: clamp(2rem, 1.3rem + 3.6vw, 4.25rem); text-transform: uppercase; line-height: 1.06; max-width: 20ch; margin-bottom: 1rem; }
-.p-title em { font-style: normal; color: var(--blanco); background: var(--rojo); padding: 0 .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.p-title { font-size: clamp(2rem, 1.3rem + 3.2vw, 3.75rem); text-transform: uppercase; line-height: 1.08; max-width: 20ch; margin-bottom: 1rem; color: rgb(255 255 255 / .8); }
+.p-title em { font-style: normal; color: var(--blanco); }
 .p-hero .lead { margin-bottom: 1.75rem; }
 .p-hero .btn-row .btn { flex: 1 1 260px; }
 .p-hero-note { margin: 1.25rem 0 0; font-size: var(--fs-sm); color: var(--blanco-80); }
@@ -25,6 +26,7 @@
 @media (min-width: 800px) {
   .p-hero { align-items: center; min-height: min(86svh, 800px); }
   .p-hero-in { padding-block: 5rem; }
+  .p-hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; }
   .p-hero::after { background: linear-gradient(90deg, rgb(0 0 0 / .92), rgb(0 0 0 / .7) 55%, rgb(0 0 0 / .25)); }
   .p-hero .btn-row .btn { flex: 0 0 auto; }
 }
@@ -134,3 +136,15 @@
 .p-sticky.is-on { transform: none; }
 .p-sticky .btn { min-height: 56px; }
 @media (min-width: 900px) { .p-sticky { left: auto; right: 1.5rem; bottom: 1.5rem; width: auto; padding: 0; background: none; border: 0; backdrop-filter: none; -webkit-backdrop-filter: none; transform: translateY(calc(100% + 2rem)); } .p-sticky .btn { box-shadow: var(--shadow-lg); } }
+
+/* ---------- Vista previa en celular ---------- */
+.p-phone { display: block; width: 100%; max-width: 230px; border-radius: 34px; padding: 8px; background: #111; box-shadow: 0 0 0 2px #333, var(--shadow-lg); transition: transform .4s var(--ease-out); }
+.p-screen { position: relative; display: block; aspect-ratio: 390 / 844; overflow: hidden; border-radius: 27px; background: var(--blanco); }
+.p-screen iframe { position: absolute; top: 0; left: 0; width: 390px; max-width: none; height: 844px; border: 0; transform-origin: 0 0; transform: scale(var(--k, .6)); pointer-events: none; }
+.p-phone-hero { display: none; }
+@media (min-width: 900px) { .p-phone-hero { display: block; width: 280px; max-width: none; transform: rotate(3deg); } .p-phone-hero:hover { transform: rotate(0) translateY(-6px); } }
+.phones { display: flex; justify-content: center; align-items: flex-end; margin: 0 0 2.25rem; width: 100%; }
+.phones .p-phone { flex: 0 1 42%; max-width: 220px; }
+.phones .p-phone:first-child { transform: translateX(18%) rotate(-6deg) scale(.88); }
+.phones .p-phone:last-child { transform: translateX(-18%) rotate(6deg) scale(.88); }
+.phones .p-phone-front { position: relative; z-index: 1; transform: translateY(-4%); }

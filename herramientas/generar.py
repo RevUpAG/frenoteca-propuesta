@@ -405,9 +405,31 @@ def pie(s, a, code="INI", msg=None, proposal="../"):
   </div>
 </footer>
 <nav class="action-bar" aria-label="Contacto rápido">
-  <a class="btn btn-rojo" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
-  <a class="btn btn-negro" href="{CEL_HREF}">{ic("phone")} Llamar</a>
-</nav>"""
+  <a class="btn btn-rojo" href="{CEL_HREF}">{ic("phone")} Llamar</a>
+  <a class="btn btn-negro" href="#agenda">{ic("calendar")} Agendar</a>
+</nav>
+<a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbenos por WhatsApp">
+  <span class="wa-float-label">¿Cotizamos? <strong>Escríbenos</strong></span>
+  <span class="wa-float-btn">{ic("wa")}</span>
+</a>"""
+
+
+def llamar_cta(titulo="¿Tu carro frena raro?", texto="No esperes a que empeore. Llámanos y te decimos qué revisar."):
+    return f"""<section class="call-band on-red" aria-label="Llámanos">
+  <div class="wrap call-in reveal">
+    <div class="call-copy">
+      <span class="call-ico">{ic("phone")}</span>
+      <div>
+        <h2 class="call-t">{titulo}</h2>
+        <p>{texto}</p>
+      </div>
+    </div>
+    <div class="call-actions">
+      <a class="btn btn-negro btn-lg" href="{CEL_HREF}">{ic("phone")} Llamar al {CEL}</a>
+      <a class="call-fijo" href="{TEL_HREF}">o al fijo {TEL}</a>
+    </div>
+  </div>
+</section>"""
 
 
 def faq_html(items, titulo="Preguntas frecuentes", id_="faq"):
@@ -467,7 +489,7 @@ def inicio():
     s, a = "./", "../"
     tarjetas = "".join(card_servicio(x, s, a) for x in SERVICIOS)
     galeria = "".join(
-        f'<figure class="gal-item"><img src="{a}assets/img/galeria/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></figure>'
+        f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
         for f, alt in GALERIA)
     marcas = "".join(f"<li>{m}</li>" for m in MARCAS)
     body = f"""{cabecera(s, a)}
@@ -485,10 +507,14 @@ def inicio():
         <a class="btn btn-rojo btn-lg" href="{wa()}">{ic("wa")} Cotizar por WhatsApp</a>
         <a class="btn btn-borde btn-lg" href="#agenda">{ic("calendar")} Agendar revisión</a>
       </div>
-      <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener">
-        <span class="stars">{ic("star")}{ic("star")}{ic("star")}{ic("star")}{ic("star")}</span>
-        <span><strong>4,6</strong> en Google · 360 reseñas</span>
-      </a>
+      <p class="hero-call">¿Prefieres hablar? <a href="{CEL_HREF}">{ic("phone")} Llama al {CEL}</a></p>
+      <div class="hero-meta">
+        <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener">
+          <span class="stars">{ic("star")}{ic("star")}{ic("star")}{ic("star")}{ic("star")}</span>
+          <span><strong>4,6</strong> en Google · 360 reseñas</span>
+        </a>
+        {estado_horario()}
+      </div>
     </div>
   </section>
 
@@ -511,6 +537,8 @@ def inicio():
       <div class="svc-grid">{tarjetas}</div>
     </div>
   </section>
+
+  {llamar_cta()}
 
   <section class="section why bg-negro on-dark" aria-labelledby="why-t">
     <div class="wrap why-grid">
@@ -554,7 +582,7 @@ def inicio():
         <span class="svc-more">Ver marcas {ic("arrow")}</span>
       </a>
       <a class="duo-card duo-dark on-dark reveal" href="{s}blindados/">
-        <img src="{a}assets/img/productos/caliper-rojo.webp" alt="" loading="lazy" decoding="async">
+        <img class="duo-bg" src="{a}assets/img/galeria/taller-07.webp" alt="" loading="lazy" decoding="async">
         <p class="eyebrow">Vehículos blindados</p>
         <h2 class="duo-t">Frenos hechos para el peso extra</h2>
         <p>Formulaciones especiales de pastillas para vehículos blindados.</p>
@@ -576,7 +604,13 @@ def inicio():
         </div>
       </div>
     </div>
-    <div class="gallery reveal" data-carousel tabindex="0" aria-label="Fotos del taller, desliza para ver más">{galeria}</div>
+    <div class="gallery reveal" data-carousel aria-label="Fotos del taller, desliza para ver más">{galeria}</div>
+    <dialog class="lightbox" aria-label="Foto del taller">
+      <img alt="">
+      <button class="lb-btn lb-close" type="button" aria-label="Cerrar">{ic("close")}</button>
+      <button class="lb-btn lb-prev" type="button" aria-label="Foto anterior">{ic("arrow-l")}</button>
+      <button class="lb-btn lb-next" type="button" aria-label="Foto siguiente">{ic("arrow")}</button>
+    </dialog>
   </section>
 
   <section class="section reviews bg-rojo on-red" aria-labelledby="rev-t">
@@ -653,6 +687,7 @@ def servicio(x):
       <div class="lists">{listas}</div>
     </div>
   </section>
+  {llamar_cta(f"¿Necesitas {x['msg']}?", "Llámanos y te confirmamos la referencia y el precio para tu vehículo.")}
   {agenda(x["slug"])}
   {faq_html(x["faq"])}
   <section class="section section-tight bg-gris" aria-labelledby="otros-t">
@@ -714,7 +749,7 @@ def propuesta():
       <source media="(min-width: 800px)" srcset="assets/img/aerea-1600.webp">
       <img src="assets/img/hero-movil.webp" alt="" width="768" height="1024" fetchpriority="high">
     </picture>
-    <div class="wrap p-hero-in">
+    <div class="wrap p-hero-grid"><div class="p-hero-in">
       <p class="eyebrow">Propuesta para Frenoteca S.A.S.</p>
       <h1 class="p-title">Tienen la reputación. <em>Les falta una web que la convierta en clientes.</em></h1>
       <p class="lead">Más de tres décadas, 4,6 ★ en Google y marcas como Brembo y Bosch. Les proponemos un sitio nuevo, rápido y pensado para el celular, donde cada anuncio lleva a su servicio y cada contacto se mide.</p>
@@ -723,6 +758,8 @@ def propuesta():
         <a class="btn btn-borde btn-lg" href="#incluye">Qué incluye</a>
       </div>
       <p class="p-hero-note">La página ya está hecha: es navegable y usa su marca, sus fotos y sus datos reales. · Rev Up Agency Group, 30 de septiembre de 2026</p>
+    </div>
+    <a class="p-phone p-phone-hero" href="{s}" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}" title="Vista previa" tabindex="-1" scrolling="no"></iframe></span></a>
     </div>
   </section>
 
@@ -826,6 +863,11 @@ def propuesta():
       <p class="eyebrow">Ya está lista</p>
       <h2 class="title" id="fin-t">Así se vería <em>Frenoteca en internet</em></h2>
       <p class="lead">Ábrala desde el celular, como la verán sus clientes. Pruebe los botones de WhatsApp, la agenda y las páginas de cada servicio.</p>
+      <div class="phones" aria-hidden="true">
+        <a class="p-phone" href="{s}pastillas/" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}pastillas/" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
+        <a class="p-phone p-phone-front" href="{s}" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
+        <a class="p-phone" href="{s}blindados/" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}blindados/" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
+      </div>
       <a class="btn btn-negro btn-lg" href="{s}">Sí, quiero ver mi página {ic("arrow")}</a>
       <p class="p-sign">Felipe Restrepo · CEO, Rev Up Agency Group<br><a href="mailto:info@revupagencygroup.com">info@revupagencygroup.com</a> · <a href="https://revupagencygroup.com" target="_blank" rel="noopener">revupagencygroup.com</a><br><span>Propuesta válida por 30 días desde su fecha.</span></p>
     </div>

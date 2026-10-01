@@ -92,6 +92,35 @@
     car.scrollBy({ left: (+b.dataset.car) * car.clientWidth * 0.8, behavior: 'smooth' });
   }));
 
+  /* ---------- Galería: ampliar foto ---------- */
+  const lb = $('.lightbox');
+  if (lb && lb.showModal) {
+    const fotos = $$('.gal-item'), img = $('img', lb);
+    let i = 0;
+    const ver = (n) => { i = (n + fotos.length) % fotos.length; img.src = fotos[i].dataset.full; img.alt = $('img', fotos[i]).alt; };
+    fotos.forEach((b, n) => b.addEventListener('click', () => { ver(n); lb.showModal(); }));
+    $('.lb-close', lb).addEventListener('click', () => lb.close());
+    $('.lb-prev', lb).addEventListener('click', () => ver(i - 1));
+    $('.lb-next', lb).addEventListener('click', () => ver(i + 1));
+    lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+    lb.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') ver(i - 1); if (e.key === 'ArrowRight') ver(i + 1); });
+    let x0 = null;
+    lb.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) ver(i + (dx < 0 ? 1 : -1)); x0 = null; });
+  }
+
+  /* ---------- WhatsApp flotante: muestra el mensaje un momento tras unos segundos ---------- */
+  const waf = $('.wa-float');
+  if (waf) {
+    setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
+  }
+
+  /* ---------- Propuesta: el sitio en vivo dentro del marco de celular ---------- */
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver((es) => es.forEach((e) => e.target.style.setProperty('--k', e.contentRect.width / 390)));
+    $$('.p-screen').forEach((el) => ro.observe(el));
+  }
+
   /* ---------- Propuesta: CTA fijo tras pasar el hero, oculto en el cierre ---------- */
   const sticky = $('[data-sticky]');
   if (sticky && 'IntersectionObserver' in window) {
