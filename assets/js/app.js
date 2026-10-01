@@ -59,7 +59,7 @@
     const diaDe = (iso) => new Date(iso + 'T12:00:00').getDay();
     const actualizarFranja = () => {
       const sab = fecha.value && diaDe(fecha.value) === 6;
-      franja.querySelector('[value="tarde"]').disabled = sab;
+      $('[value="tarde"]', form).disabled = sab;
       if (sab) franja.value = 'mañana';
     };
     fecha.addEventListener('change', actualizarFranja);
@@ -68,13 +68,13 @@
       ev.preventDefault();
       err.textContent = '';
       $$('[aria-invalid]', form).forEach((el) => el.removeAttribute('aria-invalid'));
-      const bad = $$('input, select', form).find((el) => !el.checkValidity());
-      if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Completa el campo «' + $(`label[for="${bad.id}"]`, form).firstChild.textContent.trim() + '».'; bad.focus(); return; }
-      if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Elige de lunes a sábado.'; fecha.focus(); return; }
-      if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Elige hoy o un día posterior.'; fecha.focus(); return; }
+      const bad = $$('input:not([type="radio"]), select', form).find((el) => !el.checkValidity());
+      if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Por favor complete: ' + $(`label[for="${bad.id}"]`, form).textContent.trim(); bad.focus(); return; }
+      if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Escoja de lunes a sábado.'; fecha.focus(); return; }
+      if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoja hoy o un día después.'; fecha.focus(); return; }
       const f = form.elements;
       const dia = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(fecha.value + 'T12:00:00'));
-      const msg = `Hola Frenoteca, quiero agendar una revisión.\n\n• Nombre: ${f.nombre.value.trim()}\n• Vehículo: ${f.vehiculo.value.trim()}\n• Servicio: ${f.servicio.value}\n• Día: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-AGENDA-${form.dataset.code})`;
+      const msg = `Hola Frenoteca, quiero pedir una cita.\n\n• Nombre: ${f.nombre.value.trim()}\n• Servicio: ${f.servicio.value}\n• Día: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-CITA-${form.dataset.code})`;
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   });
@@ -86,12 +86,6 @@
     });
   });
 
-  /* ---------- Carrusel de la galería (flechas en escritorio) ---------- */
-  const car = $('[data-carousel]');
-  $$('[data-car]').forEach((b) => b.addEventListener('click', () => {
-    car.scrollBy({ left: (+b.dataset.car) * car.clientWidth * 0.8, behavior: 'smooth' });
-  }));
-
   /* ---------- Galería: ampliar foto ---------- */
   const lb = $('.lightbox');
   if (lb && lb.showModal) {
@@ -99,6 +93,7 @@
     let i = 0;
     const ver = (n) => { i = (n + fotos.length) % fotos.length; img.src = fotos[i].dataset.full; img.alt = $('img', fotos[i]).alt; };
     fotos.forEach((b, n) => b.addEventListener('click', () => { ver(n); lb.showModal(); }));
+    $$('[data-gal-open]').forEach((b) => b.addEventListener('click', () => { ver(0); lb.showModal(); }));
     $('.lb-close', lb).addEventListener('click', () => lb.close());
     $('.lb-prev', lb).addEventListener('click', () => ver(i - 1));
     $('.lb-next', lb).addEventListener('click', () => ver(i + 1));
@@ -113,69 +108,6 @@
   const waf = $('.wa-float');
   if (waf) {
     setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
-  }
-
-  /* ---------- Carruseles: puntos y flechas sobre el scroll-snap nativo ---------- */
-  $$('[data-slider]').forEach((sl) => {
-    const track = $('.slides', sl), slides = $$('.slide', sl), dots = $('.dots', sl);
-    const prev = $('.sl-prev', sl), next = $('.sl-next', sl);
-    const paso = () => slides[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
-    const btns = slides.map((_, i) => {
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Ir a ${i + 1} de ${slides.length}`);
-      b.addEventListener('click', () => track.scrollTo({ left: i * paso(), behavior: 'smooth' }));
-      dots.append(b); return b;
-    });
-    const upd = () => {
-      const max = track.scrollWidth - track.clientWidth;
-      sl.classList.toggle('no-scroll', max < 4);
-      const i = track.scrollLeft >= max - 4 ? slides.length - 1 : Math.round(track.scrollLeft / paso());
-      btns.forEach((b, n) => b.classList.toggle('is-active', n === i));
-      prev.disabled = track.scrollLeft < 4; next.disabled = track.scrollLeft >= max - 4;
-    };
-    prev.addEventListener('click', () => track.scrollBy({ left: -paso(), behavior: 'smooth' }));
-    next.addEventListener('click', () => track.scrollBy({ left: paso(), behavior: 'smooth' }));
-    track.addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
-    addEventListener('resize', upd);
-    upd();
-  });
-
-  /* ---------- Pestañas accesibles ---------- */
-  $$('[data-tabs]').forEach((tb) => {
-    const tabsEl = $$('[role="tab"]', tb);
-    const activar = (t, foco) => {
-      tabsEl.forEach((x) => {
-        const on = x === t;
-        x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
-        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-      });
-      if (foco) t.focus();
-      t.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
-      // los carruseles dentro de un panel recién visible necesitan recalcular
-      dispatchEvent(new Event('resize'));
-    };
-    tabsEl.forEach((t, i) => {
-      t.addEventListener('click', () => activar(t));
-      t.addEventListener('keydown', (e) => {
-        const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
-        if (d) { e.preventDefault(); activar(tabsEl[(i + d + tabsEl.length) % tabsEl.length], true); }
-      });
-    });
-  });
-
-  /* ---------- Propuesta: barra de secciones marca dónde va el lector ---------- */
-  const pnav = $('[data-pnav]');
-  if (pnav && 'IntersectionObserver' in window) {
-    const links = $$('a', pnav);
-    const io2 = new IntersectionObserver((es) => es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      links.forEach((l) => {
-        const on = l.hash === '#' + e.target.id;
-        l.classList.toggle('is-active', on);
-        if (on) pnav.firstElementChild.scrollTo({ left: l.offsetLeft - 16, behavior: 'smooth' });
-      });
-    }), { rootMargin: '-40% 0px -55% 0px' });
-    links.forEach((l) => io2.observe($(l.hash)));
   }
 
   /* ---------- Propuesta: el sitio en vivo dentro del marco de celular ---------- */

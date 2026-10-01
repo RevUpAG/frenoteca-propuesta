@@ -29,7 +29,7 @@
   --blanco-16:   rgb(255 255 255 / .16);
 
   --text: #111;
-  --text-soft: var(--gris);
+  --text-soft: var(--grafito); /* más oscuro que el gris: 10.5:1, lectura cómoda para público mayor */
   --line: var(--negro-12);
 
   /* Tipografía: Didact Gothic (títulos y texto) y Abel (etiquetas), las del sitio */
@@ -37,11 +37,11 @@
   --font-label: "Abel", "Didact Gothic", system-ui, sans-serif;
   --fs-xs:   .8125rem;
   --fs-sm:   .9375rem;
-  --fs-base: 1.0625rem;
-  --fs-md:   clamp(1.125rem, 1.05rem + .35vw, 1.25rem);
+  --fs-base: 1.125rem;  /* 18 px: público mayor */
+  --fs-md:   clamp(1.25rem, 1.15rem + .4vw, 1.375rem);
   --fs-lg:   clamp(1.3125rem, 1.15rem + .7vw, 1.625rem);
   --fs-xl:   clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
-  --fs-2xl:  clamp(2.125rem, 1.55rem + 2.8vw, 3.5rem);
+  --fs-2xl:  clamp(2rem, 1.55rem + 2.4vw, 3.25rem);
   --fs-3xl:  clamp(2.5rem, 1.7rem + 4.2vw, 4.75rem);
 
   --gutter: clamp(1rem, .6rem + 2vw, 2rem);
@@ -56,7 +56,7 @@
   --shadow-lg: 0 24px 60px rgb(0 0 0 / .25);
   --ease-out: cubic-bezier(.22, 1, .36, 1);
 
-  --tap: 48px;
+  --tap: 52px;
   --header-h: 64px;
 }
 
@@ -102,7 +102,7 @@ b, strong { font-weight: 400; color: var(--negro); }
 /* Etiqueta y títulos de sección: mayúsculas como en el sitio actual */
 .eyebrow {
   display: inline-flex; align-items: center; gap: .6rem;
-  font-family: var(--font-label); font-size: var(--fs-sm); letter-spacing: .14em; text-transform: uppercase;
+  font-family: var(--font-label); font-size: 1.0625rem; letter-spacing: .08em; text-transform: uppercase;
   color: var(--rojo); margin-bottom: 1rem;
 }
 .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
@@ -110,8 +110,8 @@ b, strong { font-weight: 400; color: var(--negro); }
 .title { font-size: var(--fs-2xl); text-transform: uppercase; letter-spacing: .01em; }
 .title em { font-style: normal; color: var(--rojo); }
 .on-red .title em { color: var(--negro); }
-.lead { font-size: var(--fs-md); color: var(--text-soft); max-width: 60ch; }
-.on-dark .lead { color: var(--blanco-80); }
+.lead { font-size: var(--fs-md); color: var(--text-soft); max-width: 46ch; line-height: 1.5; }
+.on-dark .lead { color: var(--blanco); }
 .on-red .lead { color: var(--blanco); }
 .section-head { max-width: 760px; margin-bottom: clamp(2rem, 1.5rem + 2vw, 3rem); }
 
@@ -120,7 +120,7 @@ b, strong { font-weight: 400; color: var(--negro); }
   display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
   min-height: var(--tap); padding: .8rem 1.4rem;
   border: 2px solid transparent; border-radius: var(--radius-sm);
-  font-family: var(--font-label); font-size: 1.0625rem; letter-spacing: .06em; text-transform: uppercase;
+  font-family: var(--font); font-size: 1.125rem; letter-spacing: 0;
   text-decoration: none; cursor: pointer; line-height: 1.2; text-align: center;
   transition: background-color .2s, color .2s, border-color .2s, transform .15s var(--ease-out);
   -webkit-tap-highlight-color: transparent;
@@ -137,7 +137,11 @@ b, strong { font-weight: 400; color: var(--negro); }
 .btn-borde:hover { background: var(--negro); color: var(--blanco); border-color: var(--negro); }
 .on-dark .btn-borde, .on-red .btn-borde { color: var(--blanco); }
 .on-dark .btn-borde:hover, .on-red .btn-borde:hover { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
-.btn-lg { min-height: 56px; padding: 1rem 1.75rem; font-size: 1.1875rem; }
+.btn-lg { min-height: 58px; padding: 1rem 1.75rem; font-size: 1.1875rem; }
+.btn-xl { min-height: 64px; padding: 1rem 1.75rem; font-size: 1.3125rem; border-radius: 10px; }
+.btn-xl svg { width: 1.4em; height: 1.4em; }
+.btn-col { display: grid; gap: .75rem; }
+@media (min-width: 700px) { .btn-col { display: flex; flex-wrap: wrap; } }
 .btn-block { width: 100%; }
 
 /* ---------- Iconos ---------- */

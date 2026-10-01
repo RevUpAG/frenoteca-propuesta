@@ -17,12 +17,12 @@ hay un enlace de vuelta. Pensado para abrirse desde el celular.
 
 | Ruta | Qué es |
 |---|---|
-| `index.html` | La **propuesta completa** (sin precios): diagnóstico, qué cambia por frente (Google Ads, medición, reportes, perfil de Google, web, SEO, contacto), medición de clientes reales, los dos servicios (sitio web y plan mensual), primeros 90 días y cierre con el sitio en vivo dentro de celulares. Se recorre con pestañas, carruseles y desplegables. |
-| `sitio/index.html` | El **sitio terminado**: hero, servicios, por qué Frenoteca, pasos, marcas y blindados, galería del taller, reseñas, agenda, cómo llegar y preguntas frecuentes. |
+| `index.html` | La **propuesta**, en lectura corta para el dueño (sin precios): lo que vimos, lo que vamos a hacer (página web, anuncios en Google, ficha de Google Maps, salir más en Google; detalle en desplegables), cómo sabremos que funciona, los primeros 3 meses y cierre con el sitio en vivo dentro de celulares. |
+| `sitio/index.html` | El **sitio terminado**, pensado también para público mayor (trato de «usted», letra de 18 px, botones grandes con texto): hero con Llamar y WhatsApp, «¿Qué necesita?», por qué Frenoteca, pedir cita, fotos del taller, opiniones y cómo llegar. |
 | `sitio/<servicio>/` | **Una página por servicio** (pastillas, discos, campanas y zapatas, cilindros, mangueras, taller y suspensión) más **marcas** y **blindados**, cada una con título único y WhatsApp con código propio (`WEB-PAS`, `WEB-DIS`…). |
 | `herramientas/generar.py` | Genera todas las páginas. **Los textos se editan aquí** y luego: `python3 herramientas/generar.py`. |
 | `assets/css/brand.css` | Sistema de marca (color, tipografía, botones). |
-| `assets/js/app.js` | Menú, «abierto ahora», agenda → WhatsApp, mapa bajo demanda, carrusel. Sin librerías. |
+| `assets/js/app.js` | Menú, «abierto ahora», cita → WhatsApp, mapa bajo demanda, fotos ampliables, vista previa en celular. Sin librerías. |
 
 ## Branding
 
