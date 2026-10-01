@@ -704,45 +704,157 @@ def servicio(x):
 
 
 # ---------------------------------------------------------------- Propuesta
+# Contenido tomado de la propuesta en PDF (sin precios ni fase 2, por decisión del cliente interno).
+HALLAZGOS = [
+    ("search", "Casi no aparecen cuando buscan frenos",
+     "En «frenos Medellín», «taller de frenos», «discos de frenos» y «frenos cerca de mí» aparecen otros talleres. Frenoteca sale cuando la buscan por su nombre: gente que ya la conoce."),
+    ("chart", "Se mide el clic, no el cliente",
+     "Las 217 «conversiones» son 132 toques al botón de WhatsApp, 78 a «llámanos» y 8 llamadas. Google optimiza con esa señal y nadie sabe cuántos carros entraron al taller por la pauta."),
+    ("layers", "La web frena a los anuncios",
+     "Todos los anuncios llevan al inicio. No hay páginas por servicio, todas tienen el mismo título de ~700 caracteres y el WhatsApp manda el mismo mensaje desde cualquier página."),
+    ("pin", "Su perfil de Google no tiene quien lo cuide",
+     "Reseñas sin respuesta (incluso las de 1 ★), categoría «Tienda de repuestos» en vez de «Taller de frenos» y dirección mal escrita. Hay 4 teléfonos distintos y los años de experiencia cambian según dónde se lean."),
+]
+FRENTES = [
+    ("Google Ads", "tag", "2 campañas y 3 anuncios de texto, todo al inicio; poca presencia en búsquedas genéricas.",
+     "Campañas por servicio y marca, con horario del taller, llamada, ubicación y reseñas. Cada anuncio lleva a su página."),
+    ("Medición", "chart", "Se cuentan clics en botones.",
+     "Conversaciones y clientes reales, enviados como conversiones directas a Google Ads."),
+    ("Reportes", "text", "PDF mensual automático y técnico.",
+     "Cada 15 días, con gráficos y en lenguaje claro: qué pasó, qué cambiamos y qué sigue."),
+    ("Perfil de Google", "pin", "Sin gestión.",
+     "Reseñas respondidas, publicaciones, fotos, categorías, servicios y horario al día."),
+    ("Sitio web", "mobile", "Lento, sin páginas por servicio ni forma de agendar.",
+     "Sitio nuevo y rápido, con una página por servicio pensada para los anuncios."),
+    ("SEO", "search", "Títulos repetidos y contenido mínimo.",
+     "SEO técnico y local: títulos únicos, contenido por servicio y datos de negocio local."),
+    ("Contacto", "phone", "4 números distintos.",
+     "Nombre, dirección, teléfono y horario iguales en todos los canales."),
+]
+MEDICION = [
+    ("wa", "Conversación real", "WhatsApp con código por origen y servicio. Solo cuenta si la persona escribe.", "«Quiero cotizar pastillas» · WEB-PAS"),
+    ("phone", "Llamada real", "Número de seguimiento de Google. Solo cuentan las llamadas de más de 60 segundos.", "Llamada de 2:15 desde el anuncio"),
+    ("car", "Cliente", "Registro simple: qué servicio, si vino al taller y cuánto se facturó.", "Pastillas · vino · facturado"),
+    ("redirect", "De vuelta a Google", "Las ventas se suben desde el celular y Google aprende a buscar clientes, no clics.", "Google optimiza por clientes"),
+]
+WEB_INCLUYE = [
+    ("mobile", "Pensado primero para el celular", "Con la identidad de Frenoteca: su logo, su rojo y su tipografía."),
+    ("layers", "Una página por servicio", "Pastillas, discos, campanas y zapatas, cilindros, mangueras, taller y suspensión."),
+    ("award", "Marcas y blindados", "Brembo, Bosch, Incolbestos, importadas y formulaciones para blindados."),
+    ("star", "Reseñas, fotos, mapa y horario", "Su 4,6 ★, el taller tal como es y cómo llegar en un toque."),
+    ("wa", "WhatsApp y llamada a mano", "Botón fijo con un mensaje distinto según el servicio."),
+    ("calendar", "Agenda en un minuto", "Servicio, día y franja, y le llega todo listo a WhatsApp."),
+    ("bolt", "Carga en menos de 3 s", "Hoy la web tarda 7,8 s en el celular."),
+    ("search", "SEO técnico", "Títulos únicos, datos estructurados y sitemap."),
+    ("redirect", "Redirecciones", "Para no perder lo que ya está posicionado en Google."),
+    ("chart", "Analytics 4 y conversiones", "Tag Manager y conversiones de Google Ads por servicio."),
+    ("text", "Textos incluidos", "Redactados por nosotros, con una ronda de ajustes."),
+]
+PLAN = [
+    ("Google Ads", "tag", ["Estructura por servicio y marca", "Llamada, ubicación y reseñas en los anuncios", "Control del gasto", "Anuncios según el horario del taller", "Conversiones reales"]),
+    ("Perfil de Google", "pin", ["Respuesta a todas las reseñas", "Publicaciones y fotos", "Categorías y servicios correctos", "Datos unificados"]),
+    ("Sitio web", "mobile", ["Contenido al día", "Seguridad y respaldos", "Velocidad", "Mejoras de conversión"]),
+    ("SEO", "search", ["SEO local en Medellín y el Valle de Aburrá", "Contenido por servicio", "Seguimiento de posiciones", "Directorios"]),
+]
+REPORTE = ["WhatsApps y llamadas por servicio", "Costo por contacto real", "Búsquedas donde aparecimos", "Posición en Google Maps",
+           "Reseñas", "Visitas y velocidad de la web", "Qué cambiamos y qué sigue"]
+FASES = [
+    ("Semanas 1–2", "Orden", "Auditoría con acceso. Separamos marca de búsquedas genéricas, ajustamos el horario, configuramos la medición real, unificamos datos y tomamos el perfil de Google."),
+    ("Semanas 3–6", "Sitio nuevo", "Publicamos el sitio y los anuncios apuntan a cada página. Primer reporte con la línea base."),
+    ("Semanas 7–12", "Optimizar", "Campañas ajustadas con datos reales, SEO local y reseñas. Recomendaciones según el costo por cliente."),
+]
+NECESITAMOS = [("chart", "Lectura de Google Ads y Analytics"), ("pin", "Administración del perfil de Google"),
+               ("layers", "Acceso al hosting y al dominio"), ("wa", "El WhatsApp que atienden"), ("image", "Fotos del taller y de los servicios")]
+
+
+def slider(slides, label, clase=""):
+    """Carrusel con scroll-snap nativo; app.js añade puntos y flechas."""
+    return f"""<div class="slider {clase}" data-slider aria-roledescription="carrusel" aria-label="{label}">
+  <div class="slides">{"".join(slides)}</div>
+  <div class="slider-ui"><button class="sl-btn sl-prev" type="button" aria-label="Anterior">{ic("arrow-l")}</button><div class="dots"></div><button class="sl-btn sl-next" type="button" aria-label="Siguiente">{ic("arrow")}</button></div>
+</div>"""
+
+
+def tabs(id_, items, label, clase=""):
+    """items = [(titulo_tab, icono, html_panel)]. Pestañas accesibles; app.js las activa."""
+    off = ' tabindex="-1"'
+    btns = "".join(
+        f'<button role="tab" id="{id_}-t{i}" aria-controls="{id_}-p{i}" aria-selected="{"true" if i == 0 else "false"}"{"" if i == 0 else off}>{ic(ico)}<span>{t}</span></button>'
+        for i, (t, ico, _) in enumerate(items))
+    panels = "".join(
+        f'<div role="tabpanel" id="{id_}-p{i}" aria-labelledby="{id_}-t{i}" class="tab-panel"{"" if i == 0 else " hidden"}>{html}</div>'
+        for i, (_, _, html) in enumerate(items))
+    return f'<div class="tabs {clase}" data-tabs><div class="tablist" role="tablist" aria-label="{label}">{btns}</div>{panels}</div>'
+
+
 def propuesta():
     a, s = "", "sitio/"
     cta = f'<a class="btn btn-rojo btn-lg" href="{s}">Sí, quiero ver mi página {ic("arrow")}</a>'
+
+    def telefono(dest, extra="", lazy=True):
+        l = ' loading="lazy"' if lazy else ''
+        return (f'<a class="p-phone{extra}" href="{s}{dest}" tabindex="-1" aria-hidden="true">'
+                f'<span class="p-screen"><iframe src="{s}{dest}" title="Vista previa" tabindex="-1" scrolling="no"{l}></iframe></span></a>')
+
+    # 01 · Hallazgos
+    hallazgos = slider([
+        f'<article class="slide card-find"><span class="find-n">{i + 1}</span>{ic(ico)}<h3>{t}</h3><p>{d}</p></article>'
+        for i, (ico, t, d) in enumerate(HALLAZGOS)], "Lo que encontramos")
+
+    # 02 · Qué cambia (pestañas por frente)
+    frentes = tabs("fr", [
+        (t, ico, f'<div class="vs"><div class="vs-hoy"><span class="vs-lbl">Hoy</span><p>{h}</p></div>'
+                 f'<span class="vs-arrow" aria-hidden="true">{ic("arrow")}</span>'
+                 f'<div class="vs-rev"><span class="vs-lbl">Con Rev Up</span><p>{n}</p></div></div>')
+        for t, ico, h, n in FRENTES], "Frentes de trabajo", "tabs-chips")
+
+    # 03 · Medición
+    medicion = slider([
+        f'<article class="slide card-med"><span class="med-step">Paso {i + 1}</span>{ic(ico)}<h3>{t}</h3><p>{d}</p><span class="med-ej">{e}</span></article>'
+        for i, (ico, t, d, e) in enumerate(MEDICION)], "Cómo medimos clientes")
+
+    # 04 · Propuesta: sitio web + plan mensual
     paginas = "".join(f"<li>{ic(x['icon'])}{x['nombre']}</li>" for x in TODOS)
-    incluye = [
-        ("mobile", "Diseño pensado primero para el celular", "Con la identidad de Frenoteca: su logo, su rojo y su tipografía."),
-        ("layers", "Inicio y una página por servicio", "Pastillas, discos, campanas y zapatas, cilindros, mangueras, taller y suspensión."),
-        ("award", "Página de marcas y de blindados", "Brembo, Bosch, Incolbestos, importadas y formulaciones para blindados."),
-        ("star", "Reseñas, fotos reales, mapa y horario", "Su 4,6 ★ de Google, el taller tal como es y cómo llegar en un toque."),
-        ("wa", "WhatsApp y llamada siempre a mano", "Botón fijo con un mensaje distinto según el servicio que la persona está viendo."),
-        ("calendar", "Agenda en un minuto", "La persona elige servicio, día y franja, y le llega todo listo a WhatsApp."),
-        ("bolt", "Carga en menos de 3 segundos", "Imágenes optimizadas y código liviano. Hoy la web tarda 7,8 s."),
-        ("search", "SEO técnico y local", "Títulos únicos, datos estructurados de negocio local y sitemap."),
-        ("redirect", "Redirecciones", "Para no perder nada de lo que ya está posicionado en Google."),
-        ("chart", "Analytics 4, Tag Manager y conversiones", "Conversiones de Google Ads por servicio: se mide el cliente, no el clic."),
-        ("text", "Textos redactados por nosotros", "Claros y orientados a vender, con una ronda de ajustes incluida."),
-    ]
-    incluye_html = "".join(f'<li class="inc reveal">{ic(i)}<div><h3>{t}</h3><p>{d}</p></div></li>' for i, t, d in incluye)
-    filas = [
-        ("A dónde llegan los anuncios", "Todos al inicio", "Cada anuncio a la página de su servicio"),
-        ("Páginas por servicio", "Imágenes sin texto, sin información para Google", "Una página completa por servicio, con texto, señales y preguntas"),
-        ("Títulos para Google", "El mismo título de ~700 caracteres en todas", "Un título único y claro por página"),
-        ("Velocidad en celular", "7,8 segundos", "Objetivo: menos de 3 segundos"),
-        ("WhatsApp", "El mismo mensaje desde cualquier página", "Mensaje y código según el servicio y el origen"),
-        ("Agendar", "No hay forma de agendar", "Agenda en un minuto directo a WhatsApp"),
-        ("Reseñas y confianza", "No aparecen en la web", "4,6 ★ y 360 reseñas visibles desde el primer pantallazo"),
-        ("Datos de contacto", "4 teléfonos y años distintos según dónde se lea", "Nombre, dirección, teléfono y horario iguales en todos los canales"),
-        ("Medición", "Clics en botones", "Conversaciones y clientes reales"),
-    ]
-    filas_html = "".join(
-        f'<div class="cmp-row reveal" role="row"><div class="cmp-k" role="rowheader">{k}</div><div class="cmp-antes" role="cell"><span class="cmp-lbl">Hoy</span>{ic("x")}<span>{h}</span></div><div class="cmp-despues" role="cell"><span class="cmp-lbl">Nuevo sitio</span>{ic("check")}<span>{n}</span></div></div>'
-        for k, h, n in filas)
+    web = slider([
+        f'<article class="slide card-inc">{ic(ico)}<h3>{t}</h3><p>{d}</p></article>' for ico, t, d in WEB_INCLUYE],
+        "Qué incluye el sitio web", "slider-sm")
+    panel_web = f"""<p class="panel-lead">Diseñado para vender frenos: rápido, pensado para el celular y con una página por servicio a la que llega cada anuncio.</p>
+{web}
+<div class="pages-row"><span class="pages-k">Páginas</span><ul class="pages-list"><li>{ic("layers")}Inicio</li>{paginas}</ul></div>
+<p class="panel-foot">{ic("clock")} Entrega en 3 a 4 semanas desde que recibamos accesos, fotos y contenido. <a href="{s}">Ver el sitio {ic("arrow")}</a></p>"""
+    chk = ic("check")
+    acordeon = "".join(
+        f'<details class="acc"{" open" if i == 0 else ""}><summary>{ic(ico)}<span>{t}</span>{ic("chev")}</summary><ul class="acc-list">{"".join(f"<li>{chk}{x}</li>" for x in items)}</ul></details>'
+        for i, (t, ico, items) in enumerate(PLAN))
+    panel_plan = f"""<p class="panel-lead">Un solo responsable para todo lo que hoy nadie trabaja, con un reporte claro cada 15 días. Las cuentas siguen siendo de Frenoteca.</p>
+<div class="plan-grid">
+  <div class="accs">{acordeon}</div>
+  <div class="report">
+    <h3>{ic("text")} Reporte cada 15 días</h3>
+    <ul class="report-list">{"".join(f"<li>{x}</li>" for x in REPORTE)}</ul>
+  </div>
+</div>"""
+    servicios = tabs("sv", [("Sitio web nuevo", "mobile", panel_web), ("Plan mensual de crecimiento", "chart", panel_plan)],
+                     "Servicios propuestos", "tabs-big")
+
+    # 05 · 90 días
+    fases = slider([
+        f'<article class="slide card-fase"><span class="fase-w">{w}</span><h3><span class="fase-n">{i + 1}</span>{t}</h3><p>{d}</p></article>'
+        for i, (w, t, d) in enumerate(FASES)], "Primeros 90 días", "slider-fases")
+    necesitamos = "".join(f"<li>{ic(i)}{t}</li>" for i, t in NECESITAMOS)
+
+    secciones = [("diagnostico", "Diagnóstico"), ("cambia", "Qué cambia"), ("medicion", "Medición"),
+                 ("propuesta", "Propuesta"), ("dias", "90 días")]
+    nav = "".join(f'<a href="#{i}">{t}</a>' for i, t in secciones)
+
     body = f"""<a class="skip" href="#contenido">Saltar al contenido</a>
 <header class="p-header on-red">
   <div class="wrap p-header-in">
     {logo(a)}
-    <span class="p-tag">Propuesta de sitio web</span>
+    <span class="p-tag">Propuesta de crecimiento digital</span>
   </div>
 </header>
+<nav class="p-nav" aria-label="Secciones de la propuesta" data-pnav><div class="p-nav-in">{nav}</div></nav>
 <main id="contenido">
   <section class="p-hero on-dark">
     <picture class="p-hero-bg">
@@ -751,122 +863,92 @@ def propuesta():
     </picture>
     <div class="wrap p-hero-grid"><div class="p-hero-in">
       <p class="eyebrow">Propuesta para Frenoteca S.A.S.</p>
-      <h1 class="p-title">Tienen la reputación. <em>Les falta una web que la convierta en clientes.</em></h1>
-      <p class="lead">Más de tres décadas, 4,6 ★ en Google y marcas como Brembo y Bosch. Les proponemos un sitio nuevo, rápido y pensado para el celular, donde cada anuncio lleva a su servicio y cada contacto se mide.</p>
+      <h1 class="p-title">Tienen la reputación. <em>Les falta que Google la convierta en clientes.</em></h1>
+      <p class="lead">Más de tres décadas, 4,6 ★ con 360 reseñas y marcas como Brembo, Bosch e Incolbestos. Revisamos su pauta, su web y su perfil de Google: así los vamos a poner a trabajar juntos.</p>
       <div class="btn-row">
         {cta}
-        <a class="btn btn-borde btn-lg" href="#incluye">Qué incluye</a>
+        <a class="btn btn-borde btn-lg" href="#diagnostico">Ver la propuesta</a>
       </div>
-      <p class="p-hero-note">La página ya está hecha: es navegable y usa su marca, sus fotos y sus datos reales. · Rev Up Agency Group, 30 de septiembre de 2026</p>
+      <p class="p-hero-note">Preparada por Felipe Restrepo, CEO · Rev Up Agency Group · 30 de septiembre de 2026</p>
     </div>
-    <a class="p-phone p-phone-hero" href="{s}" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}" title="Vista previa" tabindex="-1" scrolling="no"></iframe></span></a>
+    {telefono("", " p-phone-hero", lazy=False)}
     </div>
   </section>
 
-  <section class="section" aria-labelledby="enc-t">
+  <section class="section p-sec" id="diagnostico" aria-labelledby="enc-t">
     <div class="wrap">
       <div class="section-head reveal">
         <p class="eyebrow">01 · Lo que encontramos</p>
-        <h2 class="title" id="enc-t">Un gran taller <em>con una web que lo frena</em></h2>
-        <p class="lead">Revisamos su pauta, su sitio y su perfil de Google. El activo está; no se está aprovechando.</p>
+        <h2 class="title" id="enc-t">El activo está. <em>No se está aprovechando.</em></h2>
       </div>
-      <ul class="stats">
-        <li class="stat reveal"><span class="stat-n">4,6 ★</span><p>360 reseñas, mejor que la mayoría de la competencia</p></li>
-        <li class="stat stat-bad reveal"><span class="stat-n">7,8 s</span><p>de carga de la web; lo recomendado es menos de 3</p></li>
-        <li class="stat stat-bad reveal"><span class="stat-n">1</span><p>sola página de destino: todos los anuncios llevan al inicio</p></li>
-        <li class="stat stat-bad reveal"><span class="stat-n">217</span><p>«conversiones» que en realidad son clics en botones</p></li>
+      <ul class="stats reveal">
+        <li class="stat"><span class="stat-n">4,6 ★</span><p>360 reseñas, mejor que la mayoría de la competencia</p></li>
+        <li class="stat stat-bad"><span class="stat-n">≈20</span><p>clics diarios en Google Ads que llegan todos al inicio</p></li>
+        <li class="stat stat-bad"><span class="stat-n">35 %</span><p>de «conversión» reportada que en realidad son clics en botones</p></li>
+        <li class="stat stat-bad"><span class="stat-n">7,8 s</span><p>de carga de la web; lo recomendado es menos de 3</p></li>
       </ul>
-      <div class="findings">
-        <article class="finding reveal"><span class="finding-n">1</span><div><h3>Casi no aparecen cuando buscan frenos</h3><p>En «frenos Medellín», «taller de frenos» o «discos de frenos» salen otros. Frenoteca aparece cuando la buscan por su nombre: gente que ya la conoce.</p></div></article>
-        <article class="finding reveal"><span class="finding-n">2</span><div><h3>La web frena a los anuncios</h3><p>No hay páginas por servicio, todas tienen el mismo título y el WhatsApp manda el mismo mensaje desde cualquier lugar.</p></div></article>
-        <article class="finding reveal"><span class="finding-n">3</span><div><h3>Se mide el clic, no el cliente</h3><p>Nadie sabe cuántos carros entraron al taller por la pauta. Google optimiza con una señal equivocada.</p></div></article>
-      </div>
+      <div class="reveal">{hallazgos}</div>
     </div>
   </section>
 
-  <section class="section bg-negro on-dark" id="incluye" aria-labelledby="inc-t">
+  <section class="section p-sec bg-gris" id="cambia" aria-labelledby="cmb-t">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">02 · Lo que vamos a construir</p>
-        <h2 class="title" id="inc-t">Un sitio nuevo, <em>diseñado para vender frenos</em></h2>
-        <p class="lead">Todo esto está incluido y ya lo pueden probar en la versión navegable.</p>
+        <p class="eyebrow">02 · Qué cambia</p>
+        <h2 class="title" id="cmb-t">Lo que reciben hoy <em>y lo que falta para que funcione</em></h2>
+        <p class="lead">Mantenemos la gestión de Google Ads que ya tienen y le sumamos lo que hoy nadie trabaja, con un solo responsable. Toque cada frente.</p>
       </div>
-      <ul class="inc-grid">{incluye_html}</ul>
-      <div class="pages reveal">
-        <h3>Páginas incluidas</h3>
-        <ul class="pages-list"><li>{ic("layers")}Inicio</li>{paginas}</ul>
-      </div>
+      <div class="reveal">{frentes}</div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="flow-t">
+  <section class="section p-sec bg-negro on-dark" id="medicion" aria-labelledby="med-t">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">03 · Cómo funciona</p>
-        <h2 class="title" id="flow-t">De la búsqueda <em>al carro en el taller</em></h2>
-        <p class="lead">Cada anuncio lleva a su página, y cada página abre WhatsApp con un mensaje y un código propios. Así sabemos qué servicio y qué anuncio trajo a cada cliente.</p>
+        <p class="eyebrow">03 · Medición</p>
+        <h2 class="title" id="med-t">Vamos a medir <em>clientes, no clics</em></h2>
       </div>
-      <ol class="flow">
-        <li class="reveal">{ic("search")}<div><span class="flow-k">Busca en Google</span><p>«pastillas de freno Medellín»</p></div></li>
-        <li class="reveal">{ic("tag")}<div><span class="flow-k">Ve el anuncio</span><p>Con horario, llamada, ubicación y reseñas</p></div></li>
-        <li class="reveal">{ic("layers")}<div><span class="flow-k">Llega a su página</span><p>/pastillas: marcas, señales y cotización a un toque</p></div></li>
-        <li class="reveal">{ic("wa")}<div><span class="flow-k">Escribe por WhatsApp</span><p>«Quiero cotizar pastillas» + código WEB-PAS</p></div></li>
-        <li class="reveal">{ic("car")}<div><span class="flow-k">Entra al taller</span><p>Se registra el servicio y el valor facturado</p></div></li>
-      </ol>
+      <div class="reveal">{medicion}</div>
       <div class="funnel reveal" aria-label="Lo que muestra cada reporte">
         <span>Clics</span>{ic("arrow")}<span>Conversaciones</span>{ic("arrow")}<span>Carros en el taller</span>{ic("arrow")}<span>Facturado</span>{ic("arrow")}<span class="funnel-end">Costo por cliente</span>
       </div>
     </div>
   </section>
 
-  <section class="section bg-gris" aria-labelledby="cmp-t">
+  <section class="section p-sec" id="propuesta" aria-labelledby="prop-t">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">04 · Antes y después</p>
-        <h2 class="title" id="cmp-t">Lo que cambia <em>con el sitio nuevo</em></h2>
+        <p class="eyebrow">04 · Lo que les proponemos</p>
+        <h2 class="title" id="prop-t">Dos servicios, <em>un solo objetivo</em></h2>
+        <p class="lead">Que cada búsqueda en Google termine en un carro dentro del taller.</p>
       </div>
-      <div class="cmp" role="table" aria-label="Comparación entre el sitio actual y el nuevo">
-        <div class="cmp-row cmp-head" role="row"><div role="columnheader"><span class="sr-only">Aspecto</span></div><div role="columnheader">Hoy</div><div role="columnheader">Nuevo sitio</div></div>
-        {filas_html}
-      </div>
+      <div class="reveal">{servicios}</div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="proc-t">
+  <section class="section p-sec bg-gris" id="dias" aria-labelledby="dias-t">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">05 · Proceso</p>
-        <h2 class="title" id="proc-t">Publicado en <em>3 a 4 semanas</em></h2>
-        <p class="lead">Contadas desde que recibamos accesos, fotos y contenido.</p>
+        <p class="eyebrow">05 · Primeros 90 días</p>
+        <h2 class="title" id="dias-t">Orden, sitio nuevo <em>y optimización</em></h2>
       </div>
-      <ol class="timeline">
-        <li class="reveal"><span class="tl-w">Semana 1</span><h3>Orden</h3><p>Accesos, medición real, datos unificados y estructura de páginas por servicio.</p></li>
-        <li class="reveal"><span class="tl-w">Semana 2</span><h3>Diseño y textos</h3><p>Diseño final para celular y computador, textos de cada servicio y fotos del taller.</p></li>
-        <li class="reveal"><span class="tl-w">Semana 3</span><h3>Desarrollo</h3><p>Sitio rápido, SEO técnico, WhatsApp por servicio, Analytics y conversiones.</p></li>
-        <li class="reveal"><span class="tl-w">Semana 4</span><h3>Ajustes y publicación</h3><p>Una ronda de ajustes, redirecciones y los anuncios apuntando a cada página.</p></li>
-      </ol>
+      <div class="reveal">{fases}</div>
       <div class="need reveal">
         <h3>Para empezar necesitamos</h3>
-        <ul class="ticks ticks-dark">
-          <li>{ic("check")} Acceso al hosting y al dominio</li>
-          <li>{ic("check")} Lectura de Google Ads y Analytics, y administración del perfil de Google</li>
-          <li>{ic("check")} El WhatsApp que atienden</li>
-          <li>{ic("check")} Fotos del taller y de los servicios</li>
-        </ul>
-        <p class="need-note">La inversión y las condiciones están en el documento de propuesta que les enviamos.</p>
+        <ul class="need-list">{necesitamos}</ul>
       </div>
     </div>
   </section>
 
   <section class="p-final bg-rojo on-red" aria-labelledby="fin-t">
     <div class="wrap p-final-in reveal">
-      <p class="eyebrow">Ya está lista</p>
-      <h2 class="title" id="fin-t">Así se vería <em>Frenoteca en internet</em></h2>
-      <p class="lead">Ábrala desde el celular, como la verán sus clientes. Pruebe los botones de WhatsApp, la agenda y las páginas de cada servicio.</p>
+      <p class="eyebrow">¿Empezamos?</p>
+      <h2 class="title" id="fin-t">Su página nueva <em>ya está lista</em></h2>
+      <p class="lead">Ábrala desde el celular, como la verán sus clientes. Pruebe el WhatsApp, la agenda y las páginas de cada servicio.</p>
       <div class="phones" aria-hidden="true">
-        <a class="p-phone" href="{s}pastillas/" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}pastillas/" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
-        <a class="p-phone p-phone-front" href="{s}" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
-        <a class="p-phone" href="{s}blindados/" tabindex="-1" aria-hidden="true"><span class="p-screen"><iframe src="{s}blindados/" title="Vista previa" tabindex="-1" scrolling="no" loading="lazy"></iframe></span></a>
+        {telefono("pastillas/")}
+        {telefono("", " p-phone-front")}
+        {telefono("blindados/")}
       </div>
       <a class="btn btn-negro btn-lg" href="{s}">Sí, quiero ver mi página {ic("arrow")}</a>
       <p class="p-sign">Felipe Restrepo · CEO, Rev Up Agency Group<br><a href="mailto:info@revupagencygroup.com">info@revupagencygroup.com</a> · <a href="https://revupagencygroup.com" target="_blank" rel="noopener">revupagencygroup.com</a><br><span>Propuesta válida por 30 días desde su fecha.</span></p>
@@ -879,8 +961,8 @@ def propuesta():
 <div class="p-sticky" data-sticky>
   <a class="btn btn-rojo btn-block" href="{s}">Sí, quiero ver mi página {ic("arrow")}</a>
 </div>"""
-    return documento(title="Frenoteca · Propuesta de sitio web | Rev Up Agency Group",
-                     desc="Propuesta de Rev Up Agency Group para el nuevo sitio web de Frenoteca: rápido, pensado para el celular y con una página por servicio.",
+    return documento(title="Frenoteca · Propuesta de crecimiento digital | Rev Up Agency Group",
+                     desc="Propuesta de Rev Up Agency Group para Frenoteca: Google Ads, perfil de Google, sitio web nuevo, SEO y medición de clientes reales.",
                      css="propuesta.css", body=body, a=a, og="og-propuesta.jpg", body_class="propuesta")
 
 

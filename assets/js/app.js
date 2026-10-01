@@ -115,6 +115,69 @@
     setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
   }
 
+  /* ---------- Carruseles: puntos y flechas sobre el scroll-snap nativo ---------- */
+  $$('[data-slider]').forEach((sl) => {
+    const track = $('.slides', sl), slides = $$('.slide', sl), dots = $('.dots', sl);
+    const prev = $('.sl-prev', sl), next = $('.sl-next', sl);
+    const paso = () => slides[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+    const btns = slides.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Ir a ${i + 1} de ${slides.length}`);
+      b.addEventListener('click', () => track.scrollTo({ left: i * paso(), behavior: 'smooth' }));
+      dots.append(b); return b;
+    });
+    const upd = () => {
+      const max = track.scrollWidth - track.clientWidth;
+      sl.classList.toggle('no-scroll', max < 4);
+      const i = track.scrollLeft >= max - 4 ? slides.length - 1 : Math.round(track.scrollLeft / paso());
+      btns.forEach((b, n) => b.classList.toggle('is-active', n === i));
+      prev.disabled = track.scrollLeft < 4; next.disabled = track.scrollLeft >= max - 4;
+    };
+    prev.addEventListener('click', () => track.scrollBy({ left: -paso(), behavior: 'smooth' }));
+    next.addEventListener('click', () => track.scrollBy({ left: paso(), behavior: 'smooth' }));
+    track.addEventListener('scroll', () => requestAnimationFrame(upd), { passive: true });
+    addEventListener('resize', upd);
+    upd();
+  });
+
+  /* ---------- Pestañas accesibles ---------- */
+  $$('[data-tabs]').forEach((tb) => {
+    const tabsEl = $$('[role="tab"]', tb);
+    const activar = (t, foco) => {
+      tabsEl.forEach((x) => {
+        const on = x === t;
+        x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (foco) t.focus();
+      t.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      // los carruseles dentro de un panel recién visible necesitan recalcular
+      dispatchEvent(new Event('resize'));
+    };
+    tabsEl.forEach((t, i) => {
+      t.addEventListener('click', () => activar(t));
+      t.addEventListener('keydown', (e) => {
+        const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (d) { e.preventDefault(); activar(tabsEl[(i + d + tabsEl.length) % tabsEl.length], true); }
+      });
+    });
+  });
+
+  /* ---------- Propuesta: barra de secciones marca dónde va el lector ---------- */
+  const pnav = $('[data-pnav]');
+  if (pnav && 'IntersectionObserver' in window) {
+    const links = $$('a', pnav);
+    const io2 = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((l) => {
+        const on = l.hash === '#' + e.target.id;
+        l.classList.toggle('is-active', on);
+        if (on) pnav.firstElementChild.scrollTo({ left: l.offsetLeft - 16, behavior: 'smooth' });
+      });
+    }), { rootMargin: '-40% 0px -55% 0px' });
+    links.forEach((l) => io2.observe($(l.hash)));
+  }
+
   /* ---------- Propuesta: el sitio en vivo dentro del marco de celular ---------- */
   if ('ResizeObserver' in window) {
     const ro = new ResizeObserver((es) => es.forEach((e) => e.target.style.setProperty('--k', e.contentRect.width / 390)));
