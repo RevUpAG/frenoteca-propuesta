@@ -1,15 +1,13 @@
-# Frenoteca — Propuesta de sitio web
+# Frenoteca — Sitio web
 
-Propuesta comercial y demostración navegable del nuevo sitio web de
-**Frenoteca S.A.S.** (Medellín, Colombia), preparada por Rev Up Agency Group.
+Nuevo sitio web de **Frenoteca S.A.S.** (Medellín, Colombia), por Rev Up Agency Group.
 
 ### ▶ Ver en vivo
 
 **https://revupag.github.io/frenoteca-propuesta/**
 
-Ese es el enlace para enviarle al cliente. Abre en la propuesta; el botón
-«Sí, quiero ver mi página» lleva al sitio terminado, y desde el pie del sitio
-hay un enlace de vuelta. Pensado para abrirse desde el celular.
+Pensado primero para el celular y para público mayor: trato de «usted», letra de 18 px,
+botones grandes con texto, pocas secciones.
 
 ---
 
@@ -17,12 +15,11 @@ hay un enlace de vuelta. Pensado para abrirse desde el celular.
 
 | Ruta | Qué es |
 |---|---|
-| `index.html` | La **propuesta**, en lectura corta para el dueño (sin precios): lo que vimos, lo que vamos a hacer (página web, anuncios en Google, ficha de Google Maps, salir más en Google; detalle en desplegables), cómo sabremos que funciona, los primeros 3 meses y cierre con el sitio en vivo dentro de celulares. |
-| `sitio/index.html` | El **sitio terminado**, pensado también para público mayor (trato de «usted», letra de 18 px, botones grandes con texto): hero con Llamar y WhatsApp, «¿Qué necesita?», por qué Frenoteca, pedir cita, fotos del taller, opiniones y cómo llegar. |
-| `sitio/<servicio>/` | **Una página por servicio** (pastillas, discos, campanas y zapatas, cilindros, mangueras, taller y suspensión) más **marcas** y **blindados**, cada una con título único y WhatsApp con código propio (`WEB-PAS`, `WEB-DIS`…). |
+| `index.html` | **Inicio**: logo grande, Llamar y WhatsApp, «¿Qué necesita?», por qué Frenoteca, pedir cita, fotos del taller, opiniones, preguntas frecuentes y cómo llegar. |
+| `<servicio>/` | **Una página por servicio** (pastillas, discos, campanas y zapatas, cilindros, mangueras, taller y suspensión) más **marcas** y **blindados**, cada una con título único y WhatsApp con código propio (`WEB-PAS`, `WEB-DIS`…). |
 | `herramientas/generar.py` | Genera todas las páginas. **Los textos se editan aquí** y luego: `python3 herramientas/generar.py`. |
-| `assets/css/brand.css` | Sistema de marca (color, tipografía, botones). |
-| `assets/js/app.js` | Menú, «abierto ahora», cita → WhatsApp, mapa bajo demanda, fotos ampliables, vista previa en celular. Sin librerías. |
+| `assets/css/brand.css` · `sitio.css` | Sistema de marca y estilos del sitio. |
+| `assets/js/app.js` | Menú, «abierto ahora», cita → WhatsApp, mapa bajo demanda, fotos ampliables. Sin librerías. |
 
 ## Branding
 
@@ -39,13 +36,7 @@ Todo se extrajo de `frenoteca.com`; nada se inventó.
 ## Datos a confirmar con el cliente
 
 - Años de experiencia: la web dice 35 y 37 en distintas páginas; aquí se usa «más de 35».
-- Razón social: el logo dice «Y CIA LTDA.» y Google/propuesta «S.A.S.»; se conserva el logo tal cual.
+- Razón social: el logo dice «Y CIA LTDA.» y Google «S.A.S.»; se conserva el logo tal cual.
 - Textos de señales, «qué incluye» y preguntas frecuentes de cada servicio: redactados por nosotros, a validar.
 - Las reseñas se enlazan a Google (4,6 ★ · 360); no se muestran textos de reseñas inventados.
 - El horario «abierto ahora» no contempla festivos.
-
-## Vista previa local
-
-```bash
-python3 -m http.server 4175
-```

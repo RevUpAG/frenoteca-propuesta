@@ -109,19 +109,4 @@
     setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
   }
 
-  /* ---------- Propuesta: el sitio en vivo dentro del marco de celular ---------- */
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver((es) => es.forEach((e) => e.target.style.setProperty('--k', e.contentRect.width / 390)));
-    $$('.p-screen').forEach((el) => ro.observe(el));
-  }
-
-  /* ---------- Propuesta: CTA fijo tras pasar el hero, oculto en el cierre ---------- */
-  const sticky = $('[data-sticky]');
-  if (sticky && 'IntersectionObserver' in window) {
-    const hero = $('.p-hero'), fin = $('.p-final');
-    let heroVisible = true, finVisible = false;
-    const upd = () => sticky.classList.toggle('is-on', !heroVisible && !finVisible);
-    new IntersectionObserver(([x]) => { heroVisible = x.isIntersecting; upd(); }).observe(hero);
-    new IntersectionObserver(([x]) => { finVisible = x.isIntersecting; upd(); }).observe(fin);
-  }
 })();

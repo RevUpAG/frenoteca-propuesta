@@ -1,4 +1,4 @@
-"""Genera la propuesta (index.html) y el sitio (sitio/**) de Frenoteca.
+"""Genera el sitio de Frenoteca: inicio (index.html) y una página por servicio (<servicio>/index.html).
 
 Uso:  python3 herramientas/generar.py
 Todo el contenido vive aquí; cabecera, pie e iconos son comunes a todas las páginas.
@@ -276,7 +276,7 @@ def cita(preseleccion=""):
 </section>"""
 
 
-def pie(s, a, code="INI", msg=None, proposal="../"):
+def pie(s, a, code="INI", msg=None):
     return f"""<footer class="site-footer on-red">
   <div class="wrap footer-grid">
     <div>
@@ -292,7 +292,6 @@ def pie(s, a, code="INI", msg=None, proposal="../"):
   </div>
   <div class="wrap footer-bottom">
     <p>© 2026 Frenoteca S.A.S.</p>
-    <a class="back-proposal" href="{proposal}">{ic("arrow-l")} Volver a la propuesta</a>
   </div>
 </footer>
 <nav class="action-bar" aria-label="Contacto rápido">
@@ -367,7 +366,7 @@ def jsonld():
 
 # ---------------------------------------------------------------- Sitio: inicio
 def inicio():
-    s, a = "./", "../"
+    s, a = "./", ""
     tiles = "".join(tile(x, s, a) for x in TODOS)
     galeria = "".join(
         f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
@@ -449,10 +448,11 @@ def inicio():
 
 # ---------------------------------------------------------------- Sitio: páginas de servicio
 def servicio(x):
-    s, a = "../", "../../"
+    s, a = "../", "../"
     senales = "".join(f"<li>{ic('alert' if not x.get('marcas') else 'check')}<span>{i}</span></li>" for i in x["senales"])
     marcas = f'<ul class="brands reveal">{"".join(f"<li>{m}</li>" for m in MARCAS)}</ul>' if x.get("marcas") else ""
-    otros = "".join(tile(o, s, a) for o in TODOS if o["slug"] != x["slug"])
+    # 6 tarjetas: llenan filas completas (2 columnas en celular, 3 en computador)
+    otros = "".join(tile(o, s, a) for o in [t for t in TODOS if t["slug"] != x["slug"]][:6])
     body = f"""{cabecera(s, a, x["slug"])}
 <main id="contenido">
   <section class="svc-hero">
@@ -485,148 +485,14 @@ def servicio(x):
   <section class="section" aria-labelledby="otros-t">
     <div class="wrap">
       <h2 class="title reveal" id="otros-t">Otros servicios</h2>
-      <div class="tiles">{otros}</div>
+      <div class="tiles tiles-3">{otros}</div>
     </div>
   </section>
   {visitenos(a, compacto=True)}
 </main>
-{pie(s, a, x["code"], x["msg"], "../../")}"""
+{pie(s, a, x["code"], x["msg"])}"""
     return documento(title=f'{x["title"]} | Frenoteca', desc=x["intro"],
                      css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio")
-
-
-# ---------------------------------------------------------------- Propuesta
-# Lectura corta para el dueño: una idea por bloque, palabras sencillas, detalle en desplegables.
-# Sin precios ni fase 2 (decisión de Rev Up).
-VIMOS = [
-    ("star", "bueno", "4,6 estrellas y 360 reseñas.", "Sus clientes los quieren."),
-    ("search", "malo", "Cuando buscan «frenos en Medellín», casi no aparecen.", "Los encuentra solo quien ya los conoce."),
-    ("gauge", "malo", "Su página tarda 7,8 segundos en abrir.", "Mucha gente se va antes de verla."),
-    ("chart", "malo", "Hoy se cuentan clics, no clientes.", "Nadie sabe cuántos carros llegan por los anuncios."),
-    ("pin", "malo", "Su ficha de Google Maps está descuidada.", "Reseñas sin responder y datos distintos."),
-]
-HAREMOS = [
-    ("mobile", "Página web nueva", "Rápida, fácil en el celular y con una página para cada servicio.",
-     ["Botones grandes para llamar y escribir por WhatsApp", "Fotos del taller, reseñas, mapa y horario", "Lista en 3 a 4 semanas"]),
-    ("tag", "Anuncios en Google", "Un anuncio para cada servicio, que lleva a la página correcta.",
-     ["Con llamada, ubicación y reseñas", "Solo cuando el taller está abierto", "Medidos por clientes, no por clics"]),
-    ("pin", "Ficha de Google Maps", "Bien presentada y atendida, para que los encuentren cerca.",
-     ["Respondemos todas las reseñas", "Fotos y publicaciones al día", "Mismo teléfono, dirección y horario en todas partes"]),
-    ("search", "Salir más en Google", "Para que Google los muestre cuando alguien busca frenos.",
-     ["Textos claros para cada servicio", "Presencia en Medellín y el Valle de Aburrá", "Seguimiento de su posición en Google"]),
-]
-MESES = [
-    ("Semanas 1 y 2", "Ordenamos", "Revisamos todo y empezamos a medir bien."),
-    ("Semanas 3 a 6", "Estrenamos", "Publicamos la página nueva y los anuncios llevan a cada servicio."),
-    ("Semanas 7 a 12", "Mejoramos", "Ajustamos con datos reales para traer más clientes."),
-]
-
-
-def propuesta():
-    a, s = "", "sitio/"
-
-    def telefono(dest, extra="", lazy=True):
-        l = ' loading="lazy"' if lazy else ''
-        return (f'<a class="p-phone{extra}" href="{s}{dest}" tabindex="-1" aria-hidden="true">'
-                f'<span class="p-screen"><iframe src="{s}{dest}" title="Vista previa" tabindex="-1" scrolling="no"{l}></iframe></span></a>')
-
-    vimos = "".join(
-        f'<li class="vi vi-{t} reveal">{ic(ico)}<div><strong>{h}</strong><span>{d}</span></div></li>'
-        for ico, t, h, d in VIMOS)
-    chk = ic("check")
-    haremos = "".join(
-        f'<details class="hz reveal"><summary>{ic(ico)}<div><strong>{t}</strong><span>{d}</span></div><span class="hz-more">Ver más {ic("chev")}</span></summary>'
-        f'<ul>{"".join(f"<li>{chk}{x}</li>" for x in items)}</ul></details>'
-        for ico, t, d, items in HAREMOS)
-    meses = "".join(
-        f'<li class="reveal"><span class="mes-n">{i + 1}</span><div><span class="mes-w">{w}</span><strong>{t}</strong><p>{d}</p></div></li>'
-        for i, (w, t, d) in enumerate(MESES))
-
-    body = f"""<a class="skip" href="#contenido">Saltar al contenido</a>
-<header class="p-header on-red">
-  <div class="wrap p-header-in">
-    {logo(a)}
-    <span class="p-tag">Propuesta</span>
-  </div>
-</header>
-<main id="contenido">
-  <section class="p-hero on-dark">
-    <picture class="p-hero-bg">
-      <source media="(min-width: 800px)" srcset="assets/img/aerea-1600.webp">
-      <img src="assets/img/hero-movil.webp" alt="" width="768" height="1024" fetchpriority="high">
-    </picture>
-    <div class="wrap p-hero-grid"><div class="p-hero-in">
-      <div class="p-brand">{logo(a, "Frenoteca", "p-logo")}</div>
-      <p class="eyebrow">Propuesta de crecimiento</p>
-      <h1 class="p-title">Ustedes tienen la reputación. <em>Nosotros les traemos más clientes desde Google.</em></h1>
-      <div class="btn-col">
-        <a class="btn btn-rojo btn-xl" href="{s}">Ver mi página nueva {ic("arrow")}</a>
-        <a class="btn btn-borde btn-xl" href="#vimos">Leer la propuesta {ic("chev")}</a>
-      </div>
-      <p class="p-hero-note">Rev Up Agency Group · 30 de septiembre de 2026</p>
-    </div>
-    {telefono("", " p-phone-hero", lazy=False)}
-    </div>
-  </section>
-
-  <section class="section p-sec" id="vimos" aria-labelledby="vimos-t">
-    <div class="wrap p-narrow">
-      <h2 class="title reveal" id="vimos-t">Lo que vimos</h2>
-      <ul class="vimos">{vimos}</ul>
-    </div>
-  </section>
-
-  <section class="section p-sec bg-gris" aria-labelledby="hz-t">
-    <div class="wrap p-narrow">
-      <h2 class="title reveal" id="hz-t">Lo que vamos a hacer</h2>
-      <p class="lead reveal">Toque cada uno para ver más.</p>
-      <div class="hzs">{haremos}</div>
-    </div>
-  </section>
-
-  <section class="section p-sec bg-negro on-dark" aria-labelledby="mide-t">
-    <div class="wrap p-narrow">
-      <h2 class="title reveal" id="mide-t">Cómo sabremos que funciona</h2>
-      <ol class="mide reveal">
-        <li>{ic("wa")}<span>Mensajes y llamadas</span></li>
-        <li>{ic("car")}<span>Carros en el taller</span></li>
-        <li>{ic("chart")}<span>Ventas</span></li>
-      </ol>
-      <p class="lead reveal">Cada 15 días les enviamos un reporte corto, en palabras sencillas: qué pasó, qué cambiamos y qué sigue.</p>
-    </div>
-  </section>
-
-  <section class="section p-sec" aria-labelledby="mes-t">
-    <div class="wrap p-narrow">
-      <h2 class="title reveal" id="mes-t">Los primeros 3 meses</h2>
-      <ol class="meses">{meses}</ol>
-      <p class="need reveal">{ic("check")} Para empezar solo necesitamos los accesos a Google y al dominio, y fotos del taller.</p>
-    </div>
-  </section>
-
-  <section class="p-final bg-rojo on-red" aria-labelledby="fin-t">
-    <div class="wrap p-final-in reveal">
-      <h2 class="title" id="fin-t">La nueva página de Frenoteca ya está lista</h2>
-      <p class="lead">Ábrala en el celular, como la verán sus clientes.</p>
-      <div class="phones" aria-hidden="true">
-        {telefono("pastillas/")}
-        {telefono("", " p-phone-front")}
-        {telefono("blindados/")}
-      </div>
-      <a class="btn btn-negro btn-xl" href="{s}">Ver mi página nueva {ic("arrow")}</a>
-      <p class="p-sign">Felipe Restrepo · Rev Up Agency Group<br><a href="mailto:info@revupagencygroup.com">info@revupagencygroup.com</a></p>
-    </div>
-  </section>
-</main>
-<footer class="p-footer">
-  <div class="wrap"><p>Rev Up Agency Group · Propuesta válida por 30 días</p></div>
-</footer>
-<div class="p-sticky" data-sticky>
-  <a class="btn btn-rojo btn-block btn-xl" href="{s}">Ver mi página nueva {ic("arrow")}</a>
-</div>"""
-    return documento(title="Frenoteca · Propuesta | Rev Up Agency Group",
-                     desc="Propuesta de Rev Up Agency Group para Frenoteca: página web nueva, anuncios en Google y ficha de Google Maps, medidos en clientes reales.",
-                     css="propuesta.css", body=body, a=a, og="og-propuesta.jpg", body_class="propuesta")
 
 
 def escribir(ruta, html):
@@ -638,7 +504,6 @@ def escribir(ruta, html):
 
 
 if __name__ == "__main__":
-    escribir("index.html", propuesta())
-    escribir("sitio/index.html", inicio())
+    escribir("index.html", inicio())
     for x in TODOS:
-        escribir(f"sitio/{x['slug']}/index.html", servicio(x))
+        escribir(f"{x['slug']}/index.html", servicio(x))
