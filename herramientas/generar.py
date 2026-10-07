@@ -317,7 +317,6 @@ FAQ = [
     ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
     ("¿Cómo puedo solicitar una cotización?", f"Llámenos al {TEL} o escríbanos por WhatsApp indicando la marca, el modelo y el año de su vehículo."),
     ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
-    ("¿Tienen frenos para vehículos blindados?", "Sí. Contamos con pastillas de formulación especial para vehículos blindados, diseñadas para un desempeño de frenado constante y seguro."),
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
     ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Contamos con patio para recibir su vehículo."),
 ]

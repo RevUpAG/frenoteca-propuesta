@@ -130,22 +130,45 @@
       + `<path d="M8 29.4H115" stroke="#fff" stroke-width="1.4"/>`
       + `<path fill="#1d1d1f" d="M113.6 21.6L117.3 22.1L116.2 25.2L117.2 28.2L113.6 28.2Z"/><circle cx="115.2" cy="24.6" r="1.5" fill="#fff3c4"/>`
       + `<rect x="5.2" y="21.6" width="2.8" height="3" rx=".7" fill="#2a0708"/><rect x="3.2" y="28.6" width="6.2" height="2" rx="1" fill="#e2e2e2"/><rect x="112.6" y="28.8" width="6.4" height="2" rx="1" fill="#e2e2e2"/>`
+      + `<rect x="1.4" y="30.6" width="6" height="1.6" rx=".8" fill="#8d8d8d"/>`  // tubo de escape
       + rueda(29) + rueda(90) + `</svg>`;
     document.body.append(car);
     const ruedas = car.querySelectorAll('.rueda');
-    let mx = 0, my = 0, x = 0, y = 0, dir = 1, ang = 0, giro = 0, activo = false;
+    let mx = 0, my = 0, x = 0, y = 0, vx = 0, vy = 0, dir = 1, sx = 1, ang = 0, giro = 0, humo = 0, prev = 0, activo = false;
     addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
-      if (!activo) { activo = true; x = mx - 44; y = my + 20; car.classList.add('is-on'); }
+      if (!activo) { activo = true; x = mx - 46; y = my + 22; car.classList.add('is-on'); }
     }, { passive: true });
     document.documentElement.addEventListener('mouseleave', () => { activo = false; car.classList.remove('is-on'); });
-    const mover = () => {
-      const vx = (mx - dir * 44 - x) * 0.12, vy = (my + 20 - y) * 0.12;  // llega detrás del cursor, un poco más abajo
-      x += vx; y += vy;
-      if (Math.abs(mx - x) > 60) dir = mx > x ? 1 : -1;                    // da la vuelta solo si el cursor quedó del otro lado
-      ang += (Math.max(-18, Math.min(18, Math.atan2(vy, Math.abs(vx) + .01) * 57.3)) - ang) * 0.15;
-      giro += Math.hypot(vx, vy) * 7;                                      // las ruedas giran con la distancia recorrida
-      car.style.transform = `translate(${x - 42}px, ${y - 16}px) scaleX(${dir}) rotate(${ang}deg)`;
+
+    // Bocanada de humo que sale del exhosto y se disipa hacia atrás y hacia arriba
+    const humito = (fuerte) => {
+      const p = document.createElement('span'); p.className = 'humo';
+      const t = 7 + Math.random() * 6;
+      p.style.cssText = `left:${x - sx * 40}px;top:${y + 6}px;width:${t}px;height:${t}px`;
+      document.body.append(p);
+      const atras = -dir * (12 + Math.random() * 14 + (fuerte ? 22 : 0)), sube = 8 + Math.random() * 14;
+      p.animate([
+        { transform: 'translate(-50%, -50%) scale(.4)', opacity: fuerte ? .7 : .45 },
+        { transform: `translate(calc(-50% + ${atras}px), calc(-50% - ${sube}px)) scale(${1.8 + Math.random() * 1.2})`, opacity: 0 },
+      ], { duration: 900 + Math.random() * 600, easing: 'cubic-bezier(.22, 1, .36, 1)' }).onfinish = () => p.remove();
+    };
+
+    const mover = (t) => {
+      const dt = Math.min((t - prev) / 16.67 || 1, 3); prev = t;      // movimiento igual a 60 o 120 Hz
+      // Da la vuelta cuando el cursor cruza al otro lado del carro (con margen para que no titubee)
+      if (dir === 1 && mx < x - 24) dir = -1; else if (dir === -1 && mx > x + 24) dir = 1;
+      // Resorte amortiguado: arranca y frena suave, siempre detrás del cursor y un poco más abajo
+      vx += (mx - dir * 46 - x) * 0.014 * dt; vy += (my + 22 - y) * 0.014 * dt;
+      const roce = Math.pow(0.86, dt); vx *= roce; vy *= roce;
+      x += vx * dt; y += vy * dt;
+      sx += (dir - sx) * Math.min(1, 0.16 * dt);                         // el giro se ve como una vuelta, no un salto
+      ang += (Math.max(-12, Math.min(12, Math.atan2(vy, Math.abs(vx) + .6) * 57.3)) - ang) * Math.min(1, 0.1 * dt);
+      const vel = Math.hypot(vx, vy);
+      giro += vel * 7 * dt;                                               // las ruedas giran con la distancia recorrida
+      humo -= dt;
+      if (activo && humo <= 0) { const fuerte = vel > 1.5; humito(fuerte); humo = fuerte ? 4 : 24; }  // más humo al acelerar
+      car.style.transform = `translate(${x - 42}px, ${y - 16}px) scaleX(${sx}) rotate(${ang}deg)`;
       ruedas.forEach((r) => { r.style.transform = `rotate(${giro}deg)`; });
       requestAnimationFrame(mover);
     };
