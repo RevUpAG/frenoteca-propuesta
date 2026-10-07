@@ -1,11 +1,10 @@
 /* ==========================================================================
    Frenoteca · Sistema de marca
-   Colores y tipografía extraídos de frenoteca.com (hoja de estilos del tema
-   «frenoteca», variables :root y reglas de .top-header / .footer). Ver README.
+   Rojo del logo nuevo (LOGO FRENOTECA.ai), un solo tono en todo el sitio.
+   Tipografía Bitter: serif de remate clásico, afín al logo y legible en pantalla. Ver README.
    ========================================================================== */
 
-@font-face { font-family: "Didact Gothic"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/didact-gothic.woff2") format("woff2"); }
-@font-face { font-family: "Abel"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/abel.woff2") format("woff2"); }
+@font-face { font-family: "Bitter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/bitter.woff2") format("woff2"); }
 
 :root {
   /* Marca: valores exactos del sitio actual */
@@ -16,11 +15,9 @@
   --gris-medio:  #bcbcbc;  /* --gray-md */
   --gris:        #6a6a6a;  /* --gray-dark · 5.4:1 sobre blanco (AA) */
   --grafito:     #333a4d;  /* --dark-md */
-  --verde-wa:    #43c358;  /* botón de WhatsApp del sitio actual */
+  --verde-wa:    #25d366;  /* verde oficial del logo de WhatsApp */
 
-  /* Derivados funcionales (misma familia, solo transparencias/tono) */
-  --rojo-oscuro: #a82225;  /* hover del rojo */
-  --rojo-08:     rgb(197 43 45 / .08);
+  /* Derivados funcionales (solo negro/blanco con transparencia: el rojo nunca varía) */
   --negro-80:    rgb(0 0 0 / .8);
   --negro-60:    rgb(0 0 0 / .6);
   --negro-12:    rgb(0 0 0 / .12);
@@ -32,9 +29,8 @@
   --text-soft: var(--grafito); /* más oscuro que el gris: 10.5:1, lectura cómoda para público mayor */
   --line: var(--negro-12);
 
-  /* Tipografía: Didact Gothic (títulos y texto) y Abel (etiquetas), las del sitio */
-  --font: "Didact Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-label: "Abel", "Didact Gothic", system-ui, sans-serif;
+  /* Tipografía: Bitter para todo (títulos, texto y etiquetas) */
+  --font: "Bitter", Georgia, "Times New Roman", serif;
   --fs-xs:   .8125rem;
   --fs-sm:   .9375rem;
   --fs-base: 1.125rem;  /* 18 px: público mayor */
@@ -57,12 +53,14 @@
   --ease-out: cubic-bezier(.22, 1, .36, 1);
 
   --tap: 52px;
-  --header-h: 72px;
+  --header-h: 64px;   /* fila del logo */
+  --header-total: 108px; /* en celular la cabecera suma la fila del teléfono */
 }
+@media (min-width: 960px) { :root { --header-h: 76px; --header-total: 76px; } }
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-total) + 12px); }
 body {
   margin: 0;
   font-family: var(--font);
@@ -73,18 +71,16 @@ body {
   background: var(--blanco);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
-  font-synthesis: none; /* Didact Gothic y Abel solo tienen peso regular: nada de negritas falsas */
 }
 img, svg, video, iframe { display: block; max-width: 100%; }
 img { height: auto; }
 a { color: inherit; text-underline-offset: .2em; }
 p { margin: 0 0 1em; }
-h1, h2, h3, h4 { margin: 0 0 .5em; font-weight: 400; line-height: 1.12; letter-spacing: -.01em; word-spacing: -.03em; text-wrap: balance; }
-/* Didact Gothic trae un espacio muy ancho: se compensa en textos corridos */
-p, li, dd, summary { word-spacing: -.03em; }
+h1, h2, h3, h4 { margin: 0 0 .5em; font-weight: 700; line-height: 1.15; letter-spacing: -.005em; text-wrap: balance; }
 ul, ol { margin: 0; padding: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }
-b, strong { font-weight: 400; color: var(--negro); }
+b, strong { font-weight: 600; color: var(--negro); }
+.on-dark strong, .on-red strong { color: inherit; }
 
 :focus-visible { outline: 3px solid var(--rojo); outline-offset: 3px; border-radius: 3px; }
 .on-dark :focus-visible, .on-red :focus-visible { outline-color: var(--blanco); }
@@ -102,12 +98,13 @@ b, strong { font-weight: 400; color: var(--negro); }
 /* Etiqueta y títulos de sección: mayúsculas como en el sitio actual */
 .eyebrow {
   display: inline-flex; align-items: center; gap: .6rem;
-  font-family: var(--font-label); font-size: 1.0625rem; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--rojo); margin-bottom: 1rem;
+  font-size: .9375rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--rojo); margin-bottom: .75rem;
 }
 .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
 .on-dark .eyebrow, .on-red .eyebrow { color: var(--blanco); }
 .title { font-size: var(--fs-2xl); text-transform: uppercase; letter-spacing: .01em; }
+.title + .lead { margin-top: -.25rem; }
 .title em { font-style: normal; color: var(--rojo); }
 .on-red .title em { color: var(--negro); }
 .lead { font-size: var(--fs-md); color: var(--text-soft); max-width: 46ch; line-height: 1.5; }
@@ -120,15 +117,15 @@ b, strong { font-weight: 400; color: var(--negro); }
   display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
   min-height: var(--tap); padding: .8rem 1.4rem;
   border: 2px solid transparent; border-radius: var(--radius-sm);
-  font-family: var(--font); font-size: 1.125rem; letter-spacing: 0;
+  font-family: var(--font); font-size: 1.125rem; font-weight: 600; letter-spacing: 0;
   text-decoration: none; cursor: pointer; line-height: 1.2; text-align: center;
-  transition: background-color .2s, color .2s, border-color .2s, transform .15s var(--ease-out);
+  transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s, transform .15s var(--ease-out);
   -webkit-tap-highlight-color: transparent;
 }
 .btn:active { transform: scale(.97); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
 .btn-rojo { background: var(--rojo); color: var(--blanco); }
-.btn-rojo:hover { background: var(--rojo-oscuro); }
+.btn-rojo:hover { box-shadow: 0 8px 22px rgb(0 0 0 / .22); transform: translateY(-1px); } /* el rojo no cambia de tono */
 .btn-negro { background: var(--negro); color: var(--blanco); }
 .btn-negro:hover { background: var(--grafito); }
 .btn-blanco { background: var(--blanco); color: var(--negro); }
@@ -147,6 +144,9 @@ b, strong { font-weight: 400; color: var(--negro); }
 /* ---------- Iconos ---------- */
 .icon { width: 24px; height: 24px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .icon-fill { fill: currentColor; stroke: none; }
+/* Logo de WhatsApp en su verde original; en blanco solo sobre fondos de color */
+.icon-wa { color: var(--verde-wa); }
+.btn-rojo .icon-wa, .btn-negro .icon-wa, .wa-float-btn .icon-wa, .site-footer .icon-wa { color: var(--blanco); }
 
 /* ---------- Revelado al hacer scroll ---------- */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }

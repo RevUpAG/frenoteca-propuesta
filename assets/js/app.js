@@ -30,7 +30,7 @@
 
   /* ---------- Horario: "abierto ahora" en hora de Medellín ---------- */
   // ponytail: no contempla festivos; si hace falta, añadir una lista de fechas cerradas.
-  const HORARIO = { 1: [480, 1035], 2: [480, 1035], 3: [480, 1035], 4: [480, 1035], 5: [480, 1035], 6: [480, 795] };
+  const HORARIO = { 1: [480, 1020], 2: [480, 1020], 3: [480, 1020], 4: [480, 1020], 5: [480, 1020], 6: [480, 780] }; // L-V 8:00-17:00, sáb 8:00-13:00
   const DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
   const hora = (m) => { const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0'); return `${h > 12 ? h - 12 : h}:${mm} ${h < 12 ? 'a. m.' : 'p. m.'}`; };
   const ahoraBogota = () => {
@@ -73,7 +73,7 @@
       if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoja hoy o un día después.'; fecha.focus(); return; }
       const f = form.elements;
       const dia = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(fecha.value + 'T12:00:00'));
-      const msg = `Hola Frenoteca, quiero pedir una cita.\n\n• Nombre: ${f.nombre.value.trim()}\n• Servicio: ${f.servicio.value}\n• Día: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-CITA-${form.dataset.code})`;
+      const msg = `Hola Frenoteca, quisiera una cotización y saber su disponibilidad.\n\n• Nombre: ${f.nombre.value.trim()}\n• Servicio: ${f.servicio.value}\n• Pienso ir: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-COT-${form.dataset.code})`;
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   });
@@ -109,4 +109,46 @@
     setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
   }
 
+  /* ---------- Mustang clásico rojo que persigue el cursor (solo con mouse) ---------- */
+  // El cursor normal se conserva; el carro corre detrás. Se apaga en pantallas táctiles y con «reducir movimiento».
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Mustang fastback 1967 de perfil, mirando a la derecha (viewBox 120 × 46)
+    const rueda = (cx) => {
+      const rayos = [0, 72, 144, 216, 288].map((g) => { const r = g * Math.PI / 180; return `M${cx} 32L${(cx + 4.6 * Math.sin(r)).toFixed(2)} ${(32 - 4.6 * Math.cos(r)).toFixed(2)}`; }).join('');
+      return `<g class="rueda" style="transform-origin:${cx}px 32px"><circle cx="${cx}" cy="32" r="8.6" fill="#111"/><circle cx="${cx}" cy="32" r="5.4" fill="#d9d9d9"/><path d="${rayos}" stroke="#8a8a8a" stroke-width="1.5" stroke-linecap="round"/><circle cx="${cx}" cy="32" r="1.5" fill="#444"/></g>`;
+    };
+    const car = document.createElement('div');
+    car.className = 'mustang'; car.setAttribute('aria-hidden', 'true');
+    car.innerHTML = `<svg viewBox="0 0 120 46"><ellipse cx="61" cy="42.6" rx="51" ry="2.4" fill="rgba(0,0,0,.22)"/>`
+      // carrocería: cola corta con alerón, techo fastback, capó largo y nariz de tiburón
+      + `<path fill="#c52b2d" d="M7 32.5L5 27L5.5 22Q6 20 9 19.5L13 19L40 9Q43 7.8 47 7.8L58 7.8Q61 8 63 9.5L73 17.5L104 18.6Q110 19 114 20.5L117.5 22L116.3 25.2L117.4 29.5Q117.4 32.5 114 32.5L101 32.5A11 11 0 0 0 79 32.5L40 32.5A11 11 0 0 0 18 32.5L9 32.5Z"/>`
+      // ventanas con pilar central y rejillas en el pilar trasero
+      + `<path fill="#1d1d1f" d="M33 13.3L40.5 10.1Q43 9.3 46.5 9.3L48.4 9.3L48.4 17.4L33 17.4ZM50.2 9.3L57.5 9.3Q60 9.4 61.5 10.6L69 17.4L50.2 17.4Z"/>`
+      + `<path d="M24.5 16.6L26.5 15.8M27.6 16.6L29.6 15.1M30.7 16.6L32.4 14.3" stroke="#1d1d1f" stroke-width="1.1" stroke-linecap="round"/>`
+      // toma de aire lateral, franja GT, parrilla con faro, calavera y bompers cromados
+      + `<path fill="#1d1d1f" d="M40.5 22.4L48.5 21.2L48.5 24.6L42.5 24.6Z"/>`
+      + `<path d="M8 29.4H115" stroke="#fff" stroke-width="1.4"/>`
+      + `<path fill="#1d1d1f" d="M113.6 21.6L117.3 22.1L116.2 25.2L117.2 28.2L113.6 28.2Z"/><circle cx="115.2" cy="24.6" r="1.5" fill="#fff3c4"/>`
+      + `<rect x="5.2" y="21.6" width="2.8" height="3" rx=".7" fill="#2a0708"/><rect x="3.2" y="28.6" width="6.2" height="2" rx="1" fill="#e2e2e2"/><rect x="112.6" y="28.8" width="6.4" height="2" rx="1" fill="#e2e2e2"/>`
+      + rueda(29) + rueda(90) + `</svg>`;
+    document.body.append(car);
+    const ruedas = car.querySelectorAll('.rueda');
+    let mx = 0, my = 0, x = 0, y = 0, dir = 1, ang = 0, giro = 0, activo = false;
+    addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (!activo) { activo = true; x = mx - 44; y = my + 20; car.classList.add('is-on'); }
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', () => { activo = false; car.classList.remove('is-on'); });
+    const mover = () => {
+      const vx = (mx - dir * 44 - x) * 0.12, vy = (my + 20 - y) * 0.12;  // llega detrás del cursor, un poco más abajo
+      x += vx; y += vy;
+      if (Math.abs(mx - x) > 60) dir = mx > x ? 1 : -1;                    // da la vuelta solo si el cursor quedó del otro lado
+      ang += (Math.max(-18, Math.min(18, Math.atan2(vy, Math.abs(vx) + .01) * 57.3)) - ang) * 0.15;
+      giro += Math.hypot(vx, vy) * 7;                                      // las ruedas giran con la distancia recorrida
+      car.style.transform = `translate(${x - 42}px, ${y - 16}px) scaleX(${dir}) rotate(${ang}deg)`;
+      ruedas.forEach((r) => { r.style.transform = `rotate(${giro}deg)`; });
+      requestAnimationFrame(mover);
+    };
+    requestAnimationFrame(mover);
+  }
 })();

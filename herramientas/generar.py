@@ -26,65 +26,59 @@ MAPA_EMBED = ("https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1983.0881946
 
 def wa(servicio=None, code="INI"):
     """Enlace de WhatsApp con mensaje según el servicio y código de origen (para medir)."""
-    txt = f"Hola Frenoteca, quiero cotizar {servicio}." if servicio else "Hola Frenoteca, quiero información sobre sus servicios."
+    txt = f"Hola Frenoteca, quisiera una cotización de {servicio}." if servicio else "Hola Frenoteca, quisiera información sobre sus servicios."
     return f"https://wa.me/{WA}?text=" + quote(f"{txt} (Ref: WEB-{code})")
 
 
+# Tono: profesional y claro, trato de «usted». Nunca hablar de precio bajo, «barato» o «económico».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Pastillas de freno en Medellín: Brembo, Bosch e Incolbestos",
-         intro="Pastillas Brembo, Bosch, Incolbestos e importadas. También para carros blindados.",
+         title="Pastillas de freno en Medellín: Brembo, Bosch, ATE e Incolbestos",
+         intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas, con formulaciones especiales para vehículos blindados.",
          senales_t="¿Cuándo revisarlas?",
-         senales=["Chillan o suenan al frenar", "El carro tarda más en detenerse", "Se prendió la luz de frenos"],
-         faq=[("¿Puedo comprar solo las pastillas?", "Sí. Se las lleva o se las instalamos en el taller.")]),
+         senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
+         faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y le indicamos el momento adecuado para el cambio.")]),
     dict(slug="discos", nombre="Discos de freno", msg="discos de freno", code="DIS", img="discos", icon="disc",
-         title="Discos de freno en Medellín: nacionales, importados y originales",
-         intro="Discos nacionales, importados y originales para todo tipo de carro, a buen precio.",
+         title="Discos de freno en Medellín: nacionales, importados y de equipo original",
+         intro="Discos de freno nacionales, importados y de equipo original para todo tipo de vehículo, fabricados bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlos?",
-         senales=["Vibra el timón o el pedal al frenar", "El disco tiene rayas o surcos", "El carro se va hacia un lado al frenar"],
-         faq=[("¿Siempre hay que cambiar los discos con las pastillas?", "No. Los revisamos y solo le recomendamos cambiarlos si hace falta.")]),
+         senales=["Vibración en el timón o en el pedal al frenar", "Rayas o surcos visibles en el disco", "El vehículo se desvía al frenar"],
+         faq=[("¿Siempre se cambian junto con las pastillas?", "No necesariamente. Evaluamos el espesor y el estado del disco y recomendamos el cambio solo cuando es necesario.")]),
     dict(slug="campanas-y-zapatas", nombre="Campanas y zapatas", msg="campanas o zapatas de freno", code="CAM", img="campanas", icon="drum",
          title="Campanas y zapatas de freno en Medellín para livianos y pesados",
-         intro="Campanas y zapatas originales para carros livianos y pesados.",
+         intro="Campanas y zapatas originales para vehículos livianos y pesados, fabricadas bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlas?",
-         senales=["El freno de mano no sostiene", "Suena algo en las llantas de atrás", "El pedal baja más de lo normal"],
-         faq=[("¿Mi carro tiene campanas o discos atrás?", "Muchos tienen discos adelante y campanas atrás. Díganos el modelo y le contamos.")]),
+         senales=["El freno de mano no sostiene el vehículo", "Ruido de roce en las ruedas traseras", "El pedal baja más de lo habitual"],
+         faq=[("¿Mi vehículo usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Indíquenos marca, modelo y año, y le confirmamos la referencia.")]),
     dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindro-maestro", icon="cylinder",
          title="Cilindro maestro (bomba de frenos) y cilindros de rueda en Medellín",
-         intro="Bomba de frenos y cilindros de rueda, originales y homologados.",
+         intro="Cilindro maestro (bomba de frenos) y cilindros de rueda en referencias originales y homologadas de marcas reconocidas.",
          senales_t="¿Cuándo revisarlos?",
-         senales=["El pedal se va hasta el fondo", "Hay manchas de líquido cerca de las llantas", "Baja el nivel del líquido de frenos"],
-         faq=[("¿Se puede reparar un cilindro de rueda?", "No es seguro. Se cambia, y tenemos opciones originales y económicas.")]),
+         senales=["El pedal se va hasta el fondo", "Manchas de líquido cerca de las ruedas", "Disminuye el nivel del líquido de frenos"],
+         faq=[("¿Se puede reparar un cilindro de rueda?", "Por seguridad recomendamos su reemplazo. Contamos con referencias originales y homologadas para cada vehículo.")]),
     dict(slug="mangueras", nombre="Mangueras de freno", msg="mangueras de freno", code="MAN", img="mangueras", icon="hose",
          title="Mangueras de freno en Medellín para todo tipo de vehículo",
-         intro="Mangueras de freno de buena calidad para todos los carros.",
+         intro="Contamos con mangueras de alta calidad para todos los vehículos. Estas piezas de seguridad del sistema de frenos cumplen un papel fundamental dentro de su funcionamiento.",
          senales_t="¿Cuándo revisarlas?",
-         senales=["La manguera está reseca o agrietada", "Hay humedad o fuga de líquido", "El pedal se siente blando"],
+         senales=["Manguera reseca o agrietada", "Humedad o fuga de líquido de frenos", "Pedal de freno blando"],
          faq=[]),
-    dict(slug="taller-y-suspension", nombre="Taller y suspensión", msg="una revisión en el taller", code="TAL", img="suspension", icon="wrench",
-         title="Taller de frenos y reparación de suspensión en Medellín",
-         intro="Revisamos y reparamos frenos y suspensión, con los repuestos en el mismo lugar.",
-         senales_t="¿Cuándo traer el carro?",
-         senales=["El carro se va hacia un lado", "Suena al pasar por huecos", "Las llantas se gastan disparejo"],
-         faq=[("¿Necesito cita?", "Puede venir en nuestro horario. Si pide cita por WhatsApp, lo atendemos más rápido.")]),
 ]
 EXTRAS = [
-    dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="disco-caliper", icon="award",
-         title="Marcas de frenos en Medellín: Brembo, Bosch, Incolbestos e importadas",
-         intro="Trabajamos con marcas reconocidas, en repuestos originales y homologados.",
-         marcas=True, senales_t="Le ayudamos a escoger",
-         senales=["Original: el mismo repuesto con el que salió su carro", "Homologado: igual de seguro y más económico"],
-         faq=[]),
-    dict(slug="blindados", nombre="Carros blindados", msg="frenos para un carro blindado", code="BLI", img="caliper-rojo", icon="shield",
+    dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="caliper-rojo", icon="shield",
          title="Frenos para vehículos blindados en Medellín",
-         intro="Pastillas especiales para carros blindados, que pesan más y necesitan frenar mejor.",
-         senales_t="¿Por qué frenos especiales?",
-         senales=["Un blindado necesita más distancia para frenar", "Las pastillas normales se gastan más rápido"],
+         intro="Pastillas de formulación especial para carros blindados, diseñadas para ofrecer un frenado constante, seguro y de alto desempeño.",
+         senales_t="Desempeño y calidad",
+         senales=["Mayor resistencia a la temperatura en frenadas exigentes", "Frenado estable y confiable en cada recorrido", "Mayor durabilidad frente a una pastilla convencional"],
+         faq=[]),
+    dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="disco-caliper", icon="award",
+         title="Marcas de frenos en Medellín: Brembo, Bosch, ATE, Fremax y más",
+         intro="Trabajamos con marcas de alto desempeño, en repuestos originales y homologados.",
+         marcas=True, senales_t="Le asesoramos en su elección",
+         senales=["Original: la misma referencia con la que salió su vehículo de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
          faq=[]),
 ]
 TODOS = SERVICIOS + EXTRAS
-MARCAS = ["Brembo", "Bosch", "Incolbestos", "Importadas"]
-
+MARCAS = ["Brembo", "Bosch", "Incolbestos", "ATE", "Fremax", "Icer", "Repuestos originales Toyota", "Importadas"]
 
 # ---------------------------------------------------------------- Iconos (SVG en línea)
 ICONOS = {
@@ -129,6 +123,8 @@ ICONOS = {
 
 
 def ic(nombre, clase="icon"):
+    if nombre == "wa":
+        clase += " icon-wa"  # el logo de WhatsApp va en su verde original (ver brand.css)
     return f'<svg class="{clase}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">{ICONOS[nombre]}</svg>'
 
 
@@ -153,7 +149,7 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 <link rel="icon" href="{a}assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="{a}assets/img/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="{a}assets/img/apple-touch-icon.png">
-<link rel="preload" href="{a}assets/fonts/didact-gothic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{a}assets/fonts/bitter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{a}assets/css/brand.css?v={V}">
 <link rel="stylesheet" href="{a}assets/css/{css}?v={V}">
 <script>document.documentElement.classList.replace('no-js','js')</script>
@@ -173,6 +169,7 @@ def logo(a, alt="Frenoteca", clase="logo"):
 
 # ---------------------------------------------------------------- Sitio: cabecera y pie
 # Público mayor: letra grande, frases cortas, trato de «usted» y botones con texto (no solo íconos).
+# Todas las llamadas van al teléfono fijo; el celular se usa solo para WhatsApp.
 def cabecera(s, a, activo=""):
     cur = ' aria-current="page"'
     items = "".join(
@@ -188,33 +185,37 @@ def cabecera(s, a, activo=""):
           <a class="nav-sub-btn" href="{s}#servicios" aria-haspopup="true">Servicios {ic("chev")}</a>
           <ul class="sub" id="sub-servicios">{items}</ul>
         </li>
-        <li><a href="{s}#cita">Pedir cita</a></li>
+        <li><a href="{s}#cotizar">Cotizar</a></li>
         <li><a href="{s}#preguntas">Preguntas</a></li>
         <li><a href="{s}#visitenos">Cómo llegar</a></li>
       </ul>
       <div class="nav-cta">
-        <a class="btn btn-blanco" href="{CEL_HREF}">{ic("phone")} {CEL}</a>
-        <a class="btn btn-borde nav-wa" href="{wa()}">{ic("wa")} WhatsApp</a>
+        <a class="btn btn-blanco" href="{TEL_HREF}">{ic("phone")} {TEL}</a>
+        <a class="btn btn-blanco nav-wa" href="{wa()}">{ic("wa")} WhatsApp</a>
       </div>
     </nav>
-    <div class="header-actions">
-      <a class="hdr-btn" href="{CEL_HREF}">{ic("phone")}<span>Llamar</span></a>
-      <button class="hdr-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">{ic("menu")}{ic("close")}<span>Menú</span></button>
-    </div>
+    <button class="hdr-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">{ic("menu")}{ic("close")}<span>Menú</span></button>
   </div>
+  <a class="hdr-phone" href="{TEL_HREF}">{ic("phone")} <span>Llámenos:</span> <strong>{TEL}</strong></a>
 </header>"""
 
 
 def estado_horario():
-    return '<p class="abierto" data-abierto><span class="dot"></span><span data-abierto-txt>Lunes a viernes 8:00 a. m. – 5:15 p. m.</span></p>'
+    return '<p class="abierto" data-abierto><span class="dot"></span><span data-abierto-txt>Lunes a viernes 8:00 a. m. – 5:00 p. m.</span></p>'
 
 
 def horario_lista():
     return """<dl class="horario">
-  <div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 5:15 p. m.</dd></div>
-  <div><dt>Sábado</dt><dd>8:00 a. m. – 1:15 p. m.</dd></div>
+  <div><dt>Lunes a viernes</dt><dd>8:00 a. m. – 5:00 p. m.</dd></div>
+  <div><dt>Sábado</dt><dd>8:00 a. m. – 1:00 p. m.</dd></div>
   <div><dt>Domingo</dt><dd>Cerrado</dd></div>
 </dl>"""
+
+
+def cabeza(eyebrow, titulo, id_, lead=""):
+    """Encabezado de sección: rótulo, título y una frase de apoyo."""
+    l = f'<p class="lead">{lead}</p>' if lead else ""
+    return f'<div class="section-head reveal"><p class="eyebrow">{eyebrow}</p><h2 class="title" id="{id_}">{titulo}</h2>{l}</div>'
 
 
 def visitenos(a, compacto=False):
@@ -224,10 +225,10 @@ def visitenos(a, compacto=False):
     </div>"""
     return f"""<section class="section visit" id="visitenos" aria-labelledby="visit-t">
   <div class="wrap visit-grid{" visit-compact" if compacto else ""}">
-    <div class="visit-info reveal">
-      <h2 class="title" id="visit-t">Cómo llegar a Frenoteca</h2>
+    <div class="visit-info">
+      {cabeza("Ubicación", "Cómo llegar a Frenoteca", "visit-t")}
       {estado_horario()}
-      <p class="visit-dir">{ic("pin")}<span>Carrera 50 # 39-87<br>Medellín</span></p>
+      <p class="visit-dir">{ic("pin")}<span>Carrera 50 # 39-87<br>Medellín, Antioquia</span></p>
       {horario_lista()}
       <div class="btn-col">
         <a class="btn btn-rojo btn-lg" href="{MAPS}" target="_blank" rel="noopener">{ic("nav")} Abrir en Google Maps</a>
@@ -239,18 +240,17 @@ def visitenos(a, compacto=False):
 </section>"""
 
 
-def cita(preseleccion=""):
+def cotizar(preseleccion=""):
+    """En Frenoteca no se reservan citas (se atiende en orden de llegada): el formulario pide cotización y disponibilidad."""
     opciones = "".join(
         f'<option value="{x["nombre"]}"{" selected" if x["slug"] == preseleccion else ""}>{x["nombre"]}</option>'
-        for x in TODOS)
+        for x in TODOS if x["slug"] != "marcas")
     code = next((x["code"] for x in TODOS if x["slug"] == preseleccion), "INI")
     vacia = "" if preseleccion else '<option value="" selected disabled>Escoja una opción</option>'
-    return f"""<section class="section cita bg-negro on-dark" id="cita" aria-labelledby="cita-t">
+    return f"""<section class="section cita bg-negro on-dark" id="cotizar" aria-labelledby="cita-t">
   <div class="wrap cita-grid">
-    <div class="reveal">
-      <h2 class="title" id="cita-t">Pida su cita en Frenoteca</h2>
-      <p class="lead">Escoja el servicio y el día. Le confirmamos por WhatsApp.</p>
-    </div>
+    {cabeza("Cotizaciones", "Cotice y consulte disponibilidad", "cita-t",
+            "Atendemos en orden de llegada. Cuéntenos qué necesita y cuándo piensa venir; le respondemos por WhatsApp con la cotización y la disponibilidad.")}
     <form class="form reveal" data-agenda data-wa="{WA}" data-code="{code}" novalidate>
       <div class="field">
         <label for="f-nombre">Su nombre</label>
@@ -258,14 +258,14 @@ def cita(preseleccion=""):
       </div>
       <div class="field">
         <label for="f-servicio">¿Qué necesita?</label>
-        <div class="select"><select id="f-servicio" name="servicio" required>{vacia}{opciones}<option value="Una revisión general">No estoy seguro</option></select>{ic("chev")}</div>
+        <div class="select"><select id="f-servicio" name="servicio" required>{vacia}{opciones}<option value="Una revisión del sistema de frenos">No estoy seguro</option></select>{ic("chev")}</div>
       </div>
       <div class="field">
-        <label for="f-fecha">¿Qué día?</label>
+        <label for="f-fecha">¿Qué día piensa venir?</label>
         <input id="f-fecha" name="fecha" type="date" required>
       </div>
       <fieldset class="field franja">
-        <legend>¿A qué hora?</legend>
+        <legend>¿En qué jornada?</legend>
         <label><input type="radio" name="franja" value="mañana" checked> Mañana</label>
         <label><input type="radio" name="franja" value="tarde"> Tarde</label>
       </fieldset>
@@ -281,11 +281,11 @@ def pie(s, a, code="INI", msg=None):
   <div class="wrap footer-grid">
     <div>
       <a href="{s}" aria-label="Frenoteca, inicio">{logo(a)}</a>
-      <p>Frenos en Medellín desde hace más de 35 años.</p>
+      <p>Especialistas en frenos en Medellín. Más de 40 años en el mercado.</p>
     </div>
     <div class="footer-contact">
-      <a href="{CEL_HREF}">{ic("phone")} {CEL}</a>
       <a href="{TEL_HREF}">{ic("phone")} {TEL}</a>
+      <a href="{wa(msg, code)}">{ic("wa")} WhatsApp {CEL}</a>
       <a href="{MAPS}" target="_blank" rel="noopener">{ic("pin")} Carrera 50 # 39-87</a>
     </div>
     <div>{horario_lista()}</div>
@@ -295,8 +295,8 @@ def pie(s, a, code="INI", msg=None):
   </div>
 </footer>
 <nav class="action-bar" aria-label="Contacto rápido">
-  <a class="btn btn-rojo" href="{CEL_HREF}">{ic("phone")} Llamar</a>
-  <a class="btn btn-negro" href="#cita">{ic("calendar")} Pedir cita</a>
+  <a class="btn btn-rojo" href="{TEL_HREF}">{ic("phone")} Llamar</a>
+  <a class="btn btn-negro" href="#cotizar">{ic("calendar")} Cotizar</a>
 </nav>
 <a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbanos por WhatsApp">
   <span class="wa-float-label">¿Le ayudamos? <strong>Escríbanos</strong></span>
@@ -313,13 +313,13 @@ def tile(x, s, a):
 
 
 FAQ = [
-    ("¿Necesito pedir cita?", "No. Puede venir en nuestro horario. Si pide cita por WhatsApp, lo atendemos más rápido."),
-    ("¿Venden solo el repuesto?", "Sí. Se lo lleva o se lo instalamos en el taller."),
-    ("¿Cómo sé si mis frenos están mal?", "Si chillan, vibran, el pedal se siente blando o el carro tarda en frenar, tráigalo a revisión."),
-    ("¿Qué marcas tienen?", "Brembo, Bosch, Incolbestos e importadas, en repuestos originales y homologados."),
-    ("¿Trabajan carros blindados?", "Sí. Tenemos pastillas especiales para carros blindados."),
-    ("¿Cuál es el horario?", "Lunes a viernes de 8:00 a. m. a 5:15 p. m. y sábados de 8:00 a. m. a 1:15 p. m., en jornada continua."),
-    ("¿Dónde quedan?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir su carro."),
+    ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si desea confirmar disponibilidad antes de venir, escríbanos por WhatsApp."),
+    ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
+    ("¿Cómo puedo solicitar una cotización?", f"Llámenos al {TEL} o escríbanos por WhatsApp indicando la marca, el modelo y el año de su vehículo."),
+    ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
+    ("¿Tienen frenos para vehículos blindados?", "Sí. Contamos con pastillas de formulación especial para vehículos blindados, diseñadas para un desempeño de frenado constante y seguro."),
+    ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
+    ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Contamos con patio para recibir su vehículo."),
 ]
 
 
@@ -327,7 +327,7 @@ def faq_html(items, titulo=None):
     if not items:
         return ""
     qs = "".join(f"""<details class="faq-item"><summary><span>{q}</span>{ic("chev")}</summary><p>{r}</p></details>""" for q, r in items)
-    head = f'<h2 class="title reveal" id="preguntas-t">{titulo}</h2>' if titulo else ""
+    head = cabeza("Preguntas frecuentes", titulo, "preguntas-t") if titulo else ""
     attrs = ' id="preguntas" aria-labelledby="preguntas-t"' if titulo else ' aria-label="Preguntas"'
     return f"""<section class="section section-tight"{attrs}>
   <div class="wrap faq-wrap">{head}<div class="faq reveal">{qs}</div></div>
@@ -351,15 +351,15 @@ GALERIA = [
 def jsonld():
     data = {
         "@context": "https://schema.org", "@type": "AutoRepair", "name": "Frenoteca S.A.S.",
-        "description": "Repuestos y taller de frenos y suspensión en Medellín.",
-        "telephone": "+57 312 833 4755", "email": EMAIL,
+        "description": "Especialistas en frenos en Medellín: repuestos y taller.",
+        "telephone": "+57 604 448 2194", "email": EMAIL,
         "address": {"@type": "PostalAddress", "streetAddress": "Carrera 50 # 39-87", "addressLocality": "Medellín",
                     "addressRegion": "Antioquia", "addressCountry": "CO"},
         "geo": {"@type": "GeoCoordinates", "latitude": 6.240469, "longitude": -75.571513},
         "openingHoursSpecification": [
-            {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:15"},
-            {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:15"}],
-        "brand": [{"@type": "Brand", "name": m} for m in MARCAS[:3]],
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00"},
+            {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00"}],
+        "brand": [{"@type": "Brand", "name": m} for m in ["Brembo", "Bosch", "Incolbestos", "ATE", "Fremax", "Icer", "Toyota"]],
     }
     return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>\n'
 
@@ -367,7 +367,8 @@ def jsonld():
 # ---------------------------------------------------------------- Sitio: inicio
 def inicio():
     s, a = "./", ""
-    tiles = "".join(tile(x, s, a) for x in TODOS)
+    # 6 tarjetas (servicios + blindados): filas completas; «Marcas» queda en el menú y en «Por qué Frenoteca»
+    tiles = "".join(tile(x, s, a) for x in TODOS if x["slug"] != "marcas")
     galeria = "".join(
         f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
         for f, alt in GALERIA)
@@ -380,42 +381,43 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Patio de Frenoteca con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <h1 class="hero-t">{logo(a, "Frenoteca", "hero-logo")}<span>Frenos para su carro en Medellín</span></h1>
-      <p class="lead">Repuestos y taller en un solo lugar. Más de 35 años de experiencia.</p>
+      <p class="eyebrow">Especialistas en frenos</p>
+      <h1 class="hero-t">Frenos para su carro en Medellín</h1>
+      <p class="lead">Repuestos de alto desempeño y taller especializado en un solo lugar. Más de 40 años brindando seguridad y tranquilidad en cada recorrido.</p>
       <div class="btn-col hero-btns">
-        <a class="btn btn-rojo btn-xl" href="{CEL_HREF}">{ic("phone")} Llamar ahora</a>
+        <a class="btn btn-rojo btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
         <a class="btn btn-blanco btn-xl" href="{wa()}">{ic("wa")} Escribir por WhatsApp</a>
       </div>
       <div class="hero-meta">
         {estado_horario()}
-        <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span> 4,6 en Google</a>
+        <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span><span><strong>4,6</strong> · 360 opiniones en Google</span></a>
       </div>
     </div>
   </section>
 
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      <h2 class="title reveal" id="serv-t">¿Qué necesita?</h2>
-      <div class="tiles">{tiles}</div>
+      {cabeza("Nuestros servicios", "¿Qué necesita?", "serv-t", "Repuestos y servicio especializado para cada componente del sistema de frenos.")}
+      <div class="tiles tiles-3">{tiles}</div>
     </div>
   </section>
 
   <section class="section section-tight bg-gris" aria-labelledby="why-t">
     <div class="wrap">
-      <h2 class="title reveal" id="why-t">¿Por qué Frenoteca?</h2>
+      {cabeza("Por qué elegirnos", "¿Por qué Frenoteca?", "why-t")}
       <ul class="why reveal">
-        <li>{ic("award")}<span><strong>Más de 35 años</strong> trabajando con frenos</span></li>
-        <li>{ic("tag")}<span><strong>Marcas reconocidas</strong> Brembo, Bosch e Incolbestos</span></li>
-        <li>{ic("wrench")}<span><strong>Todo en un lugar</strong> El repuesto y quien lo instala</span></li>
+        <li>{ic("award")}<span><strong>Más de 40 años en el mercado</strong> Especialistas en sistemas de frenos</span></li>
+        <li>{ic("tag")}<span><strong>Marcas de alto desempeño</strong> <a href="{s}marcas/">Brembo, Bosch, ATE, Fremax y más</a></span></li>
+        <li>{ic("wrench")}<span><strong>Todo en un solo lugar</strong> El repuesto y el taller que lo instala</span></li>
       </ul>
     </div>
   </section>
 
-  {cita()}
+  {cotizar()}
 
   <section class="section" id="taller" aria-labelledby="taller-t">
     <div class="wrap">
-      <h2 class="title reveal" id="taller-t">Nuestro taller</h2>
+      {cabeza("Nuestra sede", "Nuestro taller", "taller-t", "Carrera 50 # 39-87, con patio para recibir su vehículo.")}
       <div class="gallery reveal">{galeria}</div>
       <button class="btn btn-borde btn-lg gal-all" type="button" data-gal-open>{ic("image")} Ver las {len(GALERIA)} fotos</button>
     </div>
@@ -435,21 +437,21 @@ def inicio():
     </div>
   </section>
 
-  {faq_html(FAQ, "Preguntas frecuentes")}
+  {faq_html(FAQ, "Resolvemos sus dudas")}
 
   {visitenos(a)}
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Frenoteca | Frenos en Medellín: repuestos y taller desde hace más de 35 años",
-        desc="Pastillas, discos, campanas, cilindros y mangueras de freno con Brembo, Bosch e Incolbestos. Taller de frenos y suspensión en la Carrera 50, Medellín.",
+        title="Frenoteca | Especialistas en frenos en Medellín, más de 40 años en el mercado",
+        desc="Pastillas, discos, campanas, cilindros y mangueras de freno con Brembo, Bosch, ATE e Incolbestos. Taller especializado en la Carrera 50, Medellín.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld())
 
 
 # ---------------------------------------------------------------- Sitio: páginas de servicio
 def servicio(x):
     s, a = "../", "../"
-    senales = "".join(f"<li>{ic('alert' if not x.get('marcas') else 'check')}<span>{i}</span></li>" for i in x["senales"])
+    senales = "".join(f"<li>{ic('alert' if not x.get('marcas') and x['slug'] != 'blindados' else 'check')}<span>{i}</span></li>" for i in x["senales"])
     marcas = f'<ul class="brands reveal">{"".join(f"<li>{m}</li>" for m in MARCAS)}</ul>' if x.get("marcas") else ""
     # 6 tarjetas: llenan filas completas (2 columnas en celular, 3 en computador)
     otros = "".join(tile(o, s, a) for o in [t for t in TODOS if t["slug"] != x["slug"]][:6])
@@ -460,10 +462,11 @@ def servicio(x):
       <a class="back" href="{s}">{ic("arrow-l")} Volver al inicio</a>
       <div class="svc-hero-grid">
         <div>
+          <p class="eyebrow">Frenoteca · Medellín</p>
           <h1 class="svc-h1">{x["nombre"]}</h1>
           <p class="lead">{x["intro"]}</p>
           <div class="btn-col">
-            <a class="btn btn-rojo btn-xl" href="{CEL_HREF}">{ic("phone")} Llamar ahora</a>
+            <a class="btn btn-rojo btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
             <a class="btn btn-borde btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escribir por WhatsApp</a>
           </div>
         </div>
@@ -481,17 +484,17 @@ def servicio(x):
     </div>
   </section>
   {faq_html(x["faq"])}
-  {cita(x["slug"])}
+  {cotizar(x["slug"])}
   <section class="section" aria-labelledby="otros-t">
     <div class="wrap">
-      <h2 class="title reveal" id="otros-t">Otros servicios</h2>
+      {cabeza("Nuestros servicios", "Otros servicios", "otros-t")}
       <div class="tiles tiles-3">{otros}</div>
     </div>
   </section>
   {visitenos(a, compacto=True)}
 </main>
 {pie(s, a, x["code"], x["msg"])}"""
-    return documento(title=f'{x["title"]} | Frenoteca', desc=x["intro"],
+    return documento(title=f'{x["title"]} | Frenoteca', desc=x["intro"][:155],
                      css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio")
 
 

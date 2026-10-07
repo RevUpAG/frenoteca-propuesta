@@ -4,13 +4,16 @@
    pocas secciones y nada escondido en carruseles.
    ========================================================================== */
 
-/* ---------- Cabecera: rojo de marca, como .top-header del sitio actual ---------- */
+/* ---------- Cabecera: rojo del logo ---------- */
 .site-header { position: sticky; top: 0; z-index: 100; background: var(--rojo); color: var(--blanco); transition: box-shadow .25s; }
 .site-header.is-scrolled { box-shadow: 0 6px 20px rgb(0 0 0 / .18); }
 .header-in { display: flex; align-items: center; justify-content: space-between; gap: .75rem; min-height: var(--header-h); }
 .brand { display: block; padding-block: 8px; }
-.site-header .logo { height: auto; width: min(200px, 52vw); }
-.header-actions { display: flex; gap: .4rem; }
+.site-header .logo { height: auto; width: min(190px, 50vw); }
+/* Teléfono fijo siempre visible y tocable: en celular es la segunda fila de la cabecera */
+.hdr-phone { display: flex; align-items: center; justify-content: center; gap: .45rem; min-height: 44px; padding: 0 var(--gutter); border-top: 1px solid rgb(255 255 255 / .25); color: var(--blanco); text-decoration: none; font-size: 1.125rem; }
+.hdr-phone .icon { width: 20px; height: 20px; }
+.hdr-phone strong { color: var(--blanco); font-weight: 700; letter-spacing: .02em; }
 .hdr-btn { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-width: 60px; height: 56px; padding: 0 .4rem; border: 0; border-radius: var(--radius-sm); background: rgb(0 0 0 / .14); color: var(--blanco); font-size: .9375rem; text-decoration: none; cursor: pointer; }
 .hdr-btn .icon { width: 22px; height: 22px; }
 .menu-btn .icon:nth-child(2) { display: none; }
@@ -19,7 +22,7 @@
 
 /* Menú móvil: panel bajo la cabecera, con todos los servicios a la vista */
 .nav {
-  position: fixed; inset: var(--header-h) 0 0; z-index: 99;
+  position: fixed; inset: var(--header-total) 0 0; z-index: 99;
   background: var(--blanco); color: var(--negro);
   padding: .5rem var(--gutter) calc(2rem + env(safe-area-inset-bottom));
   overflow-y: auto; overscroll-behavior: contain;
@@ -45,11 +48,11 @@
 }
 .nav-cta { display: grid; gap: .75rem; margin-top: 1.5rem; }
 .nav-cta .btn { min-height: 60px; font-size: 1.25rem; }
-.nav-cta .btn-blanco { background: var(--rojo); color: var(--blanco); }
-.nav-cta .nav-wa { color: var(--negro); }
+.nav-cta .btn-blanco:first-child { background: var(--rojo); color: var(--blanco); }
+.nav-cta .nav-wa { border-color: var(--negro); }
 
 @media (min-width: 960px) {
-  .header-actions { display: none; }
+  .menu-btn, .hdr-phone { display: none; }
   .nav { position: static; visibility: visible; opacity: 1; background: none; color: var(--blanco); padding: 0; overflow: visible; display: flex; align-items: center; gap: 1.25rem; }
   .nav-list { display: flex; align-items: center; gap: .25rem; }
   .nav-list > li { border: 0; position: relative; }
@@ -57,16 +60,16 @@
   .nav-list > li > a:hover, .has-sub:hover .nav-sub-btn { background: var(--blanco-16); }
   .sub { display: none; position: absolute; top: calc(100% + 8px); left: 0; min-width: 300px; background: var(--blanco); color: var(--negro); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .5rem; }
   .sub a { padding: 0 .75rem; border-radius: var(--radius-sm); font-size: 1.0625rem; min-height: 48px; }
-  .sub a:hover { background: var(--rojo-08); }
+  .sub a:hover { background: var(--gris-claro); }
   /* Puente invisible sobre el hueco entre el botón y el menú: el hover no se pierde al bajar */
   .sub::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 24px; }
   /* Solo con el cursor encima (o con teclado); un clic ya no lo deja abierto */
   .has-sub:hover .sub, .has-sub:has(:focus-visible) .sub { display: grid; }
   .nav-cta { display: flex; margin: 0; gap: .5rem; }
   .nav-cta .btn { min-height: 48px; padding: .5rem 1rem; font-size: 1.0625rem; white-space: nowrap; }
-  .nav-cta .btn-blanco { background: var(--blanco); color: var(--negro); }
-  .nav-cta .nav-wa { color: var(--blanco); }
-  .site-header .logo { width: 250px; }
+  .nav-cta .btn-blanco, .nav-cta .btn-blanco:first-child { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
+  .nav-cta .btn-blanco:first-child { font-weight: 700; }
+  .site-header .logo { width: 240px; }
 }
 @media (min-width: 960px) and (max-width: 1180px) { .nav-wa { display: none !important; } }
 
@@ -99,10 +102,8 @@
 .hero-bg, .hero-bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(0 0 0 / .4) 0%, rgb(0 0 0 / .65) 35%, rgb(0 0 0 / .9) 70%, #000 100%); }
 .hero-in { padding-block: 3rem 2rem; }
-.hero-t { font-size: clamp(2rem, 1.5rem + 3vw, 3.5rem); text-transform: uppercase; line-height: 1.08; max-width: 16ch; margin-bottom: .75rem; }
-.hero-t span { display: block; }
-/* El nombre es el protagonista: logo grande sobre su placa roja, como en el aviso del taller */
-.hero-logo { display: block; width: min(100%, 560px); height: auto; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; background: var(--rojo); border-radius: 12px; box-shadow: 0 16px 40px rgb(0 0 0 / .45); }
+.hero-t { font-size: clamp(2.25rem, 1.6rem + 3.4vw, 4rem); text-transform: uppercase; line-height: 1.06; max-width: 15ch; margin-bottom: 1rem; }
+.hero .eyebrow { color: var(--blanco); }
 .hero .lead { margin-bottom: 1.5rem; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
 .hero .abierto { margin: 0; background: rgb(255 255 255 / .14); color: var(--blanco); min-height: 44px; }
@@ -146,9 +147,10 @@
   width: 100%; min-height: 58px; padding: .75rem 1rem; border: 2px solid var(--gris-medio); border-radius: var(--radius-sm);
   background: var(--blanco); font-size: 1.125rem; appearance: none; -webkit-appearance: none;
 }
-.field input:focus, .field select:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 3px var(--rojo-08); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 1px var(--rojo); }
 .field [aria-invalid="true"] { border-color: var(--rojo); }
 .select { position: relative; }
+.select select { padding-right: 2.75rem; text-overflow: ellipsis; }
 .select .icon { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; }
 .franja { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 .franja legend { grid-column: 1 / -1; margin-bottom: .4rem; }
@@ -244,4 +246,10 @@
 .signs-list li { display: flex; gap: .9rem; align-items: center; font-size: 1.25rem; line-height: 1.35; }
 .signs-list .icon { flex: none; width: 30px; height: 30px; color: var(--rojo); }
 .brands { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem; }
-.brands li { padding: .75rem 1.25rem; border: 2px solid var(--negro); border-radius: var(--radius-sm); background: var(--blanco); text-transform: uppercase; letter-spacing: .06em; font-size: 1.25rem; }
+.brands li { padding: .55rem 1rem; border: 2px solid var(--negro); border-radius: var(--radius-sm); background: var(--blanco); font-weight: 600; font-size: 1.125rem; }
+
+/* ---------- Mustang que persigue el cursor ---------- */
+.mustang { position: fixed; left: 0; top: 0; width: 84px; height: 32px; pointer-events: none; z-index: 2000; opacity: 0; transition: opacity .3s; will-change: transform; }
+.mustang.is-on { opacity: 1; }
+.mustang svg { width: 100%; height: 100%; overflow: visible; }
+.mustang .rueda { transform-box: view-box; }
