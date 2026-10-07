@@ -109,67 +109,64 @@
     setTimeout(() => { waf.classList.add('is-hint'); setTimeout(() => waf.classList.remove('is-hint'), 6000); }, 4000);
   }
 
-  /* ---------- Mustang clásico rojo que persigue el cursor (solo con mouse) ---------- */
-  // El cursor normal se conserva; el carro corre detrás. Se apaga en pantallas táctiles y con «reducir movimiento».
+  /* ---------- Mustang clásico rojo, visto desde arriba, que persigue el cursor (solo con mouse) ---------- */
+  // El cursor normal se conserva; el carro gira hacia donde va y lo sigue. Se apaga en pantallas táctiles y con «reducir movimiento».
   if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // Mustang fastback 1967 de perfil, mirando a la derecha (viewBox 120 × 46)
-    const rueda = (cx) => {
-      const rayos = [0, 72, 144, 216, 288].map((g) => { const r = g * Math.PI / 180; return `M${cx} 32L${(cx + 4.6 * Math.sin(r)).toFixed(2)} ${(32 - 4.6 * Math.cos(r)).toFixed(2)}`; }).join('');
-      return `<g class="rueda" style="transform-origin:${cx}px 32px"><circle cx="${cx}" cy="32" r="8.6" fill="#111"/><circle cx="${cx}" cy="32" r="5.4" fill="#d9d9d9"/><path d="${rayos}" stroke="#8a8a8a" stroke-width="1.5" stroke-linecap="round"/><circle cx="${cx}" cy="32" r="1.5" fill="#444"/></g>`;
-    };
     const car = document.createElement('div');
     car.className = 'mustang'; car.setAttribute('aria-hidden', 'true');
-    car.innerHTML = `<svg viewBox="0 0 120 46"><ellipse cx="61" cy="42.6" rx="51" ry="2.4" fill="rgba(0,0,0,.22)"/>`
-      // carrocería: cola corta con alerón, techo fastback, capó largo y nariz de tiburón
-      + `<path fill="#c52b2d" d="M7 32.5L5 27L5.5 22Q6 20 9 19.5L13 19L40 9Q43 7.8 47 7.8L58 7.8Q61 8 63 9.5L73 17.5L104 18.6Q110 19 114 20.5L117.5 22L116.3 25.2L117.4 29.5Q117.4 32.5 114 32.5L101 32.5A11 11 0 0 0 79 32.5L40 32.5A11 11 0 0 0 18 32.5L9 32.5Z"/>`
-      // ventanas con pilar central y rejillas en el pilar trasero
-      + `<path fill="#1d1d1f" d="M33 13.3L40.5 10.1Q43 9.3 46.5 9.3L48.4 9.3L48.4 17.4L33 17.4ZM50.2 9.3L57.5 9.3Q60 9.4 61.5 10.6L69 17.4L50.2 17.4Z"/>`
-      + `<path d="M24.5 16.6L26.5 15.8M27.6 16.6L29.6 15.1M30.7 16.6L32.4 14.3" stroke="#1d1d1f" stroke-width="1.1" stroke-linecap="round"/>`
-      // toma de aire lateral, franja GT, parrilla con faro, calavera y bompers cromados
-      + `<path fill="#1d1d1f" d="M40.5 22.4L48.5 21.2L48.5 24.6L42.5 24.6Z"/>`
-      + `<path d="M8 29.4H115" stroke="#fff" stroke-width="1.4"/>`
-      + `<path fill="#1d1d1f" d="M113.6 21.6L117.3 22.1L116.2 25.2L117.2 28.2L113.6 28.2Z"/><circle cx="115.2" cy="24.6" r="1.5" fill="#fff3c4"/>`
-      + `<rect x="5.2" y="21.6" width="2.8" height="3" rx=".7" fill="#2a0708"/><rect x="3.2" y="28.6" width="6.2" height="2" rx="1" fill="#e2e2e2"/><rect x="112.6" y="28.8" width="6.4" height="2" rx="1" fill="#e2e2e2"/>`
-      + `<rect x="1.4" y="30.6" width="6" height="1.6" rx=".8" fill="#8d8d8d"/>`  // tubo de escape
-      + rueda(29) + rueda(90) + `</svg>`;
+    // Vista cenital mirando a la derecha (viewBox 60 × 30): capó largo adelante, techo fastback atrás, franjas de carrera
+    car.innerHTML = `<svg viewBox="0 0 60 30">`
+      + `<rect x="3.5" y="5.5" width="55" height="22" rx="7" fill="rgba(0,0,0,.25)"/>`                    // sombra
+      + `<rect x="9" y="1.6" width="8" height="3.4" rx="1.2" fill="#151515"/><rect x="41" y="1.6" width="8" height="3.4" rx="1.2" fill="#151515"/>`
+      + `<rect x="9" y="25" width="8" height="3.4" rx="1.2" fill="#151515"/><rect x="41" y="25" width="8" height="3.4" rx="1.2" fill="#151515"/>`  // llantas
+      + `<path fill="#c52b2d" d="M8 3.6H46Q55 3.6 57.5 9Q58.6 15 57.5 21Q55 26.4 46 26.4H8Q2.4 26.4 2 21V9Q2.4 3.6 8 3.6Z"/>`  // carrocería
+      + `<path d="M3 12.6H57.4M3 17.4H57.4" stroke="#fff" stroke-width="2"/>`                              // franjas de carrera
+      + `<path fill="#1d1d1f" d="M33 6.4Q36 15 33 23.6L37.6 22.2Q39.4 15 37.6 7.8Z"/>`                         // parabrisas
+      + `<path fill="#1d1d1f" d="M11.5 7.6Q9.6 15 11.5 22.4L16.4 21.4Q15.2 15 16.4 8.6Z"/>`                   // vidrio trasero (fastback)
+      + `<path fill="#1d1d1f" d="M18 5.4H31.5L30.6 6.6H18.8ZM18 24.6H31.5L30.6 23.4H18.8Z"/>`                 // ventanas laterales
+      + `<rect x="55.4" y="5.6" width="2.2" height="3.6" rx="1" fill="#fff3c4"/><rect x="55.4" y="20.8" width="2.2" height="3.6" rx="1" fill="#fff3c4"/>`  // farolas
+      + `<rect x="2" y="5.8" width="1.6" height="3.4" rx=".6" fill="#2a0708"/><rect x="2" y="20.8" width="1.6" height="3.4" rx=".6" fill="#2a0708"/>`      // stops
+      + `<rect x="30" y="1.8" width="2.6" height="2" rx=".8" fill="#c52b2d"/><rect x="30" y="26.2" width="2.6" height="2" rx=".8" fill="#c52b2d"/>`      // espejos
+      + `</svg>`;
     document.body.append(car);
-    const ruedas = car.querySelectorAll('.rueda');
-    let mx = 0, my = 0, x = 0, y = 0, vx = 0, vy = 0, dir = 1, sx = 1, ang = 0, giro = 0, humo = 0, prev = 0, activo = false;
+    let mx = 0, my = 0, x = 0, y = 0, vx = 0, vy = 0, rumbo = 0, humo = 0, prev = 0, activo = false;
     addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
-      if (!activo) { activo = true; x = mx - 46; y = my + 22; car.classList.add('is-on'); }
+      if (!activo) { activo = true; x = mx - 40; y = my; car.classList.add('is-on'); }
     }, { passive: true });
     document.documentElement.addEventListener('mouseleave', () => { activo = false; car.classList.remove('is-on'); });
 
-    // Bocanada de humo que sale del exhosto y se disipa hacia atrás y hacia arriba
+    // Bocanada de humo que sale por detrás y se disipa en sentido contrario a la marcha
     const humito = (fuerte) => {
       const p = document.createElement('span'); p.className = 'humo';
-      const t = 7 + Math.random() * 6;
-      p.style.cssText = `left:${x - sx * 40}px;top:${y + 6}px;width:${t}px;height:${t}px`;
+      const t = 6 + Math.random() * 6, c = Math.cos(rumbo), s = Math.sin(rumbo);
+      p.style.cssText = `left:${x - c * 29}px;top:${y - s * 29}px;width:${t}px;height:${t}px`;
       document.body.append(p);
-      const atras = -dir * (12 + Math.random() * 14 + (fuerte ? 22 : 0)), sube = 8 + Math.random() * 14;
+      const d = 14 + Math.random() * 14 + (fuerte ? 18 : 0), lado = (Math.random() - .5) * 14;
       p.animate([
         { transform: 'translate(-50%, -50%) scale(.4)', opacity: fuerte ? .7 : .45 },
-        { transform: `translate(calc(-50% + ${atras}px), calc(-50% - ${sube}px)) scale(${1.8 + Math.random() * 1.2})`, opacity: 0 },
+        { transform: `translate(calc(-50% + ${-c * d - s * lado}px), calc(-50% + ${-s * d + c * lado}px)) scale(${1.8 + Math.random() * 1.2})`, opacity: 0 },
       ], { duration: 900 + Math.random() * 600, easing: 'cubic-bezier(.22, 1, .36, 1)' }).onfinish = () => p.remove();
     };
 
     const mover = (t) => {
       const dt = Math.min((t - prev) / 16.67 || 1, 3); prev = t;      // movimiento igual a 60 o 120 Hz
-      // Da la vuelta cuando el cursor cruza al otro lado del carro (con margen para que no titubee)
-      if (dir === 1 && mx < x - 24) dir = -1; else if (dir === -1 && mx > x + 24) dir = 1;
-      // Resorte amortiguado: arranca y frena suave, siempre detrás del cursor y un poco más abajo
-      vx += (mx - dir * 46 - x) * 0.014 * dt; vy += (my + 22 - y) * 0.014 * dt;
+      const dx = mx - x, dy = my - y, dist = Math.hypot(dx, dy);
+      // Gira hacia el cursor por el camino más corto (sin dar vueltas de más)
+      if (dist > 38) {
+        let giro = Math.atan2(dy, dx) - rumbo;
+        giro = Math.atan2(Math.sin(giro), Math.cos(giro));
+        rumbo += giro * Math.min(1, 0.12 * dt);
+      }
+      // Resorte amortiguado hacia un punto detrás del cursor: arranca y frena suave
+      const tx = mx - Math.cos(rumbo) * 36, ty = my - Math.sin(rumbo) * 36;
+      vx += (tx - x) * 0.014 * dt; vy += (ty - y) * 0.014 * dt;
       const roce = Math.pow(0.86, dt); vx *= roce; vy *= roce;
       x += vx * dt; y += vy * dt;
-      sx += (dir - sx) * Math.min(1, 0.16 * dt);                         // el giro se ve como una vuelta, no un salto
-      ang += (Math.max(-12, Math.min(12, Math.atan2(vy, Math.abs(vx) + .6) * 57.3)) - ang) * Math.min(1, 0.1 * dt);
       const vel = Math.hypot(vx, vy);
-      giro += vel * 7 * dt;                                               // las ruedas giran con la distancia recorrida
       humo -= dt;
       if (activo && humo <= 0) { const fuerte = vel > 1.5; humito(fuerte); humo = fuerte ? 4 : 24; }  // más humo al acelerar
-      car.style.transform = `translate(${x - 42}px, ${y - 16}px) scaleX(${sx}) rotate(${ang}deg)`;
-      ruedas.forEach((r) => { r.style.transform = `rotate(${giro}deg)`; });
+      car.style.transform = `translate(${x - 28}px, ${y - 14}px) rotate(${rumbo}rad)`;
       requestAnimationFrame(mover);
     };
     requestAnimationFrame(mover);
