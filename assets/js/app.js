@@ -129,10 +129,10 @@
       + `<rect x="30" y="1.8" width="2.6" height="2" rx=".8" fill="#c52b2d"/><rect x="30" y="26.2" width="2.6" height="2" rx=".8" fill="#c52b2d"/>`      // espejos
       + `</svg>`;
     document.body.append(car);
-    let mx = 0, my = 0, x = 0, y = 0, vx = 0, vy = 0, rumbo = 0, humo = 0, prev = 0, activo = false;
+    let mx = 0, my = 0, x = 0, y = 0, vel = 0, rumbo = 0, humo = 0, prev = 0, activo = false;
     addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
-      if (!activo) { activo = true; x = mx - 40; y = my; car.classList.add('is-on'); }
+      if (!activo) { activo = true; x = mx - 30; y = my; rumbo = 0; car.classList.add('is-on'); }
     }, { passive: true });
     document.documentElement.addEventListener('mouseleave', () => { activo = false; car.classList.remove('is-on'); });
 
@@ -152,18 +152,14 @@
     const mover = (t) => {
       const dt = Math.min((t - prev) / 16.67 || 1, 3); prev = t;      // movimiento igual a 60 o 120 Hz
       const dx = mx - x, dy = my - y, dist = Math.hypot(dx, dy);
-      // Gira hacia el cursor por el camino más corto (sin dar vueltas de más)
-      if (dist > 38) {
-        let giro = Math.atan2(dy, dx) - rumbo;
-        giro = Math.atan2(Math.sin(giro), Math.cos(giro));
-        rumbo += giro * Math.min(1, 0.12 * dt);
-      }
-      // Resorte amortiguado hacia un punto detrás del cursor: arranca y frena suave
-      const tx = mx - Math.cos(rumbo) * 36, ty = my - Math.sin(rumbo) * 36;
-      vx += (tx - x) * 0.014 * dt; vy += (ty - y) * 0.014 * dt;
-      const roce = Math.pow(0.86, dt); vx *= roce; vy *= roce;
-      x += vx * dt; y += vy * dt;
-      const vel = Math.hypot(vx, vy);
+      // Conduce como un carro de verdad: gira el volante hacia el cursor y solo avanza hacia adelante (nunca en reversa)
+      let giro = Math.atan2(dy, dx) - rumbo;
+      giro = Math.atan2(Math.sin(giro), Math.cos(giro));               // camino más corto
+      if (dist > 4) rumbo += giro * Math.min(1, 0.2 * dt);
+      const deseada = Math.max(0, dist - 30) * 0.3;                     // se detiene con la trompa justo detrás del cursor
+      vel = deseada < vel ? deseada : vel + (deseada - vel) * Math.min(1, 0.3 * dt);  // acelera suave y frena a tiempo (no se pasa del cursor)
+      const avance = vel * Math.max(0, Math.cos(giro));                // si el cursor quedó atrás, frena y da la vuelta
+      x += Math.cos(rumbo) * avance * dt; y += Math.sin(rumbo) * avance * dt;
       humo -= dt;
       if (activo && humo <= 0) { const fuerte = vel > 1.5; humito(fuerte); humo = fuerte ? 4 : 24; }  // más humo al acelerar
       car.style.transform = `translate(${x - 28}px, ${y - 14}px) rotate(${rumbo}rad)`;

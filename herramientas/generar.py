@@ -34,7 +34,7 @@ def wa(servicio=None, code="INI"):
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
          title="Pastillas de freno en Medellín: Brembo, Bosch, ATE e Incolbestos",
-         intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas, con formulaciones especiales para vehículos blindados.",
+         intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
          faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y le indicamos el momento adecuado para el cambio.")]),
@@ -66,9 +66,9 @@ SERVICIOS = [
 EXTRAS = [
     dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="blindados", icon="shield",
          title="Frenos para vehículos blindados en Medellín",
-         intro="Pastillas de formulación especial para carros blindados, diseñadas para ofrecer un frenado constante, seguro y de alto desempeño.",
-         senales_t="Desempeño y calidad",
-         senales=["Mayor resistencia a la temperatura en frenadas exigentes", "Frenado estable y confiable en cada recorrido", "Mayor durabilidad frente a una pastilla convencional"],
+         intro="Repuestos de freno para carros blindados en marcas de alto desempeño, con la asesoría de especialistas en sistemas de frenos.",
+         senales_t="¿Por qué revisarlos con más frecuencia?",
+         senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
          faq=[]),
     dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="marcas", icon="award",
          title="Marcas de frenos en Medellín: Brembo, Bosch, ATE, Fremax y más",
@@ -450,7 +450,7 @@ def inicio():
 # ---------------------------------------------------------------- Sitio: páginas de servicio
 def servicio(x):
     s, a = "../", "../"
-    senales = "".join(f"<li>{ic('alert' if not x.get('marcas') and x['slug'] != 'blindados' else 'check')}<span>{i}</span></li>" for i in x["senales"])
+    senales = "".join(f"<li>{ic('check' if x.get('marcas') else 'alert')}<span>{i}</span></li>" for i in x["senales"])
     marcas = f'<ul class="brands reveal">{"".join(f"<li>{m}</li>" for m in MARCAS)}</ul>' if x.get("marcas") else ""
     # 6 tarjetas: llenan filas completas (2 columnas en celular, 3 en computador)
     otros = "".join(tile(o, s, a) for o in [t for t in TODOS if t["slug"] != x["slug"]][:6])
