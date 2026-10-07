@@ -9,7 +9,7 @@
 
 :root {
   /* Marca: valores exactos del sitio actual */
-  --rojo:        #d41111;  /* .top-header, .footer, h1 de sección, menú activo */
+  --rojo:        #c52b2d;  /* rojo del logo nuevo (LOGO FRENOTECA.ai): cabecera, pie, títulos · blanco encima 5.6:1 */
   --negro:       #000000;  /* --black: letras F y A del logo */
   --blanco:      #ffffff;  /* --white: letras RENOTEC del logo */
   --gris-claro:  #f3f3f3;  /* --white-dark */
@@ -19,8 +19,8 @@
   --verde-wa:    #43c358;  /* botón de WhatsApp del sitio actual */
 
   /* Derivados funcionales (misma familia, solo transparencias/tono) */
-  --rojo-oscuro: #b00e0e;  /* hover del rojo */
-  --rojo-08:     rgb(212 17 17 / .08);
+  --rojo-oscuro: #a82225;  /* hover del rojo */
+  --rojo-08:     rgb(197 43 45 / .08);
   --negro-80:    rgb(0 0 0 / .8);
   --negro-60:    rgb(0 0 0 / .6);
   --negro-12:    rgb(0 0 0 / .12);

@@ -143,7 +143,7 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#d41111">
+<meta name="theme-color" content="#c52b2d">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CO">
 <meta property="og:title" content="{title}">
@@ -167,8 +167,8 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 
 
 def logo(a, alt="Frenoteca", clase="logo"):
-    # Logo original del sitio vectorizado (trazado sobre el PNG de 366 × 99 px, ver README) para verse nítido en grande.
-    return f'<img class="{clase}" src="{a}assets/img/logo-frenoteca.svg" width="366" height="99" alt="{alt}">'
+    # Logo nuevo de Frenoteca, vectorial, convertido del archivo original LOGO FRENOTECA.ai (ver README).
+    return f'<img class="{clase}" src="{a}assets/img/logo-frenoteca.svg?v={V}" width="864" height="155" alt="{alt}">'
 
 
 # ---------------------------------------------------------------- Sitio: cabecera y pie
