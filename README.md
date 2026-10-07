@@ -28,7 +28,7 @@ Logo, color y fotos del cliente; nada se inventó.
 - **Color** — rojo `#c52b2d`, tomado del logo nuevo (`LOGO FRENOTECA.ai`); antes se usaba el `#d41111` de la web vieja. Además negro `#000`, blanco, `#f3f3f3`, `#6a6a6a`, `#333a4d`, y el verde oficial de WhatsApp `#25d366` en sus botones. El rojo no varía en ningún estado (tampoco al pasar el mouse).
 - **Tipografía** — **Bitter** en todo el sitio: serif de remate clásico, afín al logo y muy legible en pantalla. Alojada en el propio sitio (WOFF2 variable, ≈ 34 KB).
 - **Logo** — el logo nuevo de Frenoteca (`LOGO FRENOTECA.ai`, entregado por el cliente). Los trazos vectoriales del archivo se convirtieron a SVG sin redibujar (`assets/img/logo-frenoteca.svg`, blanco para fondos rojos) y se comprobó superponiéndolos al original. El ícono de la pestaña y la imagen para compartir salen de las mesas de trabajo del mismo archivo.
-- **Fotos** — las del taller y de productos publicadas en su web, convertidas a WebP.
+- **Fotos** — las del taller son las publicadas en su web. Las de cada servicio (`assets/img/servicios/`) son fotos de estudio generadas con IA (Seedream 5 Pro, sin logos de marcas), aprobadas por Rev Up el 7 de octubre de 2026.
 
 ## Datos a confirmar con el cliente
 

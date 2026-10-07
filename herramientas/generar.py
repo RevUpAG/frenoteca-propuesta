@@ -44,13 +44,13 @@ SERVICIOS = [
          senales_t="¿Cuándo revisarlos?",
          senales=["Vibración en el timón o en el pedal al frenar", "Rayas o surcos visibles en el disco", "El vehículo se desvía al frenar"],
          faq=[("¿Siempre se cambian junto con las pastillas?", "No necesariamente. Evaluamos el espesor y el estado del disco y recomendamos el cambio solo cuando es necesario.")]),
-    dict(slug="campanas-y-zapatas", nombre="Campanas y zapatas", msg="campanas o zapatas de freno", code="CAM", img="campanas", icon="drum",
+    dict(slug="campanas-y-zapatas", nombre="Campanas y zapatas", msg="campanas o zapatas de freno", code="CAM", img="campanas-y-zapatas", icon="drum",
          title="Campanas y zapatas de freno en Medellín para livianos y pesados",
          intro="Campanas y zapatas originales para vehículos livianos y pesados, fabricadas bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlas?",
          senales=["El freno de mano no sostiene el vehículo", "Ruido de roce en las ruedas traseras", "El pedal baja más de lo habitual"],
          faq=[("¿Mi vehículo usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Indíquenos marca, modelo y año, y le confirmamos la referencia.")]),
-    dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindro-maestro", icon="cylinder",
+    dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindros", icon="cylinder",
          title="Cilindro maestro (bomba de frenos) y cilindros de rueda en Medellín",
          intro="Cilindro maestro (bomba de frenos) y cilindros de rueda en referencias originales y homologadas de marcas reconocidas.",
          senales_t="¿Cuándo revisarlos?",
@@ -64,13 +64,13 @@ SERVICIOS = [
          faq=[]),
 ]
 EXTRAS = [
-    dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="caliper-rojo", icon="shield",
+    dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="blindados", icon="shield",
          title="Frenos para vehículos blindados en Medellín",
          intro="Pastillas de formulación especial para carros blindados, diseñadas para ofrecer un frenado constante, seguro y de alto desempeño.",
          senales_t="Desempeño y calidad",
          senales=["Mayor resistencia a la temperatura en frenadas exigentes", "Frenado estable y confiable en cada recorrido", "Mayor durabilidad frente a una pastilla convencional"],
          faq=[]),
-    dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="disco-caliper", icon="award",
+    dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="marcas", icon="award",
          title="Marcas de frenos en Medellín: Brembo, Bosch, ATE, Fremax y más",
          intro="Trabajamos con marcas de alto desempeño, en repuestos originales y homologados.",
          marcas=True, senales_t="Le asesoramos en su elección",
@@ -306,7 +306,7 @@ def pie(s, a, code="INI", msg=None):
 
 def tile(x, s, a):
     return f"""<a class="tile reveal" href="{s}{x["slug"]}/">
-  <span class="tile-img"><img src="{a}assets/img/productos/{x["img"]}.webp" alt="" loading="lazy" decoding="async"></span>
+  <span class="tile-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="" loading="lazy" decoding="async"></span>
   <span class="tile-name">{x["nombre"]}</span>
   {ic("arrow")}
 </a>"""
@@ -469,7 +469,7 @@ def servicio(x):
             <a class="btn btn-borde btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escribir por WhatsApp</a>
           </div>
         </div>
-        <figure class="svc-hero-img"><img src="{a}assets/img/productos/{x["img"]}.webp" alt="{x["nombre"]}" fetchpriority="high"></figure>
+        <figure class="svc-hero-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]}" fetchpriority="high"></figure>
       </div>
     </div>
   </section>
