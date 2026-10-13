@@ -192,7 +192,7 @@ def cabecera(s, a, activo=""):
       </ul>
       <div class="nav-cta">
         <a class="btn btn-blanco" href="{TEL_HREF}">{ic("phone")} {TEL}</a>
-        <a class="btn btn-blanco nav-wa" href="{wa()}">{ic("wa")} WhatsApp</a>
+        <a class="btn btn-wa nav-wa" href="{wa()}">{ic("wa")} WhatsApp</a>
       </div>
     </nav>
     <button class="hdr-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">{ic("menu")}{ic("close")}<span>Menú</span></button>
@@ -270,7 +270,7 @@ def cotizar(preseleccion=""):
         <label><input type="radio" name="franja" value="tarde"> Tarde</label>
       </fieldset>
       <p class="form-error" role="alert" aria-live="polite"></p>
-      <button class="btn btn-rojo btn-lg btn-block" type="submit">{ic("wa")} Enviar por WhatsApp</button>
+      <button class="btn btn-wa btn-lg btn-block" type="submit">{ic("wa")} Enviar por WhatsApp</button>
     </form>
   </div>
 </section>"""
@@ -295,8 +295,8 @@ def pie(s, a, code="INI", msg=None):
   </div>
 </footer>
 <nav class="action-bar" aria-label="Contacto rápido">
-  <a class="btn btn-rojo" href="{TEL_HREF}">{ic("phone")} Llamar</a>
-  <a class="btn btn-negro" href="#cotizar">{ic("calendar")} Cotizar</a>
+  <a class="btn btn-wa" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
+  <a class="btn btn-borde" href="{TEL_HREF}">{ic("phone")} Llamar</a>
 </nav>
 <a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbanos por WhatsApp">
   <span class="wa-float-label">¿Le ayudamos? <strong>Escríbanos</strong></span>
@@ -384,8 +384,8 @@ def inicio():
       <h1 class="hero-t">Frenos para su carro en Medellín</h1>
       <p class="lead">Repuestos de alto desempeño y taller especializado en un solo lugar. Más de 40 años brindando seguridad y tranquilidad en cada recorrido.</p>
       <div class="btn-col hero-btns">
-        <a class="btn btn-rojo btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
-        <a class="btn btn-blanco btn-xl" href="{wa()}">{ic("wa")} Escribir por WhatsApp</a>
+        <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbanos por WhatsApp</a>
+        <a class="btn btn-borde btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
       </div>
       <div class="hero-meta">
         {estado_horario()}
@@ -465,8 +465,8 @@ def servicio(x):
           <h1 class="svc-h1">{x["nombre"]}</h1>
           <p class="lead">{x["intro"]}</p>
           <div class="btn-col">
-            <a class="btn btn-rojo btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
-            <a class="btn btn-borde btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escribir por WhatsApp</a>
+            <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbanos por WhatsApp</a>
+            <a class="btn btn-borde btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
           </div>
         </div>
         <figure class="svc-hero-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]}" fetchpriority="high"></figure>

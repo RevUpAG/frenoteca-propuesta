@@ -126,6 +126,24 @@ b, strong { font-weight: 600; color: var(--negro); }
 .btn svg { width: 1.25em; height: 1.25em; flex: none; }
 .btn-rojo { background: var(--rojo); color: var(--blanco); }
 .btn-rojo:hover { box-shadow: 0 8px 22px rgb(0 0 0 / .22); transform: translateY(-1px); } /* el rojo no cambia de tono */
+/* WhatsApp: acción principal. Verde con brillo que respira y un destello que lo recorre */
+.btn-wa {
+  position: relative; overflow: hidden; isolation: isolate;
+  background: linear-gradient(135deg, #2bd46a 0%, #179c4b 100%); color: var(--blanco); font-weight: 700;
+  border-color: rgb(255 255 255 / .25); text-shadow: 0 1px 1px rgb(0 0 0 / .25);
+  box-shadow: 0 0 0 0 rgb(37 211 102 / .55), 0 8px 24px rgb(37 211 102 / .45);
+  animation: wa-glow 2.4s ease-in-out infinite;
+}
+.btn-wa::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / .45) 50%, transparent 65%);
+  transform: translateX(-120%); animation: wa-shine 3.6s ease-in-out infinite;
+}
+.btn-wa:hover { transform: translateY(-2px); box-shadow: 0 0 0 6px rgb(37 211 102 / .2), 0 14px 32px rgb(37 211 102 / .55); }
+.btn-wa .icon-wa { color: var(--blanco); }
+@keyframes wa-glow { 50% { box-shadow: 0 0 0 8px rgb(37 211 102 / 0), 0 10px 34px rgb(37 211 102 / .7); } }
+@keyframes wa-shine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
+@media (prefers-reduced-motion: reduce) { .btn-wa, .btn-wa::after { animation: none; } }
 .btn-negro { background: var(--negro); color: var(--blanco); }
 .btn-negro:hover { background: var(--grafito); }
 .btn-blanco { background: var(--blanco); color: var(--negro); }

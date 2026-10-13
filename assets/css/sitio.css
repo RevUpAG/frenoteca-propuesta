@@ -67,7 +67,7 @@
   .has-sub:hover .sub, .has-sub:has(:focus-visible) .sub { display: grid; }
   .nav-cta { display: flex; margin: 0; gap: .5rem; }
   .nav-cta .btn { min-height: 48px; padding: .5rem 1rem; font-size: 1.0625rem; white-space: nowrap; }
-  .nav-cta .btn-blanco, .nav-cta .btn-blanco:first-child { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
+  .nav-cta .btn-blanco:first-child { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
   .nav-cta .btn-blanco:first-child { font-weight: 700; }
   .site-header .logo { width: 240px; }
 }
@@ -76,7 +76,7 @@
 /* ---------- Barra de acción fija (móvil) y WhatsApp flotante ---------- */
 .action-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
-  display: grid; grid-template-columns: 1fr 1fr; gap: .5rem;
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: .5rem;
   padding: .625rem var(--gutter) calc(.625rem + env(safe-area-inset-bottom));
   background: rgb(255 255 255 / .97); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--line);
@@ -94,6 +94,7 @@
 .wa-float.is-hint .wa-float-label, .wa-float:hover .wa-float-label, .wa-float:focus-visible .wa-float-label { opacity: 1; transform: none; }
 @keyframes wa-pulse { 0% { transform: scale(1); opacity: .8; } 80%, 100% { transform: scale(1.55); opacity: 0; } }
 .menu-open .wa-float { display: none; }
+@media (max-width: 959px) { .wa-float { display: none; } } /* en móvil la barra inferior ya lleva WhatsApp */
 @media (min-width: 960px) { .wa-float { right: 24px; bottom: 24px; } .wa-float-btn { width: 68px; height: 68px; } }
 @media (prefers-reduced-motion: reduce) { .wa-float-btn::before { display: none; } }
 
