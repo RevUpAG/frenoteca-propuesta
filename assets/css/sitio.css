@@ -76,7 +76,7 @@
 /* ---------- Barra de acción fija (móvil) y WhatsApp flotante ---------- */
 .action-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
-  display: grid; grid-template-columns: 1.5fr 1fr; gap: .5rem;
+  display: grid; grid-template-columns: 1fr; gap: .5rem;
   padding: .625rem var(--gutter) calc(.625rem + env(safe-area-inset-bottom));
   background: rgb(255 255 255 / .97); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--line);

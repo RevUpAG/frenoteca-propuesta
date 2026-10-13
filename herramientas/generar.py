@@ -296,7 +296,6 @@ def pie(s, a, code="INI", msg=None):
 </footer>
 <nav class="action-bar" aria-label="Contacto rápido">
   <a class="btn btn-wa" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
-  <a class="btn btn-borde" href="{TEL_HREF}">{ic("phone")} Llamar</a>
 </nav>
 <a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbanos por WhatsApp">
   <span class="wa-float-label">¿Le ayudamos? <strong>Escríbanos</strong></span>
@@ -385,7 +384,6 @@ def inicio():
       <p class="lead">Repuestos de alto desempeño y taller especializado en un solo lugar. Más de 40 años brindando seguridad y tranquilidad en cada recorrido.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbanos por WhatsApp</a>
-        <a class="btn btn-borde btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
       </div>
       <div class="hero-meta">
         {estado_horario()}
@@ -466,7 +464,6 @@ def servicio(x):
           <p class="lead">{x["intro"]}</p>
           <div class="btn-col">
             <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbanos por WhatsApp</a>
-            <a class="btn btn-borde btn-xl" href="{TEL_HREF}">{ic("phone")} Llamar al {TEL}</a>
           </div>
         </div>
         <figure class="svc-hero-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]}" fetchpriority="high"></figure>
