@@ -150,7 +150,8 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 <link rel="icon" href="{a}assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="{a}assets/img/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="{a}assets/img/apple-touch-icon.png">
-<link rel="preload" href="{a}assets/fonts/bitter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{a}assets/fonts/nunito-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{a}assets/fonts/nunito-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{a}assets/css/brand.css?v={V}">
 <link rel="stylesheet" href="{a}assets/css/{css}?v={V}">
 <script>document.documentElement.classList.replace('no-js','js')</script>
@@ -379,14 +380,12 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Patio de Frenoteca con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <p class="eyebrow">Especialistas en frenos</p>
-      <h1 class="hero-t">Frenos para su carro en Medellín</h1>
-      <p class="lead">Repuestos de alto desempeño y taller especializado en un solo lugar. Más de 40 años brindando seguridad y tranquilidad en cada recorrido.</p>
+      <h1 class="hero-t">Sus frenos, en buenas manos</h1>
+      <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbanos por WhatsApp</a>
       </div>
       <div class="hero-meta">
-        {estado_horario()}
         <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span><span><strong>4,6</strong> · 360 opiniones en Google</span></a>
       </div>
     </div>

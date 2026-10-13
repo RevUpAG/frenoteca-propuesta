@@ -1,10 +1,13 @@
 /* ==========================================================================
    Frenoteca · Sistema de marca
    Rojo del logo nuevo (LOGO FRENOTECA.ai), un solo tono en todo el sitio.
-   Tipografía Bitter: serif de remate clásico, afín al logo y legible en pantalla. Ver README.
+   Tipografía Nunito: sans redondeada, cercana y muy legible. Ver README.
    ========================================================================== */
 
-@font-face { font-family: "Bitter"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("../fonts/bitter.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/nunito-400.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/nunito-600.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/nunito-700.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-style: normal; font-weight: 800; font-display: swap; src: url("../fonts/nunito-800.woff2") format("woff2"); }
 
 :root {
   /* Marca: valores exactos del sitio actual */
@@ -29,8 +32,8 @@
   --text-soft: var(--grafito); /* más oscuro que el gris: 10.5:1, lectura cómoda para público mayor */
   --line: var(--negro-12);
 
-  /* Tipografía: Bitter para todo (títulos, texto y etiquetas) */
-  --font: "Bitter", Georgia, "Times New Roman", serif;
+  /* Tipografía: Nunito para todo (títulos, texto y etiquetas) */
+  --font: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
   --fs-xs:   .8125rem;
   --fs-sm:   .9375rem;
   --fs-base: 1.125rem;  /* 18 px: público mayor */
@@ -76,7 +79,7 @@ img, svg, video, iframe { display: block; max-width: 100%; }
 img { height: auto; }
 a { color: inherit; text-underline-offset: .2em; }
 p { margin: 0 0 1em; }
-h1, h2, h3, h4 { margin: 0 0 .5em; font-weight: 700; line-height: 1.15; letter-spacing: -.005em; text-wrap: balance; }
+h1, h2, h3, h4 { margin: 0 0 .5em; font-weight: 800; line-height: 1.15; letter-spacing: -.01em; text-wrap: balance; }
 ul, ol { margin: 0; padding: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }
 b, strong { font-weight: 600; color: var(--negro); }
@@ -103,7 +106,7 @@ b, strong { font-weight: 600; color: var(--negro); }
 }
 .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
 .on-dark .eyebrow, .on-red .eyebrow { color: var(--blanco); }
-.title { font-size: var(--fs-2xl); text-transform: uppercase; letter-spacing: .01em; }
+.title { font-size: var(--fs-2xl); }
 .title + .lead { margin-top: -.25rem; }
 .title em { font-style: normal; color: var(--rojo); }
 .on-red .title em { color: var(--negro); }
