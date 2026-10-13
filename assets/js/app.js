@@ -129,10 +129,11 @@
       + `<rect x="30" y="1.8" width="2.6" height="2" rx=".8" fill="#c52b2d"/><rect x="30" y="26.2" width="2.6" height="2" rx=".8" fill="#c52b2d"/>`      // espejos
       + `</svg>`;
     document.body.append(car);
-    let mx = 0, my = 0, x = 0, y = 0, vel = 0, rumbo = 0, humo = 0, prev = 0, activo = false;
+    let mx = 0, my = 0, x = 0, y = 0, vel = 0, rumbo = 0, humo = 0, prev = 0, activo = false, corriendo = false;
     addEventListener('mousemove', (e) => {
       mx = e.clientX; my = e.clientY;
       if (!activo) { activo = true; x = mx - 30; y = my; rumbo = 0; car.classList.add('is-on'); }
+      if (!corriendo) { corriendo = true; prev = 0; requestAnimationFrame(mover); }
     }, { passive: true });
     document.documentElement.addEventListener('mouseleave', () => { activo = false; car.classList.remove('is-on'); });
 
@@ -163,8 +164,7 @@
       humo -= dt;
       if (activo && humo <= 0) { const fuerte = vel > 1.5; humito(fuerte); humo = fuerte ? 4 : 24; }  // más humo al acelerar
       car.style.transform = `translate(${x - 28}px, ${y - 14}px) rotate(${rumbo}rad)`;
-      requestAnimationFrame(mover);
+      if (activo) requestAnimationFrame(mover); else corriendo = false;  // sin mouse en la página, no gasta CPU
     };
-    requestAnimationFrame(mover);
   }
 })();

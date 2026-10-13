@@ -146,6 +146,7 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 <meta property="og:description" content="{desc}">
 <meta property="og:image" content="https://revupag.github.io/frenoteca-propuesta/assets/img/{og}">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{a}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="{a}assets/img/favicon-32.png" sizes="32x32">
 <link rel="icon" href="{a}assets/img/favicon-192.png" sizes="192x192">
 <link rel="apple-touch-icon" href="{a}assets/img/apple-touch-icon.png">
@@ -306,7 +307,7 @@ def pie(s, a, code="INI", msg=None):
 
 def tile(x, s, a):
     return f"""<a class="tile reveal" href="{s}{x["slug"]}/">
-  <span class="tile-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="" loading="lazy" decoding="async"></span>
+  <span class="tile-img"><img src="{a}assets/img/servicios/{x["img"]}-mini.webp" srcset="{a}assets/img/servicios/{x["img"]}-mini.webp 640w, {a}assets/img/servicios/{x["img"]}.webp 1200w" sizes="(min-width: 800px) 33vw, 100vw" width="1200" height="675" alt="" loading="lazy" decoding="async"></span>
   <span class="tile-name">{x["nombre"]}</span>
   {ic("arrow")}
 </a>"""
@@ -369,7 +370,7 @@ def inicio():
     # 6 tarjetas (servicios + blindados): filas completas; «Marcas» queda en el menú y en «Por qué Frenoteca»
     tiles = "".join(tile(x, s, a) for x in TODOS if x["slug"] != "marcas")
     galeria = "".join(
-        f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
+        f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}-mini.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
         for f, alt in GALERIA)
     estrellas = ic("star") * 5
     body = f"""{cabecera(s, a)}
