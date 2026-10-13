@@ -6,7 +6,7 @@ Nuevo sitio web de **Frenoteca S.A.S.** (Medellín, Colombia), por Rev Up Agency
 
 **https://revupag.github.io/frenoteca-propuesta/**
 
-Pensado primero para el celular y para público mayor: trato de «usted», letra de 18 px,
+Pensado primero para el celular y para público mayor: trato de «tú», letra de 18 px,
 botones grandes con texto, pocas secciones.
 
 ---

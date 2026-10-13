@@ -30,14 +30,14 @@ def wa(servicio=None, code="INI"):
     return f"https://wa.me/{WA}?text=" + quote(f"{txt} (Ref: WEB-{code})")
 
 
-# Tono: profesional y claro, trato de «usted». Nunca hablar de precio bajo, «barato» o «económico».
+# Tono: profesional y claro, trato de «tú». Nunca hablar de precio bajo, «barato» o «económico».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
          title="Pastillas de freno en Medellín: Brembo, Bosch, ATE e Incolbestos",
          intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
-         faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y le indicamos el momento adecuado para el cambio.")]),
+         faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y te indicamos el momento adecuado para el cambio.")]),
     dict(slug="discos", nombre="Discos de freno", msg="discos de freno", code="DIS", img="discos", icon="disc",
          title="Discos de freno en Medellín: nacionales, importados y de equipo original",
          intro="Discos de freno nacionales, importados y de equipo original para todo tipo de vehículo, fabricados bajo altos estándares de calidad.",
@@ -49,7 +49,7 @@ SERVICIOS = [
          intro="Campanas y zapatas originales para vehículos livianos y pesados, fabricadas bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlas?",
          senales=["El freno de mano no sostiene el vehículo", "Ruido de roce en las ruedas traseras", "El pedal baja más de lo habitual"],
-         faq=[("¿Mi vehículo usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Indíquenos marca, modelo y año, y le confirmamos la referencia.")]),
+         faq=[("¿Mi carro usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Cuéntanos marca, modelo y año, y te confirmamos la referencia.")]),
     dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindros", icon="cylinder",
          title="Cilindro maestro (bomba de frenos) y cilindros de rueda en Medellín",
          intro="Cilindro maestro (bomba de frenos) y cilindros de rueda en referencias originales y homologadas de marcas reconocidas.",
@@ -73,8 +73,8 @@ EXTRAS = [
     dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="marcas", icon="award",
          title="Marcas de frenos en Medellín: Brembo, Bosch, ATE, Fremax y más",
          intro="Trabajamos con marcas de alto desempeño, en repuestos originales y homologados.",
-         marcas=True, senales_t="Le asesoramos en su elección",
-         senales=["Original: la misma referencia con la que salió su vehículo de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
+         marcas=True, senales_t="Te asesoramos para elegir",
+         senales=["Original: la misma referencia con la que salió tu carro de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
          faq=[]),
 ]
 TODOS = SERVICIOS + EXTRAS
@@ -170,7 +170,7 @@ def logo(a, alt="Frenoteca", clase="logo"):
 
 
 # ---------------------------------------------------------------- Sitio: cabecera y pie
-# Público mayor: letra grande, frases cortas, trato de «usted» y botones con texto (no solo íconos).
+# Público mayor: letra grande, frases cortas, trato de «tú» y botones con texto (no solo íconos).
 # Todas las llamadas van al teléfono fijo; el celular se usa solo para WhatsApp.
 def cabecera(s, a, activo=""):
     cur = ' aria-current="page"'
@@ -192,13 +192,11 @@ def cabecera(s, a, activo=""):
         <li><a href="{s}#visitenos">Cómo llegar</a></li>
       </ul>
       <div class="nav-cta">
-        <a class="btn btn-blanco" href="{TEL_HREF}">{ic("phone")} {TEL}</a>
         <a class="btn btn-wa nav-wa" href="{wa()}">{ic("wa")} WhatsApp</a>
       </div>
     </nav>
     <button class="hdr-btn menu-btn" type="button" aria-expanded="false" aria-controls="menu">{ic("menu")}{ic("close")}<span>Menú</span></button>
   </div>
-  <a class="hdr-phone" href="{TEL_HREF}">{ic("phone")} <span>Llámenos:</span> <strong>{TEL}</strong></a>
 </header>"""
 
 
@@ -247,22 +245,22 @@ def cotizar(preseleccion=""):
         f'<option value="{x["nombre"]}"{" selected" if x["slug"] == preseleccion else ""}>{x["nombre"]}</option>'
         for x in TODOS if x["slug"] != "marcas")
     code = next((x["code"] for x in TODOS if x["slug"] == preseleccion), "INI")
-    vacia = "" if preseleccion else '<option value="" selected disabled>Escoja una opción</option>'
+    vacia = "" if preseleccion else '<option value="" selected disabled>Escoge una opción</option>'
     return f"""<section class="section cita bg-negro on-dark" id="cotizar" aria-labelledby="cita-t">
   <div class="wrap cita-grid">
-    {cabeza("Cotizaciones", "Cotice y consulte disponibilidad", "cita-t",
-            "Atendemos en orden de llegada. Cuéntenos qué necesita y cuándo piensa venir; le respondemos por WhatsApp con la cotización y la disponibilidad.")}
+    {cabeza("Cotizaciones", "Cotiza y consulta disponibilidad", "cita-t",
+            "Atendemos en orden de llegada. Cuéntanos qué necesitas y cuándo piensas venir; te respondemos por WhatsApp con la cotización y la disponibilidad.")}
     <form class="form reveal" data-agenda data-wa="{WA}" data-code="{code}" novalidate>
       <div class="field">
-        <label for="f-nombre">Su nombre</label>
+        <label for="f-nombre">Tu nombre</label>
         <input id="f-nombre" name="nombre" autocomplete="name" required>
       </div>
       <div class="field">
-        <label for="f-servicio">¿Qué necesita?</label>
+        <label for="f-servicio">¿Qué necesitas?</label>
         <div class="select"><select id="f-servicio" name="servicio" required>{vacia}{opciones}<option value="Una revisión del sistema de frenos">No estoy seguro</option></select>{ic("chev")}</div>
       </div>
       <div class="field">
-        <label for="f-fecha">¿Qué día piensa venir?</label>
+        <label for="f-fecha">¿Qué día piensas venir?</label>
         <input id="f-fecha" name="fecha" type="date" required>
       </div>
       <fieldset class="field franja">
@@ -298,8 +296,8 @@ def pie(s, a, code="INI", msg=None):
 <nav class="action-bar" aria-label="Contacto rápido">
   <a class="btn btn-wa" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
 </nav>
-<a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbanos por WhatsApp">
-  <span class="wa-float-label">¿Le ayudamos? <strong>Escríbanos</strong></span>
+<a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbenos por WhatsApp">
+  <span class="wa-float-label">¿Te ayudamos? <strong>Escríbenos</strong></span>
   <span class="wa-float-btn">{ic("wa")}</span>
 </a>"""
 
@@ -313,12 +311,12 @@ def tile(x, s, a):
 
 
 FAQ = [
-    ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si desea confirmar disponibilidad antes de venir, escríbanos por WhatsApp."),
+    ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si quieres confirmar disponibilidad antes de venir, escríbenos por WhatsApp."),
     ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
-    ("¿Cómo puedo solicitar una cotización?", f"Llámenos al {TEL} o escríbanos por WhatsApp indicando la marca, el modelo y el año de su vehículo."),
+    ("¿Cómo puedo solicitar una cotización?", "Escríbenos por WhatsApp con la marca, el modelo y el año de tu carro."),
     ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
-    ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Contamos con patio para recibir su vehículo."),
+    ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir tu carro."),
 ]
 
 
@@ -380,10 +378,10 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Patio de Frenoteca con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <h1 class="hero-t">Sus frenos, en buenas manos</h1>
+      <h1 class="hero-t">Tus frenos, en buenas manos</h1>
       <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
-        <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbanos por WhatsApp</a>
+        <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
       </div>
       <div class="hero-meta">
         <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span><span><strong>4,6</strong> · 360 opiniones en Google</span></a>
@@ -393,7 +391,7 @@ def inicio():
 
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      {cabeza("Nuestros servicios", "¿Qué necesita?", "serv-t", "Repuestos y servicio especializado para cada componente del sistema de frenos.")}
+      {cabeza("Nuestros servicios", "¿Qué necesitas?", "serv-t", "Repuestos y servicio especializado para cada componente del sistema de frenos.")}
       <div class="tiles tiles-3">{tiles}</div>
     </div>
   </section>
@@ -413,7 +411,7 @@ def inicio():
 
   <section class="section" id="taller" aria-labelledby="taller-t">
     <div class="wrap">
-      {cabeza("Nuestra sede", "Nuestro taller", "taller-t", "Carrera 50 # 39-87, con patio para recibir su vehículo.")}
+      {cabeza("Nuestra sede", "Nuestro taller", "taller-t", "Carrera 50 # 39-87, con patio para recibir tu carro.")}
       <div class="gallery reveal">{galeria}</div>
       <button class="btn btn-borde btn-lg gal-all" type="button" data-gal-open>{ic("image")} Ver las {len(GALERIA)} fotos</button>
     </div>
@@ -433,7 +431,7 @@ def inicio():
     </div>
   </section>
 
-  {faq_html(FAQ, "Resolvemos sus dudas")}
+  {faq_html(FAQ, "Resolvemos tus dudas")}
 
   {visitenos(a)}
 </main>
@@ -462,7 +460,7 @@ def servicio(x):
           <h1 class="svc-h1">{x["nombre"]}</h1>
           <p class="lead">{x["intro"]}</p>
           <div class="btn-col">
-            <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbanos por WhatsApp</a>
+            <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbenos por WhatsApp</a>
           </div>
         </div>
         <figure class="svc-hero-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]}" fetchpriority="high"></figure>

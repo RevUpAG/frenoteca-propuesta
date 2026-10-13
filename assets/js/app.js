@@ -68,9 +68,9 @@
       err.textContent = '';
       $$('[aria-invalid]', form).forEach((el) => el.removeAttribute('aria-invalid'));
       const bad = $$('input:not([type="radio"]), select', form).find((el) => !el.checkValidity());
-      if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Por favor complete: ' + $(`label[for="${bad.id}"]`, form).textContent.trim(); bad.focus(); return; }
-      if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Escoja de lunes a sábado.'; fecha.focus(); return; }
-      if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoja hoy o un día después.'; fecha.focus(); return; }
+      if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Por favor completa: ' + $(`label[for="${bad.id}"]`, form).textContent.trim(); bad.focus(); return; }
+      if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Escoge de lunes a sábado.'; fecha.focus(); return; }
+      if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoge hoy o un día después.'; fecha.focus(); return; }
       const f = form.elements;
       const dia = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(fecha.value + 'T12:00:00'));
       const msg = `Hola Frenoteca, quisiera una cotización y saber su disponibilidad.\n\n• Nombre: ${f.nombre.value.trim()}\n• Servicio: ${f.servicio.value}\n• Pienso ir: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-COT-${form.dataset.code})`;

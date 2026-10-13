@@ -11,9 +11,6 @@
 .brand { display: block; padding-block: 8px; }
 .site-header .logo { height: auto; width: min(190px, 50vw); }
 /* Teléfono fijo siempre visible y tocable: en celular es la segunda fila de la cabecera */
-.hdr-phone { display: flex; align-items: center; justify-content: center; gap: .45rem; min-height: 44px; padding: 0 var(--gutter); border-top: 1px solid rgb(255 255 255 / .25); color: var(--blanco); text-decoration: none; font-size: 1.125rem; }
-.hdr-phone .icon { width: 20px; height: 20px; }
-.hdr-phone strong { color: var(--blanco); font-weight: 700; letter-spacing: .02em; }
 .hdr-btn { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-width: 60px; height: 56px; padding: 0 .4rem; border: 0; border-radius: var(--radius-sm); background: rgb(0 0 0 / .14); color: var(--blanco); font-size: .9375rem; text-decoration: none; cursor: pointer; }
 .hdr-btn .icon { width: 22px; height: 22px; }
 .menu-btn .icon:nth-child(2) { display: none; }
@@ -48,11 +45,10 @@
 }
 .nav-cta { display: grid; gap: .75rem; margin-top: 1.5rem; }
 .nav-cta .btn { min-height: 60px; font-size: 1.25rem; }
-.nav-cta .btn-blanco:first-child { background: var(--rojo); color: var(--blanco); }
 .nav-cta .nav-wa { border-color: var(--negro); }
 
 @media (min-width: 960px) {
-  .menu-btn, .hdr-phone { display: none; }
+  .menu-btn { display: none; }
   .nav { position: static; visibility: visible; opacity: 1; background: none; color: var(--blanco); padding: 0; overflow: visible; display: flex; align-items: center; gap: 1.25rem; }
   .nav-list { display: flex; align-items: center; gap: .25rem; }
   .nav-list > li { border: 0; position: relative; }
@@ -67,8 +63,6 @@
   .has-sub:hover .sub, .has-sub:has(:focus-visible) .sub { display: grid; }
   .nav-cta { display: flex; margin: 0; gap: .5rem; }
   .nav-cta .btn { min-height: 48px; padding: .5rem 1rem; font-size: 1.0625rem; white-space: nowrap; }
-  .nav-cta .btn-blanco:first-child { background: var(--blanco); color: var(--negro); border-color: var(--blanco); }
-  .nav-cta .btn-blanco:first-child { font-weight: 700; }
   .site-header .logo { width: 240px; }
 }
 @media (min-width: 960px) and (max-width: 1180px) { .nav-wa { display: none !important; } }
