@@ -45,7 +45,7 @@
 }
 .nav-cta { display: grid; gap: .75rem; margin-top: 1.5rem; }
 .nav-cta .btn { min-height: 60px; font-size: 1.25rem; }
-.nav-cta .nav-wa { border-color: var(--negro); border-radius: 999px; }
+.nav-cta .nav-wa { border-color: transparent; border-radius: 999px; }
 
 @media (min-width: 960px) {
   .menu-btn { display: none; }
