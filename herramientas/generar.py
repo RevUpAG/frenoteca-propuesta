@@ -8,6 +8,8 @@ from urllib.parse import quote
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 V = time.strftime("%Y%m%d%H%M")  # versión para romper la caché de CSS/JS
+BASE = "https://revupag.github.io/frenoteca-propuesta/"  # cambiar por el dominio definitivo al publicar
+INDEXAR = False  # propuesta: no indexar. Al publicar en el dominio del cliente → True
 
 # ---------------------------------------------------------------- Datos del negocio
 WA = "573128334755"
@@ -33,13 +35,13 @@ def wa(servicio=None, code="INI"):
 # Tono: profesional y claro, trato de «tú». Nunca hablar de precio bajo, «barato» o «económico».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Pastillas de freno en Medellín: Brembo, Bosch, ATE e Incolbestos",
+         title="Pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
          intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
          faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y te indicamos el momento adecuado para el cambio.")]),
     dict(slug="discos", nombre="Discos de freno", msg="discos de freno", code="DIS", img="discos", icon="disc",
-         title="Discos de freno en Medellín: nacionales, importados y de equipo original",
+         title="Discos de freno en Medellín | Frenos y discos para tu carro",
          intro="Discos de freno nacionales, importados y de equipo original para todo tipo de vehículo, fabricados bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlos?",
          senales=["Vibración en el timón o en el pedal al frenar", "Rayas o surcos visibles en el disco", "El vehículo se desvía al frenar"],
@@ -62,16 +64,23 @@ SERVICIOS = [
          senales_t="¿Cuándo revisarlas?",
          senales=["Manguera reseca o agrietada", "Humedad o fuga de líquido de frenos", "Pedal de freno blando"],
          faq=[]),
+    dict(slug="liquido-de-frenos", nombre="Líquido de frenos", msg="cambio de líquido de frenos", code="LIQ", img=None, icon="drop",
+         title="Líquido de frenos en Medellín: cambio y purga del sistema",
+         intro="Cambio de líquido de frenos DOT 3, DOT 4 y DOT 5.1 con purga completa del sistema, para que tu pedal responda firme y seguro.",
+         senales_t="¿Cuándo cambiarlo?",
+         senales=["Pedal de freno blando o esponjoso", "Líquido oscuro o turbio en el depósito", "Han pasado más de dos años desde el último cambio"],
+         faq=[("¿Cada cuánto se cambia el líquido de frenos?", "Como referencia, cada dos años o según el manual de tu carro. El líquido absorbe humedad con el tiempo y pierde eficacia."),
+              ("¿Qué líquido usa mi carro?", "Depende del fabricante: DOT 3, DOT 4 o DOT 5.1. Cuéntanos marca, modelo y año y te decimos cuál lleva.")]),
 ]
 EXTRAS = [
     dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="blindados", icon="shield",
-         title="Frenos para vehículos blindados en Medellín",
+         title="Frenos para carros blindados en Medellín",
          intro="Repuestos de freno para carros blindados en marcas de alto desempeño, con la asesoría de especialistas en sistemas de frenos.",
          senales_t="¿Por qué revisarlos con más frecuencia?",
          senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
          faq=[]),
     dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="marcas", icon="award",
-         title="Marcas de frenos en Medellín: Brembo, Bosch, ATE, Fremax y más",
+         title="Marcas de frenos en Medellín | Brembo, Bosch, ATE, Fremax y más",
          intro="Trabajamos con marcas de alto desempeño, en repuestos originales y homologados.",
          marcas=True, senales_t="Te asesoramos para elegir",
          senales=["Original: la misma referencia con la que salió tu carro de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
@@ -118,6 +127,8 @@ ICONOS = {
     "bolt": '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/>',
     "tag": '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7" cy="7" r="1.5"/>',
     "nav": '<path d="m3 11 19-9-9 19-2-8-8-2Z"/>',
+    "drop": '<path d="M12 2.5s6.5 7.2 6.5 11.7a6.5 6.5 0 0 1-13 0C5.5 9.7 12 2.5 12 2.5Z"/><path d="M9 14.5a3 3 0 0 0 3 3"/>',
+    "chat": '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 9h8M8 13h5"/>',
     "mail": '<rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="m3 6 9 7 9-7"/>',
 }
 
@@ -129,7 +140,7 @@ def ic(nombre, clase="icon"):
 
 
 # ---------------------------------------------------------------- Plantilla base
-def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
+def documento(*, title, desc, css, body, a, og, ruta="", body_class="", extra_head=""):
     """a = prefijo relativo hasta /assets (p. ej. '../')."""
     return f"""<!doctype html>
 <html lang="es-CO" class="no-js">
@@ -138,13 +149,18 @@ def documento(*, title, desc, css, body, a, og, body_class="", extra_head=""):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="{"index, follow" if INDEXAR else "noindex, nofollow"}">
+<link rel="canonical" href="{BASE}{ruta}">
+<meta name="geo.region" content="CO-ANT">
+<meta name="geo.placename" content="Medellín">
 <meta name="theme-color" content="#c52b2d">
 <meta property="og:type" content="website">
+<meta property="og:url" content="{BASE}{ruta}">
+<meta property="og:site_name" content="Frenoteca">
 <meta property="og:locale" content="es_CO">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="https://revupag.github.io/frenoteca-propuesta/assets/img/{og}">
+<meta property="og:image" content="{BASE}assets/img/{og}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{a}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="{a}assets/img/favicon-32.png" sizes="32x32">
@@ -303,8 +319,10 @@ def pie(s, a, code="INI", msg=None):
 
 
 def tile(x, s, a):
+    img = (f'<img src="{a}assets/img/servicios/{x["img"]}-mini.webp" srcset="{a}assets/img/servicios/{x["img"]}-mini.webp 640w, {a}assets/img/servicios/{x["img"]}.webp 1200w" sizes="(min-width: 800px) 25vw, 50vw" width="1200" height="675" alt="{x["nombre"]} en Medellín" loading="lazy" decoding="async">'
+           if x["img"] else ic(x["icon"], "icon tile-ico"))
     return f"""<a class="tile reveal" href="{s}{x["slug"]}/">
-  <span class="tile-img"><img src="{a}assets/img/servicios/{x["img"]}-mini.webp" srcset="{a}assets/img/servicios/{x["img"]}-mini.webp 640w, {a}assets/img/servicios/{x["img"]}.webp 1200w" sizes="(min-width: 800px) 33vw, 100vw" width="1200" height="675" alt="" loading="lazy" decoding="async"></span>
+  <span class="tile-img{"" if x["img"] else " tile-img-ico"}">{img}<span class="tile-badge">{ic(x["icon"])}</span></span>
   <span class="tile-name">{x["nombre"]}</span>
   {ic("arrow")}
 </a>"""
@@ -317,6 +335,8 @@ FAQ = [
     ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
     ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir tu carro."),
+    ("¿Hay un taller de frenos cerca de mí en Medellín?", "Estamos en la Carrera 50 # 39-87, de fácil acceso desde cualquier punto de Medellín y el Valle de Aburrá. Ábrenos en Google Maps o Waze y llega directo."),
+    ("¿Cambian el líquido de frenos?", "Sí. Hacemos el cambio de líquido de frenos con purga completa del sistema, con la referencia DOT que pide tu carro."),
 ]
 
 
@@ -345,10 +365,24 @@ GALERIA = [
 ]
 
 
+def ld(data):
+    return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>\n'
+
+
+def ld_faq(items):
+    return ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": r}} for q, r in items]}) if items else ""
+
+
 def jsonld():
     data = {
         "@context": "https://schema.org", "@type": "AutoRepair", "name": "Frenoteca S.A.S.",
-        "description": "Especialistas en frenos en Medellín: repuestos y taller.",
+        "@id": BASE + "#negocio", "url": BASE, "image": BASE + "assets/img/og-sitio.jpg", "logo": BASE + "assets/img/favicon-192.png",
+        "description": "Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, líquido de frenos, campanas, cilindros y mangueras.",
+        "areaServed": [{"@type": "City", "name": "Medellín"}, {"@type": "AdministrativeArea", "name": "Valle de Aburrá"}],
+        "hasMap": MAPS, "priceRange": "$$",
+        "knowsAbout": ["Frenos", "Pastillas de freno", "Discos de freno", "Líquido de frenos", "Campanas y zapatas", "Cilindros de freno", "Mangueras de freno"],
+        "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": x["nombre"], "url": BASE + x["slug"] + "/"}} for x in TODOS],
         "telephone": "+57 604 448 2194", "email": EMAIL,
         "address": {"@type": "PostalAddress", "streetAddress": "Carrera 50 # 39-87", "addressLocality": "Medellín",
                     "addressRegion": "Antioquia", "addressCountry": "CO"},
@@ -358,14 +392,14 @@ def jsonld():
             {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00"}],
         "brand": [{"@type": "Brand", "name": m} for m in ["Brembo", "Bosch", "Incolbestos", "ATE", "Fremax", "Icer", "Toyota"]],
     }
-    return f'<script type="application/ld+json">{json.dumps(data, ensure_ascii=False)}</script>\n'
+    return ld(data)
 
 
 # ---------------------------------------------------------------- Sitio: inicio
 def inicio():
     s, a = "./", ""
     # 6 tarjetas (servicios + blindados): filas completas; «Marcas» queda en el menú y en «Por qué Frenoteca»
-    tiles = "".join(tile(x, s, a) for x in TODOS if x["slug"] != "marcas")
+    tiles = "".join(tile(x, s, a) for x in TODOS)
     galeria = "".join(
         f'<button class="gal-item" type="button" data-full="{a}assets/img/galeria/{f}.webp" aria-label="Ampliar foto: {alt}"><img src="{a}assets/img/galeria/{f}-mini.webp" alt="{alt}" loading="lazy" decoding="async"></button>'
         for f, alt in GALERIA)
@@ -375,9 +409,10 @@ def inicio():
   <section class="hero on-dark">
     <picture class="hero-bg">
       <source media="(min-width: 800px)" srcset="{a}assets/img/hero.webp" width="1024" height="576">
-      <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Patio de Frenoteca con carros listos para entregar" fetchpriority="high">
+      <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Taller de frenos Frenoteca en Medellín con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
+      <p class="eyebrow hero-eyebrow">{ic("pin")} Taller de frenos en Medellín</p>
       <h1 class="hero-t">Tus frenos, en buenas manos</h1>
       <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
@@ -389,10 +424,19 @@ def inicio():
     </div>
   </section>
 
+  <section class="stats" aria-label="Frenoteca en cifras">
+    <ul class="wrap stats-in">
+      <li class="reveal">{ic("award")}<strong>+40</strong><span>años en el mercado</span></li>
+      <li class="reveal">{ic("star")}<strong>4,6</strong><span>360 opiniones en Google</span></li>
+      <li class="reveal">{ic("tag")}<strong>+7</strong><span>marcas de alto desempeño</span></li>
+      <li class="reveal">{ic("wrench")}<strong>1</strong><span>lugar: repuesto y taller</span></li>
+    </ul>
+  </section>
+
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      {cabeza("Nuestros servicios", "¿Qué necesitas?", "serv-t", "Repuestos y servicio especializado para cada componente del sistema de frenos.")}
-      <div class="tiles tiles-3">{tiles}</div>
+      {cabeza("Frenos en Medellín", "¿Qué necesitas?", "serv-t", "Pastillas, discos, líquido de frenos y todo el sistema de frenado de tu carro.")}
+      <div class="tiles">{tiles}</div>
     </div>
   </section>
 
@@ -407,7 +451,33 @@ def inicio():
     </div>
   </section>
 
+  <section class="section pasos-sec" aria-labelledby="pasos-t">
+    <div class="wrap">
+      {cabeza("Así de fácil", "Frenos listos en 3 pasos", "pasos-t")}
+      <ol class="pasos">
+        <li class="reveal"><span class="paso-ico">{ic("chat")}</span><strong>Escríbenos</strong><span>Cuéntanos qué le pasa a tu carro por WhatsApp.</span></li>
+        <li class="reveal"><span class="paso-ico">{ic("car")}</span><strong>Trae tu carro</strong><span>Sin cita: te atendemos en orden de llegada.</span></li>
+        <li class="reveal"><span class="paso-ico">{ic("shield")}</span><strong>Frena seguro</strong><span>Repuesto de calidad, instalado por especialistas.</span></li>
+      </ol>
+    </div>
+  </section>
+
   {cotizar()}
+
+  <section class="section section-tight bg-gris seo-local" aria-labelledby="local-t">
+    <div class="wrap seo-local-in reveal">
+      <div>
+        <p class="eyebrow">Empresa de frenos en Medellín</p>
+        <h2 class="title" id="local-t">Tu taller de frenos cerca de ti</h2>
+        <p>En Frenoteca somos especialistas en <strong>frenos en Medellín</strong> desde hace más de 40 años. Tenemos los repuestos y el taller en un solo lugar: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}liquido-de-frenos/">líquido de frenos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros</a> y <a href="{s}mangueras/">mangueras</a>.</p>
+        <p>Si buscas <strong>frenos cerca de ti</strong> en la ciudad de Medellín, visítanos en la Carrera 50 # 39-87: trabajamos con marcas como Brembo, Bosch, ATE e Incolbestos y también atendemos <a href="{s}blindados/">carros blindados</a>.</p>
+      </div>
+      <ul class="chips">
+        <li>{ic("pin")} Frenos en Medellín</li><li>{ic("disc")} Discos de freno</li><li>{ic("pad")} Pastillas</li>
+        <li>{ic("drop")} Líquido de frenos</li><li>{ic("shield")} Carros blindados</li><li>{ic("nav")} Cerca de ti</li>
+      </ul>
+    </div>
+  </section>
 
   <section class="section" id="taller" aria-labelledby="taller-t">
     <div class="wrap">
@@ -437,9 +507,9 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Frenoteca | Especialistas en frenos en Medellín, más de 40 años en el mercado",
-        desc="Pastillas, discos, campanas, cilindros y mangueras de freno con Brembo, Bosch, ATE e Incolbestos. Taller especializado en la Carrera 50, Medellín.",
-        css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld())
+        title="Frenos en Medellín | Taller de frenos cerca de ti · Frenoteca",
+        desc="Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, líquido de frenos y más con Brembo, Bosch y ATE. Escríbenos por WhatsApp.",
+        css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 
 # ---------------------------------------------------------------- Sitio: páginas de servicio
@@ -456,14 +526,14 @@ def servicio(x):
       <a class="back" href="{s}">{ic("arrow-l")} Volver al inicio</a>
       <div class="svc-hero-grid">
         <div>
-          <p class="eyebrow">Frenoteca · Medellín</p>
-          <h1 class="svc-h1">{x["nombre"]}</h1>
+          <p class="eyebrow">{ic("pin")} Frenoteca · Medellín</p>
+          <h1 class="svc-h1">{x["nombre"]} <span class="svc-h1-city">en Medellín</span></h1>
           <p class="lead">{x["intro"]}</p>
           <div class="btn-col">
             <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbenos por WhatsApp</a>
           </div>
         </div>
-        <figure class="svc-hero-img"><img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]}" fetchpriority="high"></figure>
+        <figure class="svc-hero-img{"" if x["img"] else " svc-hero-ico"}">{f'<img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]} en Medellín, Frenoteca" fetchpriority="high">' if x["img"] else ic(x["icon"])}</figure>
       </div>
     </div>
   </section>
@@ -487,8 +557,15 @@ def servicio(x):
   {visitenos(a, compacto=True)}
 </main>
 {pie(s, a, x["code"], x["msg"])}"""
-    return documento(title=f'{x["title"]} | Frenoteca', desc=x["intro"][:155],
-                     css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio")
+    migas = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Frenos en Medellín", "item": BASE},
+        {"@type": "ListItem", "position": 2, "name": x["nombre"], "item": f'{BASE}{x["slug"]}/'}]})
+    srv = ld({"@context": "https://schema.org", "@type": "Service", "name": f'{x["nombre"]} en Medellín', "serviceType": x["nombre"],
+              "description": x["intro"], "url": f'{BASE}{x["slug"]}/', "areaServed": {"@type": "City", "name": "Medellín"},
+              "provider": {"@id": BASE + "#negocio", "@type": "AutoRepair", "name": "Frenoteca S.A.S."}})
+    desc = x["intro"] if len(x["intro"]) <= 158 else x["intro"][:155].rsplit(" ", 1)[0] + "…"
+    return documento(title=f'{x["title"]} | Frenoteca', desc=desc, ruta=f'{x["slug"]}/',
+                     css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=migas + srv + ld_faq(x["faq"]))
 
 
 def escribir(ruta, html):
@@ -503,3 +580,7 @@ if __name__ == "__main__":
     escribir("index.html", inicio())
     for x in TODOS:
         escribir(f"{x['slug']}/index.html", servicio(x))
+    hoy = time.strftime("%Y-%m-%d")
+    urls = "".join(f"<url><loc>{BASE}{r}</loc><lastmod>{hoy}</lastmod></url>" for r in [""] + [f"{x['slug']}/" for x in TODOS])
+    escribir("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
+    escribir("robots.txt", f"User-agent: *\n{'Allow: /' if INDEXAR else 'Disallow: /'}\nSitemap: {BASE}sitemap.xml\n")
