@@ -220,9 +220,8 @@ def cabeza(eyebrow, titulo, id_, lead=""):
 
 
 def visitenos(a, compacto=False):
-    mapa = "" if compacto else f"""<div class="map reveal" data-map="{MAPA_EMBED}">
-      <img src="{a}assets/img/aerea-taller.webp" alt="Vista aérea de la sede de Frenoteca" width="1024" height="682" loading="lazy" decoding="async">
-      <button class="btn btn-blanco map-btn" type="button">{ic("pin")} Ver mapa</button>
+    mapa = "" if compacto else f"""<div class="map reveal">
+      <iframe src="{MAPA_EMBED}" title="Mapa de Frenoteca en Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>"""
     return f"""<section class="section visit" id="visitenos" aria-labelledby="visit-t">
   <div class="wrap visit-grid{" visit-compact" if compacto else ""}">

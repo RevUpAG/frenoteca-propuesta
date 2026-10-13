@@ -78,13 +78,6 @@
     });
   });
 
-  /* ---------- Mapa: se carga solo al pedirlo (la página abre más rápido) ---------- */
-  $$('[data-map]').forEach((box) => {
-    $('.map-btn', box).addEventListener('click', () => {
-      box.innerHTML = `<iframe src="${box.dataset.map}" title="Mapa de Frenoteca en Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
-    });
-  });
-
   /* ---------- Galería: ampliar foto ---------- */
   const lb = $('.lightbox');
   if (lb && lb.showModal) {

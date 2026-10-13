@@ -203,8 +203,7 @@
 .horario dt, .horario dd { margin: 0; }
 .horario dd { white-space: nowrap; text-align: right; }
 .map { position: relative; border-radius: var(--radius-lg); overflow: hidden; min-height: 300px; background: var(--gris-claro); }
-.map img, .map iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
-.map-btn { position: absolute; left: 50%; bottom: 1rem; transform: translateX(-50%); box-shadow: var(--shadow); white-space: nowrap; }
+.map iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
 @media (min-width: 900px) { .visit-grid { grid-template-columns: 1fr 1.2fr; gap: 4rem; } .map { min-height: 460px; } .visit-compact { grid-template-columns: 1fr; } }
 
 /* ---------- Preguntas ---------- */
