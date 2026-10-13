@@ -32,7 +32,7 @@ def wa(servicio=None, code="INI"):
     return f"https://wa.me/{WA}?text=" + quote(f"{txt} (Ref: WEB-{code})")
 
 
-# Tono: profesional y claro, trato de «tú». Nunca hablar de precio bajo, «barato» o «económico».
+# Tono: cercano, trato de «tú». «Económico», «barato» y «descuento» solo en el bloque SEO y en la FAQ de precios.
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
          title="Pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
@@ -47,34 +47,27 @@ SERVICIOS = [
          senales=["Vibración en el timón o en el pedal al frenar", "Rayas o surcos visibles en el disco", "El vehículo se desvía al frenar"],
          faq=[("¿Siempre se cambian junto con las pastillas?", "No necesariamente. Evaluamos el espesor y el estado del disco y recomendamos el cambio solo cuando es necesario.")]),
     dict(slug="campanas-y-zapatas", nombre="Campanas y zapatas", msg="campanas o zapatas de freno", code="CAM", img="campanas-y-zapatas", icon="drum",
-         title="Campanas y zapatas de freno en Medellín para livianos y pesados",
+         title="Campanas y zapatas de freno en Medellín | Livianos y pesados",
          intro="Campanas y zapatas originales para vehículos livianos y pesados, fabricadas bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlas?",
          senales=["El freno de mano no sostiene el vehículo", "Ruido de roce en las ruedas traseras", "El pedal baja más de lo habitual"],
          faq=[("¿Mi carro usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Cuéntanos marca, modelo y año, y te confirmamos la referencia.")]),
     dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindros", icon="cylinder",
-         title="Cilindro maestro (bomba de frenos) y cilindros de rueda en Medellín",
+         title="Cilindros de freno en Medellín | Bomba de frenos y cilindros de rueda",
          intro="Cilindro maestro (bomba de frenos) y cilindros de rueda en referencias originales y homologadas de marcas reconocidas.",
          senales_t="¿Cuándo revisarlos?",
          senales=["El pedal se va hasta el fondo", "Manchas de líquido cerca de las ruedas", "Disminuye el nivel del líquido de frenos"],
          faq=[("¿Se puede reparar un cilindro de rueda?", "Por seguridad recomendamos su reemplazo. Contamos con referencias originales y homologadas para cada vehículo.")]),
     dict(slug="mangueras", nombre="Mangueras de freno", msg="mangueras de freno", code="MAN", img="mangueras", icon="hose",
-         title="Mangueras de freno en Medellín para todo tipo de vehículo",
+         title="Mangueras de freno en Medellín | Para todo tipo de vehículo",
          intro="Contamos con mangueras de alta calidad para todos los vehículos. Estas piezas de seguridad del sistema de frenos cumplen un papel fundamental dentro de su funcionamiento.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Manguera reseca o agrietada", "Humedad o fuga de líquido de frenos", "Pedal de freno blando"],
          faq=[]),
-    dict(slug="liquido-de-frenos", nombre="Líquido de frenos", msg="cambio de líquido de frenos", code="LIQ", img=None, icon="drop",
-         title="Líquido de frenos en Medellín: cambio y purga del sistema",
-         intro="Cambio de líquido de frenos DOT 3, DOT 4 y DOT 5.1 con purga completa del sistema, para que tu pedal responda firme y seguro.",
-         senales_t="¿Cuándo cambiarlo?",
-         senales=["Pedal de freno blando o esponjoso", "Líquido oscuro o turbio en el depósito", "Han pasado más de dos años desde el último cambio"],
-         faq=[("¿Cada cuánto se cambia el líquido de frenos?", "Como referencia, cada dos años o según el manual de tu carro. El líquido absorbe humedad con el tiempo y pierde eficacia."),
-              ("¿Qué líquido usa mi carro?", "Depende del fabricante: DOT 3, DOT 4 o DOT 5.1. Cuéntanos marca, modelo y año y te decimos cuál lleva.")]),
 ]
 EXTRAS = [
     dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="blindados", icon="shield",
-         title="Frenos para carros blindados en Medellín",
+         title="Frenos para carros blindados en Medellín | Pastillas y discos reforzados",
          intro="Repuestos de freno para carros blindados en marcas de alto desempeño, con la asesoría de especialistas en sistemas de frenos.",
          senales_t="¿Por qué revisarlos con más frecuencia?",
          senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
@@ -336,7 +329,7 @@ FAQ = [
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
     ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir tu carro."),
     ("¿Hay un taller de frenos cerca de mí en Medellín?", "Estamos en la Carrera 50 # 39-87, de fácil acceso desde cualquier punto de Medellín y el Valle de Aburrá. Ábrenos en Google Maps o Waze y llega directo."),
-    ("¿Cambian el líquido de frenos?", "Sí. Hacemos el cambio de líquido de frenos con purga completa del sistema, con la referencia DOT que pide tu carro."),
+    ("¿Tienen frenos económicos en Medellín?", "Sí. Manejamos repuestos de freno para cada presupuesto, desde marcas importadas hasta originales, siempre con la seguridad como prioridad. Escríbenos por WhatsApp, cotiza sin costo y pregunta por los descuentos del momento."),
 ]
 
 
@@ -378,10 +371,10 @@ def jsonld():
     data = {
         "@context": "https://schema.org", "@type": "AutoRepair", "name": "Frenoteca S.A.S.",
         "@id": BASE + "#negocio", "url": BASE, "image": BASE + "assets/img/og-sitio.jpg", "logo": BASE + "assets/img/favicon-192.png",
-        "description": "Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, líquido de frenos, campanas, cilindros y mangueras.",
+        "description": "Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, campanas, zapatas, cilindros y mangueras.",
         "areaServed": [{"@type": "City", "name": "Medellín"}, {"@type": "AdministrativeArea", "name": "Valle de Aburrá"}],
         "hasMap": MAPS, "priceRange": "$$",
-        "knowsAbout": ["Frenos", "Pastillas de freno", "Discos de freno", "Líquido de frenos", "Campanas y zapatas", "Cilindros de freno", "Mangueras de freno"],
+        "knowsAbout": ["Frenos", "Pastillas de freno", "Discos de freno", "Campanas y zapatas", "Cilindros de freno", "Mangueras de freno", "Frenos para carros blindados"],
         "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": x["nombre"], "url": BASE + x["slug"] + "/"}} for x in TODOS],
         "telephone": "+57 604 448 2194", "email": EMAIL,
         "address": {"@type": "PostalAddress", "streetAddress": "Carrera 50 # 39-87", "addressLocality": "Medellín",
@@ -435,7 +428,7 @@ def inicio():
 
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      {cabeza("Frenos en Medellín", "¿Qué necesitas?", "serv-t", "Pastillas, discos, líquido de frenos y todo el sistema de frenado de tu carro.")}
+      {cabeza("Frenos en Medellín", "¿Qué necesitas?", "serv-t", "Pastillas, discos, campanas, cilindros y mangueras: todos los frenos para tu carro en Medellín.")}
       <div class="tiles">{tiles}</div>
     </div>
   </section>
@@ -467,14 +460,15 @@ def inicio():
   <section class="section section-tight bg-gris seo-local" aria-labelledby="local-t">
     <div class="wrap seo-local-in reveal">
       <div>
-        <p class="eyebrow">Empresa de frenos en Medellín</p>
-        <h2 class="title" id="local-t">Tu taller de frenos cerca de ti</h2>
-        <p>En Frenoteca somos especialistas en <strong>frenos en Medellín</strong> desde hace más de 40 años. Tenemos los repuestos y el taller en un solo lugar: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}liquido-de-frenos/">líquido de frenos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros</a> y <a href="{s}mangueras/">mangueras</a>.</p>
-        <p>Si buscas <strong>frenos cerca de ti</strong> en la ciudad de Medellín, visítanos en la Carrera 50 # 39-87: trabajamos con marcas como Brembo, Bosch, ATE e Incolbestos y también atendemos <a href="{s}blindados/">carros blindados</a>.</p>
+        <p class="eyebrow">Taller de frenos en Medellín</p>
+        <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
+        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
+        <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos económicos y baratos en Medellín</strong>, tenemos opciones para cada presupuesto sin descuidar tu seguridad. Cotiza sin costo por WhatsApp y pregunta por los <strong>descuentos en frenos</strong> del momento.</p>
       </div>
       <ul class="chips">
-        <li>{ic("pin")} Frenos en Medellín</li><li>{ic("disc")} Discos de freno</li><li>{ic("pad")} Pastillas</li>
-        <li>{ic("drop")} Líquido de frenos</li><li>{ic("shield")} Carros blindados</li><li>{ic("nav")} Cerca de ti</li>
+        <li>{ic("pin")} Frenos en Medellín</li><li>{ic("wrench")} Taller de frenos</li><li>{ic("pad")} Pastillas</li>
+        <li>{ic("disc")} Discos de freno</li><li>{ic("drum")} Campanas y zapatas</li><li>{ic("cylinder")} Cilindros</li>
+        <li>{ic("hose")} Mangueras</li><li>{ic("shield")} Carros blindados</li><li>{ic("tag")} Frenos económicos</li>
       </ul>
     </div>
   </section>
@@ -507,8 +501,8 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Frenos en Medellín | Taller de frenos cerca de ti · Frenoteca",
-        desc="Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, líquido de frenos y más con Brembo, Bosch y ATE. Escríbenos por WhatsApp.",
+        title="Frenos en Medellín | Taller de frenos económico cerca de ti · Frenoteca",
+        desc="Taller de frenos en Medellín con más de 40 años: pastillas, discos, campanas, cilindros y mangueras. Frenos económicos con Brembo, Bosch y ATE. Cotiza por WhatsApp.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 
@@ -545,6 +539,9 @@ def servicio(x):
         <ul class="signs-list">{senales}</ul>
       </div>
     </div>
+  </section>
+  <section class="section section-tight seo-local" aria-label="{x["nombre"]} en Medellín">
+    <div class="wrap reveal"><p><strong>{x["nombre"]} en Medellín</strong> en Frenoteca, tu taller de frenos con más de 40 años en la Carrera 50 # 39-87. Repuesto e instalación en un solo lugar, opciones para cada presupuesto y cotización sin costo por WhatsApp.</p></div>
   </section>
   {faq_html(x["faq"])}
   {cotizar(x["slug"])}
