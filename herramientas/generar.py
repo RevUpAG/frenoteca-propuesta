@@ -32,7 +32,7 @@ def wa(servicio=None, code="INI"):
     return f"https://wa.me/{WA}?text=" + quote(f"{txt} (Ref: WEB-{code})")
 
 
-# Tono: cercano, trato de «tú». «Económico», «barato» y «descuento» solo en el bloque SEO y en la FAQ de precios.
+# Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
          title="Pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
@@ -329,7 +329,7 @@ FAQ = [
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
     ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir tu carro."),
     ("¿Hay un taller de frenos cerca de mí en Medellín?", "Estamos en la Carrera 50 # 39-87, de fácil acceso desde cualquier punto de Medellín y el Valle de Aburrá. Ábrenos en Google Maps o Waze y llega directo."),
-    ("¿Tienen frenos económicos en Medellín?", "Sí. Manejamos repuestos de freno para cada presupuesto, desde marcas importadas hasta originales, siempre con la seguridad como prioridad. Escríbenos por WhatsApp, cotiza sin costo y pregunta por los descuentos del momento."),
+    ("¿Manejan frenos premium en Medellín?", "Sí. Trabajamos con marcas premium como Brembo, Bosch y ATE, en referencias originales y homologadas, instaladas por especialistas con más de 40 años de experiencia. Escríbenos por WhatsApp y te asesoramos."),
 ]
 
 
@@ -463,12 +463,12 @@ def inicio():
         <p class="eyebrow">Taller de frenos en Medellín</p>
         <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
         <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
-        <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos económicos y baratos en Medellín</strong>, tenemos opciones para cada presupuesto sin descuidar tu seguridad. Cotiza sin costo por WhatsApp y pregunta por los <strong>descuentos en frenos</strong> del momento.</p>
+        <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>
       <ul class="chips">
         <li>{ic("pin")} Frenos en Medellín</li><li>{ic("wrench")} Taller de frenos</li><li>{ic("pad")} Pastillas</li>
         <li>{ic("disc")} Discos de freno</li><li>{ic("drum")} Campanas y zapatas</li><li>{ic("cylinder")} Cilindros</li>
-        <li>{ic("hose")} Mangueras</li><li>{ic("shield")} Carros blindados</li><li>{ic("tag")} Frenos económicos</li>
+        <li>{ic("hose")} Mangueras</li><li>{ic("shield")} Carros blindados</li><li>{ic("award")} Frenos premium</li>
       </ul>
     </div>
   </section>
@@ -501,8 +501,8 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Frenos en Medellín | Taller de frenos económico cerca de ti · Frenoteca",
-        desc="Taller de frenos en Medellín con más de 40 años: pastillas, discos, campanas, cilindros y mangueras. Frenos económicos con Brembo, Bosch y ATE. Cotiza por WhatsApp.",
+        title="Frenos en Medellín | Taller de frenos premium cerca de ti · Frenoteca",
+        desc="Taller de frenos en Medellín con más de 40 años: pastillas, discos, campanas, cilindros y mangueras. Frenos premium con Brembo, Bosch y ATE. Cotiza por WhatsApp.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 
@@ -541,7 +541,7 @@ def servicio(x):
     </div>
   </section>
   <section class="section section-tight seo-local" aria-label="{x["nombre"]} en Medellín">
-    <div class="wrap reveal"><p><strong>{x["nombre"]} en Medellín</strong> en Frenoteca, tu taller de frenos con más de 40 años en la Carrera 50 # 39-87. Repuesto e instalación en un solo lugar, opciones para cada presupuesto y cotización sin costo por WhatsApp.</p></div>
+    <div class="wrap reveal"><p><strong>{x["nombre"]} en Medellín</strong> en Frenoteca, tu taller de frenos con más de 40 años en la Carrera 50 # 39-87. Repuesto e instalación en un solo lugar, marcas premium y cotización sin costo por WhatsApp.</p></div>
   </section>
   {faq_html(x["faq"])}
   {cotizar(x["slug"])}

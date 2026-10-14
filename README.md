@@ -32,7 +32,6 @@ Logo, color y fotos del cliente; nada se inventó.
 
 ## Datos a confirmar con el cliente
 
-- **Frenos económicos / descuentos**: el sitio invita a «preguntar por los descuentos del momento». Confirmar que el cliente maneja descuentos o promociones; si no, quitar esa frase.
 
 - Años de experiencia: «más de 40 años en el mercado», según el cliente.
 - Textos de señales, «qué incluye» y preguntas frecuentes de cada servicio: redactados por nosotros, a validar.
@@ -40,11 +39,11 @@ Logo, color y fotos del cliente; nada se inventó.
 - El horario «abierto ahora» no contempla festivos.
 - Contacto: todas las llamadas van al fijo (604) 448 2194; el celular 312 833 4755 se usa solo para WhatsApp.
 - Horario: lunes a viernes 8:00 a. m. – 5:00 p. m. y sábados 8:00 a. m. – 1:00 p. m., jornada continua. No se reservan citas: se atiende en orden de llegada.
-- Tono: profesional y claro; nunca hablar de precio bajo, «barato» o «económico».
+- Tono: profesional y claro; posicionamiento premium; nunca hablar de precio bajo, «barato», «económico» ni «descuento».
 
 ## SEO
 
-- Palabras clave: frenos en Medellín (principal), talleres de frenos en Medellín, frenos cerca de mí, frenos y discos, discos de freno, empresa de frenos en Medellín, frenos económicos / baratos en Medellín, descuento de frenos en Medellín; y cada producto + «en Medellín».
+- Palabras clave: frenos en Medellín (principal), talleres de frenos en Medellín, frenos cerca de mí, frenos y discos, discos de freno, empresa de frenos en Medellín, frenos premium en Medellín; y cada producto + «en Medellín».
 - Cada página tiene título y descripción propios, `canonical`, datos estructurados (`AutoRepair`, `Service`, `BreadcrumbList`, `FAQPage`), `sitemap.xml` y `robots.txt`.
 - **Al publicar en el dominio del cliente**: en `herramientas/generar.py` cambiar `BASE` por el dominio y poner `INDEXAR = True`. Mientras sea propuesta, el sitio no se indexa.
 - Fuera del sitio, lo que más pesa en búsquedas locales («cerca de mí»): la ficha de Google Business Profile (categoría «Taller de frenos», fotos, horario, responder reseñas) y que nombre, dirección y teléfono sean idénticos en todos lados.
