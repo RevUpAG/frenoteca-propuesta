@@ -415,7 +415,7 @@ def inicio():
     </picture>
     <div class="wrap hero-in">
       <p class="eyebrow hero-eyebrow">{ic("pin")} Taller de frenos en Medellín</p>
-      <h1 class="hero-t">Tus frenos, en buenas manos</h1>
+      <h1 class="hero-t">Tu seguridad, en las mejores manos</h1>
       <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
