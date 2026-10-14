@@ -67,13 +67,25 @@
       ev.preventDefault();
       err.textContent = '';
       $$('[aria-invalid]', form).forEach((el) => el.removeAttribute('aria-invalid'));
-      const bad = $$('input:not([type="radio"]), select', form).find((el) => !el.checkValidity());
+      const bad = $$('input:not([type="radio"]), select, textarea', form).find((el) => !el.checkValidity());
       if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Por favor completa: ' + $(`label[for="${bad.id}"]`, form).textContent.trim(); bad.focus(); return; }
       if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Escoge de lunes a sábado.'; fecha.focus(); return; }
       if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoge hoy o un día después.'; fecha.focus(); return; }
       const f = form.elements;
       const dia = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(fecha.value + 'T12:00:00'));
-      const msg = `Hola Frenoteca, quisiera una cotización y saber su disponibilidad.\n\n• Nombre: ${f.nombre.value.trim()}\n• Servicio: ${f.servicio.value}\n• Pienso ir: ${dia}, en la ${f.franja.value}\n\n(Ref: WEB-COT-${form.dataset.code})`;
+      const sab = diaDe(fecha.value) === 6;
+      const horas = f.franja.value === 'mañana' ? (sab ? '8:00 a. m. – 1:00 p. m.' : '8:00 a. m. – 12:00 m.') : '12:00 m. – 5:00 p. m.';
+      const nota = f.nota.value.trim();
+      const msg = [
+        'Hola Frenoteca 👋 Quiero agendar una visita y recibir una cotización.', '',
+        `*Nombre:* ${f.nombre.value.trim()}`,
+        `*Carro:* ${f.carro.value.trim()}`,
+        `*Servicio:* ${f.servicio.value}`,
+        `*Día:* ${dia}`,
+        `*Jornada:* ${f.franja.value} (${horas})`,
+        ...(nota ? [`*Comentario:* ${nota}`] : []), '',
+        `(Ref: WEB-COT-${form.dataset.code})`,
+      ].join('\n');
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
     });
   });

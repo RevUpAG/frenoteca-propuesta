@@ -265,6 +265,10 @@ def cotizar(preseleccion=""):
         <input id="f-nombre" name="nombre" autocomplete="name" required>
       </div>
       <div class="field">
+        <label for="f-carro">Tu carro (marca, modelo y año)</label>
+        <input id="f-carro" name="carro" placeholder="Ej.: Mazda 3, 2018" required>
+      </div>
+      <div class="field">
         <label for="f-servicio">¿Qué necesitas?</label>
         <div class="select"><select id="f-servicio" name="servicio" required>{vacia}{opciones}<option value="Una revisión del sistema de frenos">No estoy seguro</option></select>{ic("chev")}</div>
       </div>
@@ -276,7 +280,12 @@ def cotizar(preseleccion=""):
         <legend>¿En qué jornada?</legend>
         <label><input type="radio" name="franja" value="mañana" checked> Mañana</label>
         <label><input type="radio" name="franja" value="tarde"> Tarde</label>
+        <p class="franja-nota">Lunes a viernes 8:00 a. m. – 5:00 p. m. · Sábados 8:00 a. m. – 1:00 p. m.</p>
       </fieldset>
+      <div class="field">
+        <label for="f-nota">¿Algo más que debamos saber? <span class="opcional">(opcional)</span></label>
+        <textarea id="f-nota" name="nota" rows="3" placeholder="Ej.: chilla al frenar"></textarea>
+      </div>
       <p class="form-error" role="alert" aria-live="polite"></p>
       <button class="btn btn-wa btn-lg btn-block" type="submit">{ic("wa")} Enviar por WhatsApp</button>
     </form>

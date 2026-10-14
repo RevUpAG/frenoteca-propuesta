@@ -139,7 +139,7 @@
 .form { background: var(--blanco); color: var(--negro); padding: 1.5rem; border-radius: var(--radius-lg); display: grid; gap: 1.1rem; }
 .field { display: grid; gap: .4rem; min-width: 0; border: 0; padding: 0; margin: 0; }
 .field label, .field legend { font-size: 1.1875rem; padding: 0; }
-.field input:not([type="radio"]), .field select {
+.field input:not([type="radio"]), .field select, .field textarea {
   width: 100%; min-height: 58px; padding: .75rem 1rem; border: 2px solid var(--gris-medio); border-radius: var(--radius-sm);
   background: var(--blanco); font-size: 1.125rem; appearance: none; -webkit-appearance: none;
 }
@@ -303,3 +303,8 @@
 .stats-in > .reveal:nth-child(2), .pasos > .reveal:nth-child(2), .tiles > .reveal:nth-child(4n+2) { transition-delay: .08s; }
 .stats-in > .reveal:nth-child(3), .pasos > .reveal:nth-child(3), .tiles > .reveal:nth-child(4n+3) { transition-delay: .16s; }
 .stats-in > .reveal:nth-child(4), .tiles > .reveal:nth-child(4n+4) { transition-delay: .24s; }
+
+.field textarea { min-height: 96px; resize: vertical; font-family: inherit; line-height: 1.4; }
+.field textarea:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 1px var(--rojo); }
+.opcional { color: var(--text-soft); font-size: .9em; }
+.franja-nota { grid-column: 1 / -1; margin: .25rem 0 0; font-size: .9375rem; color: var(--text-soft); }
