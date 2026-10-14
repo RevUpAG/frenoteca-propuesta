@@ -50,44 +50,84 @@
   const e = estado(ahoraBogota());
   $$('[data-abierto]').forEach((el) => { el.classList.add(e.open ? 'is-open' : 'is-closed'); $('[data-abierto-txt]', el).textContent = e.txt; });
 
-  /* ---------- Agenda → WhatsApp ---------- */
+  /* ---------- Agenda paso a paso → WhatsApp ---------- */
   $$('[data-agenda]').forEach((form) => {
-    const fecha = form.elements.fecha, franja = form.elements.franja, err = $('.form-error', form);
+    const f = form.elements, fecha = f.fecha, err = $('.form-error', form);
+    const pasos = $$('.wiz-paso', form), total = pasos.length;
+    const atras = $('.wiz-atras', form), sig = $('.wiz-sig', form), enviar = $('.wiz-enviar', form);
     const hoyISO = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Bogota' }).format(new Date());
     fecha.min = hoyISO;
     const diaDe = (iso) => new Date(iso + 'T12:00:00').getDay();
-    const actualizarFranja = () => {
-      const sab = fecha.value && diaDe(fecha.value) === 6;
-      $('[value="tarde"]', form).disabled = sab;
-      if (sab) franja.value = 'mañana';
-    };
-    fecha.addEventListener('change', actualizarFranja);
+    const fechaTxt = (iso) => new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(iso + 'T12:00:00'));
+    let n = 0;
 
+    // Horas posibles según el día: sábado hasta la 1 p. m.; hoy, solo las que no han pasado
+    const filtrarHoras = () => {
+      const sab = diaDe(fecha.value) === 6, hoy = fecha.value === hoyISO;
+      const ahora = +new Intl.DateTimeFormat('en-US', { timeZone: 'America/Bogota', hour: 'numeric', hourCycle: 'h23' }).format(new Date());
+      $$('[name="hora"]', form).forEach((r) => {
+        const h = +r.dataset.h, off = (sab && h >= 13) || (hoy && h <= ahora);
+        r.disabled = off; r.closest('.opcion').hidden = off;
+        if (off) r.checked = false;
+      });
+    };
+
+    const mensaje = () => {
+      const nota = f.nota.value.trim();
+      return ['Hola Frenoteca 👋 Quiero agendar una visita y recibir una cotización.', '',
+        `*Nombre:* ${f.nombre.value.trim()}`, `*Carro:* ${f.carro.value.trim()}`, `*Servicio:* ${f.servicio.value}`,
+        `*Día:* ${fechaTxt(fecha.value)}`, `*Hora:* ${f.hora.value}`, ...(nota ? [`*Comentario:* ${nota}`] : []), '',
+        `(Ref: WEB-COT-${form.dataset.code})`].join('\n');
+    };
+
+    const mostrar = (i) => {
+      n = i;
+      pasos.forEach((p, k) => p.classList.toggle('is-on', k === n));
+      $('.wiz-prog span', form).style.width = `${((n + 1) / total) * 100}%`;
+      $('.wiz-n', form).textContent = n < total - 1 ? `Paso ${n + 1} de ${total - 1}` : '¡Listo!';
+      atras.hidden = n === 0;
+      sig.hidden = n === total - 1;
+      enviar.hidden = n !== total - 1;
+      if (n === 4) filtrarHoras();
+      if (n === total - 1) $('.wiz-resumen', form).textContent = mensaje().replace(/\*/g, '');
+      err.textContent = '';
+    };
+
+    const valido = () => {
+      const p = pasos[n];
+      $$('[aria-invalid]', p).forEach((el) => el.removeAttribute('aria-invalid'));
+      const bad = $$('input, textarea', p).find((el) => !el.disabled && !el.checkValidity());
+      if (bad) {
+        if (bad.type !== 'radio') bad.setAttribute('aria-invalid', 'true');
+        err.textContent = bad.type === 'radio' ? 'Escoge una opción para seguir.' : 'Completa este dato para seguir.';
+        bad.focus(); return false;
+      }
+      if (p.contains(fecha)) {
+        const m = diaDe(fecha.value) === 0 ? 'Los domingos está cerrado. Escoge de lunes a sábado.'
+          : fecha.value < hoyISO ? 'Escoge hoy o un día después.' : '';
+        if (m) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = m; fecha.focus(); return false; }
+        filtrarHoras();
+        if (!$$('[name="hora"]:not(:disabled)', form).length) { err.textContent = 'Para hoy ya no quedan horas. Escoge otro día.'; return false; }
+      }
+      return true;
+    };
+    const avanzar = () => {
+      if (!valido()) return;
+      mostrar(n + 1);
+      const foco = $('input:not(:disabled), textarea, button', pasos[n]);
+      if (foco && n < total - 1) foco.focus({ preventScroll: true });
+    };
+
+    sig.addEventListener('click', avanzar);
+    atras.addEventListener('click', () => mostrar(n - 1));
+    // Las opciones de botón avanzan solas al tocarlas
+    $$('[data-auto] input', form).forEach((r) => r.addEventListener('change', () => setTimeout(avanzar, 180)));
+    form.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); avanzar(); } });
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
-      err.textContent = '';
-      $$('[aria-invalid]', form).forEach((el) => el.removeAttribute('aria-invalid'));
-      const bad = $$('input:not([type="radio"]), select, textarea', form).find((el) => !el.checkValidity());
-      if (bad) { bad.setAttribute('aria-invalid', 'true'); err.textContent = 'Por favor completa: ' + $(`label[for="${bad.id}"]`, form).textContent.trim(); bad.focus(); return; }
-      if (diaDe(fecha.value) === 0) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Los domingos está cerrado. Escoge de lunes a sábado.'; fecha.focus(); return; }
-      if (fecha.value < hoyISO) { fecha.setAttribute('aria-invalid', 'true'); err.textContent = 'Escoge hoy o un día después.'; fecha.focus(); return; }
-      const f = form.elements;
-      const dia = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date(fecha.value + 'T12:00:00'));
-      const sab = diaDe(fecha.value) === 6;
-      const horas = f.franja.value === 'mañana' ? (sab ? '8:00 a. m. – 1:00 p. m.' : '8:00 a. m. – 12:00 m.') : '12:00 m. – 5:00 p. m.';
-      const nota = f.nota.value.trim();
-      const msg = [
-        'Hola Frenoteca 👋 Quiero agendar una visita y recibir una cotización.', '',
-        `*Nombre:* ${f.nombre.value.trim()}`,
-        `*Carro:* ${f.carro.value.trim()}`,
-        `*Servicio:* ${f.servicio.value}`,
-        `*Día:* ${dia}`,
-        `*Jornada:* ${f.franja.value} (${horas})`,
-        ...(nota ? [`*Comentario:* ${nota}`] : []), '',
-        `(Ref: WEB-COT-${form.dataset.code})`,
-      ].join('\n');
-      window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(mensaje())}`, '_blank', 'noopener');
     });
+    mostrar(0);
   });
 
   /* ---------- Galería: ampliar foto ---------- */

@@ -248,46 +248,49 @@ def visitenos(a, compacto=False):
 </section>"""
 
 
+def franja_txt(h):
+    """Franja de una hora para la agenda: 8 → «8 – 9 a. m.»; 11 → «11 a. m. – 12 m.»."""
+    f = lambda x: "12 m." if x == 12 else (f"{x} a. m." if x < 12 else f"{x - 12} p. m.")
+    a, b = f(h), f(h + 1)
+    return f"{a.split(' ')[0]} – {b}" if a[-5:] == b[-5:] and h + 1 != 12 else f"{a} – {b}"
+
+
 def cotizar(preseleccion=""):
-    """En Frenoteca no se reservan citas (se atiende en orden de llegada): el formulario pide cotización y disponibilidad."""
+    """Agenda paso a paso → mensaje de WhatsApp. En Frenoteca no se reservan citas (orden de llegada):
+    el cliente cuenta qué necesita y cuándo piensa venir, y se le responde por WhatsApp."""
+    servicios = [x for x in TODOS if x["slug"] != "marcas"]
     opciones = "".join(
-        f'<option value="{x["nombre"]}"{" selected" if x["slug"] == preseleccion else ""}>{x["nombre"]}</option>'
-        for x in TODOS if x["slug"] != "marcas")
+        f'<label class="opcion"><input type="radio" name="servicio" value="{x["nombre"]}" required{" checked" if x["slug"] == preseleccion else ""}>{ic(x["icon"])}<span>{x["nombre"]}</span></label>'
+        for x in servicios) + f'<label class="opcion"><input type="radio" name="servicio" value="Una revisión del sistema de frenos" required>{ic("search")}<span>No estoy seguro</span></label>'
+    horas = "".join(f'<label class="opcion opcion-hora"><input type="radio" name="hora" value="{franja_txt(h)}" data-h="{h}" required><span>{franja_txt(h)}</span></label>' for h in range(8, 17))
     code = next((x["code"] for x in TODOS if x["slug"] == preseleccion), "INI")
-    vacia = "" if preseleccion else '<option value="" selected disabled>Escoge una opción</option>'
+    paso = lambda n, titulo, cuerpo, extra="": f'''<div class="wiz-paso" data-paso="{n}"{extra}>
+        <p class="wiz-q">{titulo}</p>
+        {cuerpo}
+      </div>'''
     return f"""<section class="section cita bg-negro on-dark" id="cotizar" aria-labelledby="cita-t">
   <div class="wrap cita-grid">
     {cabeza("Cotizaciones", "Cotiza y consulta disponibilidad", "cita-t",
-            "Atendemos en orden de llegada. Cuéntanos qué necesitas y cuándo piensas venir; te respondemos por WhatsApp con la cotización y la disponibilidad.")}
-    <form class="form reveal" data-agenda data-wa="{WA}" data-code="{code}" novalidate>
-      <div class="field">
-        <label for="f-nombre">Tu nombre</label>
-        <input id="f-nombre" name="nombre" autocomplete="name" required>
+            "Responde unas preguntas rápidas y te enviamos todo por WhatsApp. Atendemos en orden de llegada.")}
+    <form class="form wiz reveal" data-agenda data-wa="{WA}" data-code="{code}" novalidate>
+      <div class="wiz-top">
+        <span class="wiz-wa">{ic("wa")}</span>
+        <div class="wiz-prog" aria-hidden="true"><span></span></div>
+        <span class="wiz-n" aria-live="polite"></span>
       </div>
-      <div class="field">
-        <label for="f-carro">Tu carro (marca, modelo y año)</label>
-        <input id="f-carro" name="carro" placeholder="Ej.: Mazda 3, 2018" required>
-      </div>
-      <div class="field">
-        <label for="f-servicio">¿Qué necesitas?</label>
-        <div class="select"><select id="f-servicio" name="servicio" required>{vacia}{opciones}<option value="Una revisión del sistema de frenos">No estoy seguro</option></select>{ic("chev")}</div>
-      </div>
-      <div class="field">
-        <label for="f-fecha">¿Qué día piensas venir?</label>
-        <input id="f-fecha" name="fecha" type="date" required>
-      </div>
-      <fieldset class="field franja">
-        <legend>¿En qué jornada?</legend>
-        <label><input type="radio" name="franja" value="mañana" checked> Mañana</label>
-        <label><input type="radio" name="franja" value="tarde"> Tarde</label>
-        <p class="franja-nota">Lunes a viernes 8:00 a. m. – 5:00 p. m. · Sábados 8:00 a. m. – 1:00 p. m.</p>
-      </fieldset>
-      <div class="field">
-        <label for="f-nota">¿Algo más que debamos saber? <span class="opcional">(opcional)</span></label>
-        <textarea id="f-nota" name="nota" rows="3" placeholder="Ej.: chilla al frenar"></textarea>
-      </div>
+      {paso(1, '<label for="f-nombre">¡Hola! ¿Cómo te llamas?</label>', '<input id="f-nombre" name="nombre" autocomplete="name" placeholder="Tu nombre" required>')}
+      {paso(2, '<label for="f-carro">¿Qué carro tienes?</label>', '<input id="f-carro" name="carro" placeholder="Marca, modelo y año. Ej.: Mazda 3, 2018" required>')}
+      {paso(3, "¿Qué necesitas?", f'<div class="opciones" role="radiogroup" aria-label="Servicio">{opciones}</div>', ' data-auto')}
+      {paso(4, '<label for="f-fecha">¿Qué día piensas venir?</label>', '<input id="f-fecha" name="fecha" type="date" required><p class="wiz-nota">Lunes a viernes 8:00 a. m. – 5:00 p. m. · Sábados 8:00 a. m. – 1:00 p. m. · Domingos cerrado</p>')}
+      {paso(5, "¿A qué hora más o menos?", f'<div class="opciones opciones-hora" role="radiogroup" aria-label="Hora">{horas}</div>', ' data-auto')}
+      {paso(6, '<label for="f-nota">¿Algo más que debamos saber? <span class="opcional">(opcional)</span></label>', '<textarea id="f-nota" name="nota" rows="3" placeholder="Ej.: chilla al frenar"></textarea>')}
+      {paso(7, "¡Listo! Revisa tu mensaje", '<div class="wiz-resumen"></div>')}
       <p class="form-error" role="alert" aria-live="polite"></p>
-      <button class="btn btn-wa btn-lg btn-block" type="submit">{ic("wa")} Enviar por WhatsApp</button>
+      <div class="wiz-nav">
+        <button class="btn btn-borde wiz-atras" type="button">{ic("arrow-l")} Atrás</button>
+        <button class="btn btn-negro wiz-sig" type="button">Siguiente {ic("arrow")}</button>
+        <button class="btn btn-wa btn-lg wiz-enviar" type="submit">{ic("wa")} Enviar por WhatsApp</button>
+      </div>
     </form>
   </div>
 </section>"""
