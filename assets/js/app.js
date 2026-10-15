@@ -50,10 +50,10 @@
   const e = estado(ahoraBogota());
   $$('[data-abierto]').forEach((el) => { el.classList.add(e.open ? 'is-open' : 'is-closed'); $('[data-abierto-txt]', el).textContent = e.txt; });
 
-  /* ---------- Medición (GTM): clic en cualquier enlace de WhatsApp ---------- */
+  /* ---------- Medición (GTM): una sola conversión «whatsapp_conversion» (clic o cotización) ---------- */
   document.addEventListener('click', (e) => {
     const l = e.target.closest('a[href*="wa.me/"]');
-    if (l) (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_click', ubicacion: l.className || 'enlace', ref: (decodeURIComponent(l.href).match(/Ref: ([\w-]+)/) || [])[1] });
+    if (l) (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'clic', ubicacion: l.className || 'enlace', ref: (decodeURIComponent(l.href).match(/Ref: ([\w-]+)/) || [])[1] });
   });
 
   /* ---------- Agenda paso a paso → WhatsApp ---------- */
@@ -131,7 +131,7 @@
     form.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); avanzar(); } });
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
-      (window.dataLayer = window.dataLayer || []).push({ event: 'cotizacion_enviada', servicio: f.servicio.value, ref: `WEB-COT-${form.dataset.code}` });
+      (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'cotizacion', ubicacion: 'formulario cotizar', servicio: f.servicio.value, ref: `WEB-COT-${form.dataset.code}` });
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(mensaje())}`, '_blank', 'noopener');
     });
     mostrar(0);
