@@ -12,6 +12,7 @@ BASE = "https://revupag.github.io/frenoteca-propuesta/"  # cambiar por el domini
 INDEXAR = False  # propuesta: no indexar. Al publicar en el dominio del cliente → True
 
 # ---------------------------------------------------------------- Datos del negocio
+GTM = "GTM-5DH8XRD"
 WA = "573128334755"
 CEL = "312 833 4755"
 TEL = "(604) 448 2194"
@@ -139,6 +140,13 @@ def documento(*, title, desc, css, body, a, og, ruta="", body_class="", extra_he
 <html lang="es-CO" class="no-js">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
+new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+}})(window,document,'script','dataLayer','{GTM}');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
@@ -166,6 +174,9 @@ def documento(*, title, desc, css, body, a, og, ruta="", body_class="", extra_he
 <script>document.documentElement.classList.replace('no-js','js')</script>
 {extra_head}</head>
 <body class="{body_class}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id={GTM}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 {body}
 <script src="{a}assets/js/app.js?v={V}" defer></script>
 </body>
