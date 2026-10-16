@@ -334,6 +334,7 @@ def pie(s, a, code="INI", msg=None):
 <nav class="action-bar" aria-label="Contacto rápido">
   <a class="btn btn-wa" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
 </nav>
+<a class="call-float" href="{CEL_HREF}" aria-label="Llamar al {CEL}">{ic("phone")}</a>
 <a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbenos por WhatsApp">
   <span class="wa-float-label">¿Te ayudamos? <strong>Escríbenos</strong></span>
   <span class="wa-float-btn">{ic("wa")}</span>

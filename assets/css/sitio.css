@@ -376,3 +376,10 @@
 .guia-cta { display: grid; gap: 1rem; margin-top: 2rem; padding: 1.5rem; border-radius: var(--radius-lg); background: var(--negro); color: var(--blanco); font-size: 1.125rem; }
 .guia-cta p { margin: 0; }
 .guia-rel { margin-top: 1.5rem; }
+
+/* Llamada flotante: encima del WhatsApp (en móvil, encima de la barra inferior) */
+.call-float { position: fixed; z-index: 95; right: 16px; bottom: calc(92px + env(safe-area-inset-bottom)); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--rojo); color: var(--blanco); border: 3px solid var(--blanco); box-shadow: 0 8px 22px rgb(197 43 45 / .45); text-decoration: none; transition: transform .2s var(--ease-out); }
+.call-float .icon { width: 26px; height: 26px; }
+.call-float:hover { transform: scale(1.07); }
+.menu-open .call-float { display: none; }
+@media (min-width: 960px) { .call-float { right: 30px; bottom: 108px; } }

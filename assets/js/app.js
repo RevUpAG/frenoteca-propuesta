@@ -53,6 +53,7 @@
   /* ---------- Medición (GTM): una sola conversión «whatsapp_conversion» (clic o cotización) ---------- */
   document.addEventListener('click', (e) => {
     const l = e.target.closest('a[href*="wa.me/"]');
+    if (e.target.closest('a[href^="tel:"]')) (window.dataLayer = window.dataLayer || []).push({ event: 'llamada_click', numero: e.target.closest('a').getAttribute('href').slice(4) });
     if (l) (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'clic', ubicacion: l.className || 'enlace', ref: (decodeURIComponent(l.href).match(/Ref: ([\w-]+)/) || [])[1] });
   });
 
