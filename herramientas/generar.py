@@ -40,8 +40,8 @@ def wa(servicio=None, code="INI"):
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
-         intro="Pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo.",
+         title="Cambio de pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
+         intro="Cambio de pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo, con revisión de frenos sin costo.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
          faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y te indicamos el momento adecuado para el cambio.")]),
@@ -278,7 +278,7 @@ def cotizar(preseleccion=""):
     servicios = [x for x in TODOS if x["slug"] != "marcas"]
     opciones = "".join(
         f'<label class="opcion"><input type="radio" name="servicio" value="{x["nombre"]}" required{" checked" if x["slug"] == preseleccion else ""}>{ic(x["icon"])}<span>{x["nombre"]}</span></label>'
-        for x in servicios) + f'<label class="opcion"><input type="radio" name="servicio" value="Una revisión del sistema de frenos" required>{ic("search")}<span>No estoy seguro</span></label>'
+        for x in servicios) + f'<label class="opcion"><input type="radio" name="servicio" value="Revisión de frenos sin costo" required>{ic("search")}<span>No estoy seguro</span></label>'
     horas = "".join(f'<label class="opcion opcion-hora"><input type="radio" name="hora" value="{franja_txt(h)}" data-h="{h}" required><span>{franja_txt(h)}</span></label>' for h in range(8, 17))
     code = next((x["code"] for x in TODOS if x["slug"] == preseleccion), "INI")
     paso = lambda n, titulo, cuerpo, extra="": f'''<div class="wiz-paso" data-paso="{n}"{extra}>
@@ -353,6 +353,7 @@ def tile(x, s, a):
 
 FAQ = [
     ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si quieres confirmar disponibilidad antes de venir, escríbenos por WhatsApp."),
+    ("¿La revisión de frenos tiene costo?", "No. La revisión de frenos es sin costo: revisamos pastillas, discos, campanas, líquido y mangueras y te decimos qué necesita tu carro antes de hacer cualquier cambio."),
     ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
     ("¿Cómo puedo solicitar una cotización?", "Escríbenos por WhatsApp con la marca, el modelo y el año de tu carro."),
     ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
@@ -441,6 +442,7 @@ def inicio():
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
       </div>
       <div class="hero-meta">
+        <span class="hero-badge">{ic("check")} Revisión de frenos sin costo</span>
         <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span><span><strong>4,6</strong> · 360 opiniones en Google</span></a>
       </div>
     </div>
@@ -478,7 +480,7 @@ def inicio():
       {cabeza("Así de fácil", "Frenos listos en 3 pasos", "pasos-t")}
       <ol class="pasos">
         <li class="reveal"><span class="paso-ico">{ic("chat")}</span><strong>Escríbenos</strong><span>Cuéntanos qué le pasa a tu carro por WhatsApp.</span></li>
-        <li class="reveal"><span class="paso-ico">{ic("car")}</span><strong>Trae tu carro</strong><span>Sin cita: te atendemos en orden de llegada.</span></li>
+        <li class="reveal"><span class="paso-ico">{ic("car")}</span><strong>Trae tu carro</strong><span>Sin cita y con revisión de frenos sin costo.</span></li>
         <li class="reveal"><span class="paso-ico">{ic("shield")}</span><strong>Frena seguro</strong><span>Repuesto de calidad, instalado por especialistas.</span></li>
       </ol>
     </div>
@@ -491,13 +493,14 @@ def inicio():
       <div>
         <p class="eyebrow">Taller de frenos en Medellín</p>
         <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
-        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
+        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">cambio de pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
         <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>
       <ul class="chips">
-        <li>{ic("pin")} Frenos en Medellín</li><li>{ic("wrench")} Taller de frenos</li><li>{ic("pad")} Pastillas</li>
+        <li>{ic("pin")} Frenos en Medellín</li><li>{ic("wrench")} Taller de frenos</li>
         <li>{ic("disc")} Discos de freno</li><li>{ic("drum")} Campanas y zapatas</li><li>{ic("cylinder")} Cilindros</li>
         <li>{ic("hose")} Mangueras</li><li>{ic("shield")} Carros blindados</li><li>{ic("award")} Frenos premium</li>
+        <li>{ic("pad")} Cambio de pastillas</li><li>{ic("check")} Revisión sin costo</li>
       </ul>
     </div>
   </section>
@@ -539,7 +542,7 @@ def inicio():
 {pie(s, a)}"""
     return documento(
         title="Frenos en Medellín | Taller de frenos premium cerca de ti · Frenoteca",
-        desc="Taller de frenos en Medellín con más de 40 años: pastillas, discos, campanas, cilindros y mangueras. Frenos premium con Brembo, Bosch y ATE. Cotiza por WhatsApp.",
+        desc="Taller de frenos en Medellín con más de 40 años. Revisión de frenos sin costo, cambio de pastillas, discos y más con Brembo, Bosch y ATE. Escríbenos por WhatsApp.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 

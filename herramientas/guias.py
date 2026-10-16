@@ -28,7 +28,7 @@ GUIAS = [
                     "Vibración en el pedal o en el timón al frenar."]),
             ("tip", "Si escuchas un ruido metálico, no lo dejes pasar: puede ser que la pastilla ya llegó al metal y está rayando el disco. Cambiarla a tiempo evita tener que cambiar también los discos."),
             ("h2", "Pastillas premium o genéricas"),
-            ("p", "Las pastillas de marcas como Brembo, Bosch, ATE o Incolbestos están hechas para frenar mejor, hacer menos ruido y durar más. En Frenoteca te asesoramos según tu carro y tu forma de manejar."),
+            ("p", "Las pastillas de marcas como Brembo, Bosch, ATE o Incolbestos están hechas para frenar mejor, hacer menos ruido y durar más. En Frenoteca te asesoramos según tu carro y tu forma de manejar. Hacemos el cambio de pastillas en Medellín con <a href=\"{s}pastillas/\">revisión de frenos sin costo</a>."),
         ],
         faq=[("¿Se cambian las cuatro pastillas al tiempo?", "Se cambian por eje: las dos de adelante juntas o las dos de atrás juntas, para que el carro frene parejo."),
              ("¿Cuánto tarda el cambio de pastillas?", "Depende del vehículo. Escríbenos por WhatsApp con marca, modelo y año y te contamos.")],
