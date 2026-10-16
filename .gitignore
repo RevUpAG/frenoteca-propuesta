@@ -1,3 +1,6 @@
 raw/
 .DS_Store
 .claude/
+wordpress/*.zip
+wordpress/frenoteca-2026/assets/
+wordpress/frenoteca-2026/paginas/

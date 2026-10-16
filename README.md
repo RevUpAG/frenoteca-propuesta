@@ -47,3 +47,13 @@ Logo, color y fotos del cliente; nada se inventó.
 - Cada página tiene título y descripción propios, `canonical`, datos estructurados (`AutoRepair`, `Service`, `BreadcrumbList`, `FAQPage`), `sitemap.xml` y `robots.txt`.
 - **Al publicar en el dominio del cliente**: en `herramientas/generar.py` cambiar `BASE` por el dominio y poner `INDEXAR = True`. Mientras sea propuesta, el sitio no se indexa.
 - Fuera del sitio, lo que más pesa en búsquedas locales («cerca de mí»): la ficha de Google Business Profile (categoría «Taller de frenos», fotos, horario, responder reseñas) y que nombre, dirección y teléfono sean idénticos en todos lados.
+
+## WordPress (www.frenoteca.com)
+
+El sitio se monta con el plugin propio **Frenoteca 2026** (`wordpress/frenoteca-2026/`). No toca el tema ni las páginas de WordPress.
+
+1. `python3 herramientas/generar.py --wp` genera las páginas con rutas de frenoteca.com (indexables).
+2. Copiar `assets/` a `wordpress/frenoteca-2026/assets/`, comprimir `wordpress/frenoteca-2026` en ZIP y subirlo en Plugins → Añadir → Subir (o reemplazar).
+3. **Ajustes → Frenoteca 2026**: vista previa solo para administradores (`/?f26=1`, salir con `/?f26=0`) y el interruptor que lo enciende para todos (purga LiteSpeed).
+4. Con el sitio encendido, las URL anteriores redirigen (301): campanas, zapatas-de-frenos → campanas-y-zapatas; cilindro-maestro, cilindro-de-rueda → cilindros; taller, contáctenos, quiénes-somos, inicio → inicio. Mapa del sitio propio: `/frenoteca-sitemap.xml`.
+5. Para volver al sitio anterior: apagar el interruptor o desactivar el plugin.

@@ -3,13 +3,16 @@
 Uso:  python3 herramientas/generar.py
 Todo el contenido vive aquí; cabecera, pie e iconos son comunes a todas las páginas.
 """
-import json, os, time
+import json, os, sys, time
 from urllib.parse import quote
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 V = time.strftime("%Y%m%d%H%M")  # versión para romper la caché de CSS/JS
-BASE = "https://revupag.github.io/frenoteca-propuesta/"  # cambiar por el dominio definitivo al publicar
-INDEXAR = False  # propuesta: no indexar. Al publicar en el dominio del cliente → True
+# Dos salidas: la propuesta (GitHub Pages, sin indexar) y `--wp`, el plugin de WordPress para www.frenoteca.com.
+WP = "--wp" in sys.argv
+BASE = "https://www.frenoteca.com/" if WP else "https://revupag.github.io/frenoteca-propuesta/"
+ASSETS = BASE + "wp-content/plugins/frenoteca-2026/assets/" if WP else ""  # vacío = rutas relativas
+INDEXAR = WP  # la propuesta no se indexa; el sitio real sí
 
 # ---------------------------------------------------------------- Datos del negocio
 GTM = "GTM-5DH8XRD"
@@ -161,7 +164,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:locale" content="es_CO">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="{BASE}assets/img/{og}">
+<meta property="og:image" content="{ASSETS or BASE + "assets/"}img/{og}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{a}assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="{a}assets/img/favicon-32.png" sizes="32x32">
@@ -393,7 +396,7 @@ def ld_faq(items):
 def jsonld():
     data = {
         "@context": "https://schema.org", "@type": "AutoRepair", "name": "Frenoteca S.A.S.",
-        "@id": BASE + "#negocio", "url": BASE, "image": BASE + "assets/img/og-sitio.jpg", "logo": BASE + "assets/img/favicon-192.png",
+        "@id": BASE + "#negocio", "url": BASE, "image": (ASSETS or BASE + "assets/") + "img/og-sitio.jpg", "logo": (ASSETS or BASE + "assets/") + "img/favicon-192.png",
         "description": "Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, campanas, zapatas, cilindros y mangueras.",
         "areaServed": [{"@type": "City", "name": "Medellín"}, {"@type": "AdministrativeArea", "name": "Valle de Aburrá"}],
         "hasMap": MAPS, "priceRange": "$$",
@@ -413,7 +416,7 @@ def jsonld():
 
 # ---------------------------------------------------------------- Sitio: inicio
 def inicio():
-    s, a = "./", ""
+    s, a = (BASE, ASSETS[:-7]) if WP else ("./", "")
     # 6 tarjetas (servicios + blindados): filas completas; «Marcas» queda en el menú y en «Por qué Frenoteca»
     tiles = "".join(tile(x, s, a) for x in TODOS)
     galeria = "".join(
@@ -531,7 +534,7 @@ def inicio():
 
 # ---------------------------------------------------------------- Sitio: páginas de servicio
 def servicio(x):
-    s, a = "../", "../"
+    s, a = (BASE, ASSETS[:-7]) if WP else ("../", "../")
     senales = "".join(f"<li>{ic('check' if x.get('marcas') else 'alert')}<span>{i}</span></li>" for i in x["senales"])
     marcas = f'<ul class="brands reveal">{"".join(f"<li>{m}</li>" for m in MARCAS)}</ul>' if x.get("marcas") else ""
     # 6 tarjetas: llenan filas completas (2 columnas en celular, 3 en computador)
@@ -588,8 +591,11 @@ def servicio(x):
                      css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=migas + srv + ld_faq(x["faq"]))
 
 
+SALIDA = os.path.join(RAIZ, "wordpress", "frenoteca-2026", "paginas") if WP else RAIZ
+
+
 def escribir(ruta, html):
-    ruta = os.path.join(RAIZ, ruta)
+    ruta = os.path.join(SALIDA, ruta)
     os.makedirs(os.path.dirname(ruta), exist_ok=True)
     with open(ruta, "w", encoding="utf-8") as f:
         f.write(html)
@@ -599,8 +605,10 @@ def escribir(ruta, html):
 if __name__ == "__main__":
     escribir("index.html", inicio())
     for x in TODOS:
-        escribir(f"{x['slug']}/index.html", servicio(x))
+        escribir(f"{x['slug']}.html" if WP else f"{x['slug']}/index.html", servicio(x))
     hoy = time.strftime("%Y-%m-%d")
     urls = "".join(f"<url><loc>{BASE}{r}</loc><lastmod>{hoy}</lastmod></url>" for r in [""] + [f"{x['slug']}/" for x in TODOS])
     escribir("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
+    if WP:
+        sys.exit()  # en WordPress, robots.txt lo maneja WordPress/Yoast
     escribir("robots.txt", f"User-agent: *\n{'Allow: /' if INDEXAR else 'Disallow: /'}\nSitemap: {BASE}sitemap.xml\n")
