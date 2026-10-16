@@ -16,11 +16,11 @@ INDEXAR = WP  # la propuesta no se indexa; el sitio real sí
 
 # ---------------------------------------------------------------- Datos del negocio
 GTM = "GTM-5DH8XRD"
-WA = "573128334755"
-CEL = "312 833 4755"
+WA = "573168320395"
+CEL = "316 832 0395"
 TEL = "(604) 448 2194"
 TEL_HREF = "tel:+576044482194"
-CEL_HREF = "tel:+573128334755"
+CEL_HREF = "tel:+573168320395"
 EMAIL = "frenoteca@hotmail.com"
 DIR = "Carrera 50 # 39-87, Medellín, Antioquia"
 MAPS = "https://www.google.com/maps/search/?api=1&query=" + quote("Frenoteca S.A.S Carrera 50 39-87 Medellín")

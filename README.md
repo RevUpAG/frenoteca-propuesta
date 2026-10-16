@@ -37,7 +37,7 @@ Logo, color y fotos del cliente; nada se inventó.
 - Textos de señales, «qué incluye» y preguntas frecuentes de cada servicio: redactados por nosotros, a validar.
 - Las reseñas se enlazan a Google (4,6 ★ · 360); no se muestran textos de reseñas inventados.
 - El horario «abierto ahora» no contempla festivos.
-- Contacto: todas las llamadas van al fijo (604) 448 2194; el celular 312 833 4755 se usa solo para WhatsApp.
+- Contacto: todas las llamadas van al fijo (604) 448 2194; el celular 316 832 0395 se usa solo para WhatsApp.
 - Horario: lunes a viernes 8:00 a. m. – 5:00 p. m. y sábados 8:00 a. m. – 1:00 p. m., jornada continua. No se reservan citas: se atiende en orden de llegada.
 - Tono: profesional y claro; posicionamiento premium; nunca hablar de precio bajo, «barato», «económico» ni «descuento».
 
