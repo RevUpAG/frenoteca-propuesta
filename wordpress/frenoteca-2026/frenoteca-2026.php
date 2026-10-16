@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Frenoteca 2026
  * Description: Sitio nuevo de Frenoteca (inicio + páginas de servicio). Se enciende en Ajustes → Frenoteca 2026. Desactivar el plugin devuelve el sitio anterior.
- * Version: 1.0.3
+ * Version: 1.1.0
  * Author: Rev Up Agency Group
  * Requires PHP: 7.4
  */
@@ -50,10 +50,18 @@ add_action('template_redirect', function () {
         wp_redirect(home_url('/' . F26_REDIRECCIONES[$ruta]), 301);
         exit;
     }
-    if (!in_array($ruta, F26_PAGINAS, true)) return; // el resto del WordPress sigue igual
-    if ($ruta === '' && (!is_front_page() || is_search() || is_preview())) return; // /?s=, /?p=… siguen siendo de WordPress
+    if (in_array($ruta, F26_PAGINAS, true)) {
+        if ($ruta === '' && (!is_front_page() || is_search() || is_preview())) return; // /?s=, /?p=… siguen siendo de WordPress
+        $nombre = $ruta === '' ? 'index' : $ruta;
+    } elseif ($ruta === 'guias') {
+        $nombre = 'guias';
+    } elseif (preg_match('#^guias/([a-z0-9-]+)$#', $ruta, $m)) {
+        $nombre = 'guias--' . $m[1];
+    } else {
+        return; // el resto del WordPress sigue igual
+    }
 
-    $archivo = __DIR__ . '/paginas/' . ($ruta === '' ? 'index' : $ruta) . '.html';
+    $archivo = __DIR__ . '/paginas/' . $nombre . '.html';
     if (!is_readable($archivo)) return;
     status_header(200);
     header('Content-Type: text/html; charset=utf-8');

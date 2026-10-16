@@ -4,6 +4,7 @@ Uso:  python3 herramientas/generar.py
 Todo el contenido vive aquí; cabecera, pie e iconos son comunes a todas las páginas.
 """
 import json, os, sys, time
+from guias import GUIAS
 from urllib.parse import quote
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -211,6 +212,7 @@ def cabecera(s, a, activo=""):
           <a class="nav-sub-btn" href="{s}#servicios" aria-haspopup="true">Servicios {ic("chev")}</a>
           <ul class="sub" id="sub-servicios">{items}</ul>
         </li>
+        <li><a href="{s}guias/">Guías</a></li>
         <li><a href="{s}#cotizar">Cotizar</a></li>
         <li><a href="{s}#preguntas">Preguntas</a></li>
         <li><a href="{s}#visitenos">Cómo llegar</a></li>
@@ -521,6 +523,14 @@ def inicio():
     </div>
   </section>
 
+  <section class="section" aria-labelledby="guias-t">
+    <div class="wrap">
+      {cabeza("Guías de frenos", "Aprende a cuidar tus frenos", "guias-t", "Consejos claros de especialistas en frenos en Medellín.")}
+      <div class="tiles tiles-3">{"".join(tile(guia_tile(g), s, a) for g in GUIAS[:3])}</div>
+      <a class="btn btn-borde btn-lg gal-all" href="{s}guias/">{ic("text")} Ver todas las guías</a>
+    </div>
+  </section>
+
   {faq_html(FAQ, "Resolvemos tus dudas")}
 
   {visitenos(a)}
@@ -594,6 +604,98 @@ def servicio(x):
 SALIDA = os.path.join(RAIZ, "wordpress", "frenoteca-2026", "paginas") if WP else RAIZ
 
 
+def guia_tile(g):
+    return dict(slug=f'guias/{g["slug"]}', nombre=g["titulo"], img=None, icon=g["icon"])
+
+
+def fecha_txt(iso):
+    meses = "enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre".split()
+    y, m, d = iso.split("-")
+    return f"{int(d)} de {meses[int(m) - 1]} de {y}"
+
+
+def guias_indice():
+    s, a = (BASE, ASSETS[:-7]) if WP else ("../", "../")
+    tarjetas = "".join(f"""<a class="guia-card reveal" href="{s}guias/{g["slug"]}/">
+  <span class="guia-ico">{ic(g["icon"])}</span>
+  <span class="guia-card-t">{g["titulo"]}</span>
+  <span class="guia-card-r">{g["resumen"]}</span>
+  <span class="guia-card-m">{g["lectura"]} min de lectura {ic("arrow")}</span>
+</a>""" for g in GUIAS)
+    body = f"""{cabecera(s, a)}
+<main id="contenido">
+  <section class="svc-hero">
+    <div class="wrap">
+      <a class="back" href="{s}">{ic("arrow-l")} Volver al inicio</a>
+      <p class="eyebrow">{ic("pin")} Frenos en Medellín</p>
+      <h1 class="svc-h1">Guías de frenos</h1>
+      <p class="lead">Consejos de especialistas con más de 40 años en frenos: cuándo cambiar cada pieza, qué señales vigilar y cómo cuidar tu carro en las lomas de Medellín.</p>
+    </div>
+  </section>
+  <section class="section section-tight bg-gris">
+    <div class="wrap guias-grid">{tarjetas}</div>
+  </section>
+  {cotizar()}
+</main>
+{pie(s, a, "GUI")}"""
+    migas = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Frenos en Medellín", "item": BASE},
+        {"@type": "ListItem", "position": 2, "name": "Guías de frenos", "item": BASE + "guias/"}]})
+    return documento(title="Guías de frenos | Consejos de expertos en frenos en Medellín · Frenoteca",
+                     desc="Guías de frenos de Frenoteca: cuándo cambiar pastillas y discos, señales de desgaste y cómo cuidar los frenos en Medellín.",
+                     ruta="guias/", css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=migas)
+
+
+def guia(g):
+    s, a = (BASE, ASSETS[:-7]) if WP else ("../../", "../../")
+    html = []
+    for tipo, val in g["cuerpo"]:
+        if tipo == "h2": html.append(f"<h2>{val}</h2>")
+        elif tipo == "p": html.append(f"<p>{val.format(s=s)}</p>")
+        elif tipo == "ul": html.append("<ul>" + "".join(f"<li>{ic('check')}<span>{i}</span></li>" for i in val) + "</ul>")
+        elif tipo == "tip": html.append(f'<aside class="guia-tip">{ic("bolt")}<p>{val.format(s=s)}</p></aside>')
+    srv = next((x for x in TODOS if x["slug"] == g["servicio"]), None)
+    relacionado = f'<div class="tiles tiles-3 guia-rel">{tile(srv, s, a)}</div>' if srv else ""
+    otras = "".join(tile(guia_tile(o), s, a) for o in [o for o in GUIAS if o["slug"] != g["slug"]][:3])
+    url = f'{BASE}guias/{g["slug"]}/'
+    body = f"""{cabecera(s, a)}
+<main id="contenido">
+  <article class="section guia">
+    <div class="wrap guia-wrap">
+      <a class="back" href="{s}guias/">{ic("arrow-l")} Todas las guías</a>
+      <p class="eyebrow">{ic(g["icon"])} Guía de frenos · Medellín</p>
+      <h1 class="svc-h1 guia-h1">{g["titulo"]}</h1>
+      <p class="guia-meta">{ic("calendar")} {fecha_txt(g["fecha"])} · {ic("clock")} {g["lectura"]} min de lectura · Por especialistas de Frenoteca</p>
+      <div class="guia-body">{"".join(html)}</div>
+      <div class="guia-cta">
+        <p><strong>¿Dudas con tus frenos?</strong> Escríbenos y te asesoramos. Estamos en la Carrera 50 # 39-87, Medellín.</p>
+        <a class="btn btn-wa btn-lg" href="{wa(None, "GUI")}">{ic("wa")} Escríbenos por WhatsApp</a>
+      </div>
+      {relacionado}
+    </div>
+  </article>
+  {faq_html(g["faq"])}
+  <section class="section section-tight bg-gris" aria-labelledby="otras-t">
+    <div class="wrap">
+      {cabeza("Sigue leyendo", "Más guías de frenos", "otras-t")}
+      <div class="tiles tiles-3">{otras}</div>
+    </div>
+  </section>
+</main>
+{pie(s, a, "GUI")}"""
+    art = ld({"@context": "https://schema.org", "@type": "BlogPosting", "headline": g["titulo"], "description": g["desc"],
+              "datePublished": g["fecha"], "dateModified": g["fecha"], "inLanguage": "es-CO", "mainEntityOfPage": url,
+              "image": (ASSETS or BASE + "assets/") + "img/og-sitio.jpg",
+              "author": {"@type": "Organization", "name": "Frenoteca S.A.S.", "url": BASE},
+              "publisher": {"@id": BASE + "#negocio", "@type": "AutoRepair", "name": "Frenoteca S.A.S."}})
+    migas = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Frenos en Medellín", "item": BASE},
+        {"@type": "ListItem", "position": 2, "name": "Guías de frenos", "item": BASE + "guias/"},
+        {"@type": "ListItem", "position": 3, "name": g["titulo"], "item": url}]})
+    return documento(title=g["title"], desc=g["desc"], ruta=f'guias/{g["slug"]}/', css="sitio.css", body=body, a=a,
+                     og="og-sitio.jpg", body_class="sitio", extra_head=art + migas + ld_faq(g["faq"]))
+
+
 def escribir(ruta, html):
     ruta = os.path.join(SALIDA, ruta)
     os.makedirs(os.path.dirname(ruta), exist_ok=True)
@@ -606,8 +708,11 @@ if __name__ == "__main__":
     escribir("index.html", inicio())
     for x in TODOS:
         escribir(f"{x['slug']}.html" if WP else f"{x['slug']}/index.html", servicio(x))
+    escribir("guias.html" if WP else "guias/index.html", guias_indice())
+    for g in GUIAS:
+        escribir(f"guias--{g['slug']}.html" if WP else f"guias/{g['slug']}/index.html", guia(g))
     hoy = time.strftime("%Y-%m-%d")
-    urls = "".join(f"<url><loc>{BASE}{r}</loc><lastmod>{hoy}</lastmod></url>" for r in [""] + [f"{x['slug']}/" for x in TODOS])
+    urls = "".join(f"<url><loc>{BASE}{r}</loc><lastmod>{hoy}</lastmod></url>" for r in [""] + [f"{x['slug']}/" for x in TODOS] + ["guias/"] + [f"guias/{g['slug']}/" for g in GUIAS])
     escribir("sitemap.xml", f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
     if WP:
         sys.exit()  # en WordPress, robots.txt lo maneja WordPress/Yoast
