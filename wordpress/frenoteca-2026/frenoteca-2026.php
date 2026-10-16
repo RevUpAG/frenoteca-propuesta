@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Frenoteca 2026
  * Description: Sitio nuevo de Frenoteca (inicio + páginas de servicio). Se enciende en Ajustes → Frenoteca 2026. Desactivar el plugin devuelve el sitio anterior.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Rev Up Agency Group
  * Requires PHP: 7.4
  */

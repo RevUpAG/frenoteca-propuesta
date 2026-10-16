@@ -76,12 +76,13 @@ EXTRAS = [
          senales_t="¿Por qué revisarlos con más frecuencia?",
          senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
          faq=[]),
-    dict(slug="marcas", nombre="Marcas", msg="repuestos de una marca específica", code="MAR", img="marcas", icon="award",
-         title="Marcas de frenos en Medellín | Brembo, Bosch, ATE, Fremax y más",
-         intro="Trabajamos con marcas de alto desempeño, en repuestos originales y homologados.",
+    dict(slug="marcas", nombre="Frenos premium", msg="frenos premium (Brembo, Bosch, ATE u otra marca)", code="MAR", img="marcas", icon="award",
+         title="Frenos premium en Medellín | Brembo, Bosch, ATE y Fremax",
+         intro="Frenos premium en Medellín con Brembo, Bosch, ATE, Incolbestos y Fremax, en repuestos originales y homologados instalados por especialistas.",
          marcas=True, senales_t="Te asesoramos para elegir",
          senales=["Original: la misma referencia con la que salió tu carro de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
-         faq=[]),
+         faq=[("¿Qué son los frenos premium?", "Son pastillas, discos y demás piezas de marcas de alto desempeño como Brembo, Bosch o ATE: mejor frenado, menos ruido y mayor duración. En Frenoteca te asesoramos según tu carro y tu forma de manejar."),
+              ("¿Dónde compro frenos premium en Medellín?", "En Frenoteca, Carrera 50 # 39-87, Medellín. Tenemos el repuesto y el taller que lo instala en un solo lugar.")]),
 ]
 TODOS = SERVICIOS + EXTRAS
 MARCAS = ["Brembo", "Bosch", "Incolbestos", "ATE", "Fremax", "Icer", "Repuestos originales Toyota", "Importadas"]
@@ -354,7 +355,7 @@ FAQ = [
     ("¿Con qué marcas trabajan?", "Brembo, Bosch, Incolbestos, ATE, Fremax, Icer, repuestos originales Toyota y marcas importadas, en referencias originales y homologadas."),
     ("¿Cuál es el horario de atención?", "Lunes a viernes de 8:00 a. m. a 5:00 p. m. y sábados de 8:00 a. m. a 1:00 p. m., en jornada continua."),
     ("¿Dónde están ubicados?", "En la Carrera 50 # 39-87, Medellín. Tenemos patio para recibir tu carro."),
-    ("¿Hay un taller de frenos cerca de mí en Medellín?", "Estamos en la Carrera 50 # 39-87, de fácil acceso desde cualquier punto de Medellín y el Valle de Aburrá. Ábrenos en Google Maps o Waze y llega directo."),
+    ("¿Hay un taller de frenos cerca de mí en Medellín?", "Estamos en la Carrera 50 # 39-87, en Medellín, cerca de ti y de fácil acceso desde cualquier barrio de la ciudad. Ábrenos en Google Maps o Waze y llega directo."),
     ("¿Manejan frenos premium en Medellín?", "Sí. Trabajamos con marcas premium como Brembo, Bosch y ATE, en referencias originales y homologadas, instaladas por especialistas con más de 40 años de experiencia. Escríbenos por WhatsApp y te asesoramos."),
 ]
 
@@ -398,7 +399,7 @@ def jsonld():
         "@context": "https://schema.org", "@type": "AutoRepair", "name": "Frenoteca S.A.S.",
         "@id": BASE + "#negocio", "url": BASE, "image": (ASSETS or BASE + "assets/") + "img/og-sitio.jpg", "logo": (ASSETS or BASE + "assets/") + "img/favicon-192.png",
         "description": "Taller y empresa de frenos en Medellín con más de 40 años: pastillas, discos, campanas, zapatas, cilindros y mangueras.",
-        "areaServed": [{"@type": "City", "name": "Medellín"}, {"@type": "AdministrativeArea", "name": "Valle de Aburrá"}],
+        "areaServed": [{"@type": "City", "name": "Medellín"}],
         "hasMap": MAPS, "priceRange": "$$",
         "knowsAbout": ["Frenos", "Pastillas de freno", "Discos de freno", "Campanas y zapatas", "Cilindros de freno", "Mangueras de freno", "Frenos para carros blindados"],
         "makesOffer": [{"@type": "Offer", "itemOffered": {"@type": "Service", "name": x["nombre"], "url": BASE + x["slug"] + "/"}} for x in TODOS],
@@ -431,8 +432,7 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Taller de frenos Frenoteca en Medellín con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <p class="eyebrow hero-eyebrow">{ic("pin")} Taller de frenos en Medellín</p>
-      <h1 class="hero-t">Tu seguridad, en las mejores manos</h1>
+      <h1 class="hero-t"><span class="eyebrow hero-eyebrow">{ic("pin")} Frenos en Medellín</span>Tu seguridad, en las mejores manos</h1>
       <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>

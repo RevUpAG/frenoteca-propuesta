@@ -345,3 +345,5 @@
 .opciones-hora { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
 .opcion-hora { white-space: nowrap; font-size: 1rem; padding-inline: .5rem; }
 .wiz-nav:has(.wiz-enviar:not([hidden])) { flex-direction: column-reverse; }
+
+.hero-t .hero-eyebrow { display: flex; width: fit-content; margin-bottom: 1rem; line-height: 1.2; font-weight: 600; }
