@@ -352,6 +352,7 @@ def tile(x, s, a):
 
 
 FAQ = [
+    ("¿Hacen cambio y mantenimiento de frenos en Medellín?", "Sí. Hacemos cambio de pastillas, discos, campanas, zapatas, cilindros y mangueras, y mantenimiento completo del sistema de frenos de tu carro, con revisión sin costo."),
     ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si quieres confirmar disponibilidad antes de venir, escríbenos por WhatsApp."),
     ("¿La revisión de frenos tiene costo?", "No. La revisión de frenos es sin costo: revisamos pastillas, discos, campanas, líquido y mangueras y te decimos qué necesita tu carro antes de hacer cualquier cambio."),
     ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
@@ -437,7 +438,7 @@ def inicio():
     </picture>
     <div class="wrap hero-in">
       <h1 class="hero-t"><span class="eyebrow hero-eyebrow">{ic("pin")} Frenos en Medellín</span>Tu seguridad, en las mejores manos</h1>
-      <p class="lead">Más de 40 años cuidando carros en Medellín.</p>
+      <p class="lead">Cambio y mantenimiento de frenos con más de 40 años cuidando carros en Medellín.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
       </div>
@@ -492,7 +493,7 @@ def inicio():
     <div class="wrap seo-local-in reveal">
       <div>
         <p class="eyebrow">Taller de frenos en Medellín</p>
-        <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
+        <h2 class="title" id="local-t">Taller de frenos en Medellín cerca de ti</h2>
         <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">cambio de pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
         <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>

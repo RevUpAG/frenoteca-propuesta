@@ -7,8 +7,8 @@ Tono: cercano, de «tú», sin cifras de precio ni promesas que el taller no hay
 GUIAS = [
     dict(
         slug="cada-cuanto-cambiar-pastillas-de-freno",
-        titulo="¿Cada cuánto cambiar las pastillas de freno?",
-        title="¿Cada cuánto cambiar las pastillas de freno? Guía para Medellín",
+        titulo="¿Cada cuánto se cambian las pastillas de freno?",
+        title="¿Cada cuánto se cambian las pastillas de freno? Kilómetros y señales",
         desc="Cuántos kilómetros duran las pastillas de freno, qué las desgasta más en Medellín y las señales para cambiarlas a tiempo.",
         icon="pad", servicio="pastillas", fecha="2026-10-16", lectura=4,
         resumen="Cuánto duran, qué las desgasta más en una ciudad de lomas como Medellín y cómo saber que llegó el momento.",
@@ -62,8 +62,8 @@ GUIAS = [
     ),
     dict(
         slug="cuando-cambiar-discos-de-freno",
-        titulo="Discos de freno: ¿rectificar o cambiar?",
-        title="Discos de freno: ¿rectificar o cambiar? | Frenos y discos en Medellín",
+        titulo="¿Rectificar o cambiar los discos de freno?",
+        title="¿Rectificar o cambiar los discos de freno? | Frenos en Medellín",
         desc="Cuándo se puede rectificar un disco de freno y cuándo hay que cambiarlo, y por qué no siempre se cambian con las pastillas.",
         icon="disc", servicio="discos", fecha="2026-10-16", lectura=3,
         resumen="Cuándo un disco se puede rectificar, cuándo hay que cambiarlo y por qué no siempre se cambia junto con las pastillas.",
