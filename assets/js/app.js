@@ -54,7 +54,7 @@
   document.addEventListener('click', (e) => {
     const l = e.target.closest('a[href*="wa.me/"]');
     if (e.target.closest('a[href^="tel:"]')) (window.dataLayer = window.dataLayer || []).push({ event: 'llamada_click', numero: e.target.closest('a').getAttribute('href').slice(4) });
-    if (l) (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'clic', ubicacion: l.className || 'enlace', ref: (decodeURIComponent(l.href).match(/Ref: ([\w-]+)/) || [])[1] });
+    if (l) (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'clic', ubicacion: l.className || 'enlace', pagina: location.pathname });
   });
 
   /* ---------- Agenda paso a paso → WhatsApp ---------- */
@@ -83,8 +83,7 @@
       const nota = f.nota.value.trim();
       return ['Hola Frenoteca 👋 Quiero agendar una visita y recibir una cotización.', '',
         `*Nombre:* ${f.nombre.value.trim()}`, `*Carro:* ${f.carro.value.trim()}`, `*Servicio:* ${f.servicio.value}`,
-        `*Día:* ${fechaTxt(fecha.value)}`, `*Hora:* ${f.hora.value}`, ...(nota ? [`*Comentario:* ${nota}`] : []), '',
-        `(Ref: WEB-COT-${form.dataset.code})`].join('\n');
+        `*Día:* ${fechaTxt(fecha.value)}`, `*Hora:* ${f.hora.value}`, ...(nota ? [`*Comentario:* ${nota}`] : [])].join('\n');
     };
 
     const mostrar = (i) => {
@@ -132,7 +131,7 @@
     form.addEventListener('keydown', (e) => { if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); avanzar(); } });
     form.addEventListener('submit', (ev) => {
       ev.preventDefault();
-      (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'cotizacion', ubicacion: 'formulario cotizar', servicio: f.servicio.value, ref: `WEB-COT-${form.dataset.code}` });
+      (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_conversion', tipo: 'cotizacion', ubicacion: 'formulario cotizar', servicio: f.servicio.value, pagina: location.pathname });
       window.open(`https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(mensaje())}`, '_blank', 'noopener');
     });
     mostrar(0);

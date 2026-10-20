@@ -34,7 +34,7 @@ MAPA_EMBED = ("https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1983.0881946
 def wa(servicio=None, code="INI"):
     """Enlace de WhatsApp con mensaje según el servicio y código de origen (para medir)."""
     txt = f"Hola Frenoteca, quisiera una cotización de {servicio}." if servicio else "Hola Frenoteca, quisiera información sobre sus servicios."
-    return f"https://wa.me/{WA}?text=" + quote(f"{txt} (Ref: WEB-{code})")
+    return f"https://wa.me/{WA}?text=" + quote(txt)  # sin «Ref»: el mensaje queda limpio; GTM mide la página con location.pathname
 
 
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
