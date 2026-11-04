@@ -17,11 +17,11 @@ INDEXAR = WP  # la propuesta no se indexa; el sitio real sí
 
 # ---------------------------------------------------------------- Datos del negocio
 GTM = "GTM-5DH8XRD"
-WA = "573168320395"
-CEL = "316 832 0395"
+WA = "573128334755"
+CEL = "312 833 4755"
 TEL = "(604) 448 2194"
 TEL_HREF = "tel:+576044482194"
-CEL_HREF = "tel:+573168320395"
+CEL_HREF = "tel:+573128334755"
 EMAIL = "frenoteca@hotmail.com"
 DIR = "Carrera 50 # 39-87, Medellín, Antioquia"
 MAPS = "https://www.google.com/maps/search/?api=1&query=" + quote("Frenoteca S.A.S Carrera 50 39-87 Medellín")
@@ -334,7 +334,7 @@ def pie(s, a, code="INI", msg=None):
 <nav class="action-bar" aria-label="Contacto rápido">
   <a class="btn btn-wa" href="{wa(msg, code)}">{ic("wa")} WhatsApp</a>
 </nav>
-<a class="call-float" href="{CEL_HREF}" aria-label="Llamar al {CEL}">{ic("phone")}</a>
+<a class="call-float" href="{TEL_HREF}" aria-label="Llamar al {TEL}">{ic("phone")}</a>
 <a class="wa-float" href="{wa(msg, code)}" aria-label="Escríbenos por WhatsApp">
   <span class="wa-float-label">¿Te ayudamos? <strong>Escríbenos</strong></span>
   <span class="wa-float-btn">{ic("wa")}</span>
