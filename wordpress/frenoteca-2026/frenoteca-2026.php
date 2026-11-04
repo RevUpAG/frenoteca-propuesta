@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Frenoteca 2026
  * Description: Sitio nuevo de Frenoteca (inicio + páginas de servicio). Se enciende en Ajustes → Frenoteca 2026. Desactivar el plugin devuelve el sitio anterior.
- * Version: 1.1.4
+ * Version: 1.1.5
  * Author: Rev Up Agency Group
  * Requires PHP: 7.4
  */
@@ -31,6 +31,13 @@ function f26_vista_previa() {
     }
     return !empty($_COOKIE['f26']);
 }
+
+// Una sola dirección pública: https://www.frenoteca.com (evita «No seguro» y contenido duplicado en Google)
+add_action('template_redirect', function () {
+    if (is_ssl() && ($_SERVER['HTTP_HOST'] ?? '') === 'www.frenoteca.com') return;
+    wp_redirect('https://www.frenoteca.com' . $_SERVER['REQUEST_URI'], 301);
+    exit;
+}, -1);
 
 add_action('template_redirect', function () {
     $previa = f26_vista_previa();
