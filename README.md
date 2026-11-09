@@ -63,3 +63,4 @@ El sitio se monta con el plugin propio **Frenoteca 2026** (`wordpress/frenoteca-
 - `public_html/robots.txt`: archivo físico (antes de Yoast) con `Sitemap: https://www.frenoteca.com/frenoteca-sitemap.xml`.
 - `public_html/.htaccess`: bloque «BEGIN Frenoteca» arriba del todo (redirección a https://www en un salto + `CacheLookup on`). Copia en `wordpress/para-subir/`.
 - cPanel → Dominios → **Force HTTPS Redirect apagado** a propósito (si se enciende, vuelven los 2 saltos).
+- PHP de la cuenta: **8.1** (cPanel → Seleccionar versión PHP, CloudLinux). Antes 7.4. Es la más alta que ofrece el hosting. TTFB ~0,6 s → ~0,4 s.
