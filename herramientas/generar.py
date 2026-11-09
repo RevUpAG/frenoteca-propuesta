@@ -40,7 +40,7 @@ def wa(servicio=None, code="INI"):
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Cambio de Pastillas de Freno en Medellín | Mismo Día, Sin Cita · Frenoteca",
+         title="Cambio de Pastillas de Freno Medellín: Mismo Día | Frenoteca",
          h1="Cambio de pastillas de freno", mismo_dia=True,
          alt="Cambio de pastillas de freno en Medellín",
          desc="Cambio de pastillas de freno en Medellín el mismo día y sin cita. Instalación por especialistas con Brembo, Bosch, ATE e Incolbestos. Revisión sin costo.",
@@ -119,7 +119,7 @@ EXTRAS = [
          senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
          faq=[]),
     dict(slug="marcas", nombre="Frenos premium", msg="frenos premium (Brembo, Bosch, ATE u otra marca)", code="MAR", img="marcas", icon="award",
-         title="Frenos Brembo en Medellín | Instalación de Frenos Premium · Frenoteca",
+         title="Frenos Brembo en Medellín | Instalación Premium · Frenoteca",
          h1="Frenos Brembo y premium", mismo_dia=True,
          alt="Disco de freno Brembo en el taller Frenoteca, Medellín",
          foto="galeria/taller-05",
@@ -594,7 +594,7 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Taller de Frenos en Medellín | Revisión y Cambio de Frenos · Frenoteca",
+        title="Taller de Frenos en Medellín | Revisión y Cambio · Frenoteca",
         desc="Taller de frenos en Medellín con más de 40 años. Revisión de frenos sin costo, reparación y cambio de pastillas y discos. Sin cita. Escríbenos por WhatsApp.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
