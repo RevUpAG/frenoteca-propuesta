@@ -1,0 +1,51 @@
+# Publica el plugin Frenoteca 2026 en www.frenoteca.com cada vez que se sube algo a main.
+# 1. Genera las páginas con rutas de frenoteca.com (python3 herramientas/generar.py --wp).
+# 2. Copia assets/ dentro del plugin.
+# 3. Sube wordpress/frenoteca-2026/ por FTPS a la carpeta del plugin en el hosting (Dongee / cPanel).
+# Se activa al crear en GitHub la variable FTP_SERVIDOR y los secretos FTP_USUARIO y FTP_CLAVE
+# (cPanel → Cuentas FTP). FTP_RUTA_PLUGIN es opcional; por defecto la ruta de una cuenta cPanel principal.
+# Después de subir, purgar la caché de LiteSpeed si una página no cambia (Ajustes → Frenoteca 2026).
+name: Publicar en WordPress
+
+on:
+  push:
+    branches: [main]
+    paths: ['herramientas/**', 'assets/**', 'wordpress/frenoteca-2026/**', '.github/workflows/wordpress.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: wordpress
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generar páginas para frenoteca.com
+        run: python3 herramientas/generar.py --wp
+      - name: Copiar assets al plugin
+        run: |
+          rm -rf wordpress/frenoteca-2026/assets
+          cp -R assets wordpress/frenoteca-2026/assets
+          test -s wordpress/frenoteca-2026/paginas/index.html
+          grep -q '<h1' wordpress/frenoteca-2026/paginas/index.html
+      - name: Sin FTP configurado
+        if: vars.FTP_SERVIDOR == ''
+        run: echo "::warning::Falta la variable FTP_SERVIDOR (y los secretos FTP_USUARIO/FTP_CLAVE); el plugin se generó pero no se subió."
+      - name: Subir el plugin por FTPS
+        if: vars.FTP_SERVIDOR != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ vars.FTP_SERVIDOR }}
+          username: ${{ secrets.FTP_USUARIO }}
+          password: ${{ secrets.FTP_CLAVE }}
+          protocol: ftps
+          local-dir: wordpress/frenoteca-2026/
+          server-dir: ${{ vars.FTP_RUTA_PLUGIN || 'public_html/wp-content/plugins/frenoteca-2026/' }}

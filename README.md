@@ -53,7 +53,7 @@ Logo, color y fotos del cliente; nada se inventó.
 El sitio se monta con el plugin propio **Frenoteca 2026** (`wordpress/frenoteca-2026/`). No toca el tema ni las páginas de WordPress.
 
 1. `python3 herramientas/generar.py --wp` genera las páginas con rutas de frenoteca.com (indexables).
-2. Copiar `assets/` a `wordpress/frenoteca-2026/assets/`, comprimir `wordpress/frenoteca-2026` en ZIP y subirlo en Plugins → Añadir → Subir (o reemplazar).
+2. **Automático:** al subir a `main`, la Action `Publicar en WordPress` genera el plugin y lo sube por FTPS a `wp-content/plugins/frenoteca-2026/` (requiere la variable `FTP_SERVIDOR` y los secretos `FTP_USUARIO` y `FTP_CLAVE`). A mano: copiar `assets/` al plugin, comprimirlo en ZIP y subirlo por cPanel.
 3. **Ajustes → Frenoteca 2026**: vista previa solo para administradores (`/?f26=1`, salir con `/?f26=0`) y el interruptor que lo enciende para todos (purga LiteSpeed).
 4. Con el sitio encendido, las URL anteriores redirigen (301): campanas, zapatas-de-frenos → campanas-y-zapatas; cilindro-maestro, cilindro-de-rueda → cilindros; taller, contáctenos, quiénes-somos, inicio → inicio. Mapa del sitio propio: `/frenoteca-sitemap.xml`.
 5. Para volver al sitio anterior: apagar el interruptor o desactivar el plugin.
