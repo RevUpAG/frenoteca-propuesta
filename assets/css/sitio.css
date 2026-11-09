@@ -398,3 +398,7 @@
 .resena { margin: 0; display: grid; gap: .6rem; align-content: start; padding: 1.4rem; border: 1.5px solid var(--line); border-radius: var(--radius-lg); background: var(--blanco); }
 .resena blockquote { margin: 0; font-size: 1.0625rem; line-height: 1.5; }
 .resena figcaption { font-size: .9375rem; font-weight: 700; color: var(--text-soft); }
+.tabla-wrap { overflow-x: auto; margin: 0 0 1.25rem; }
+.tabla-wrap table { width: 100%; min-width: 30rem; border-collapse: collapse; font-size: 1rem; }
+.tabla-wrap th, .tabla-wrap td { padding: .6rem .75rem; border-bottom: 1px solid #ddd; text-align: left; vertical-align: top; }
+.tabla-wrap th { background: #f3f3f3; font-weight: 800; }

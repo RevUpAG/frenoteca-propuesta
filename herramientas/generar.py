@@ -40,10 +40,10 @@ def wa(servicio=None, code="INI"):
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Cambio de Pastillas de Freno Medellín: Mismo Día | Frenoteca",
+         title="Pastillas de Freno Medellín: Cambio el Mismo Día | Frenoteca",
          h1="Cambio de pastillas de freno", mismo_dia=True,
          alt="Cambio de pastillas de freno en Medellín",
-         desc="Cambio de pastillas de freno en Medellín el mismo día y sin cita. Instalación por especialistas con Brembo, Bosch, ATE e Incolbestos. Revisión sin costo.",
+         desc="Pastillas de freno en Medellín: cerámicas, semimetálicas y orgánicas de Brembo, Bosch y ATE, instaladas el mismo día y sin cita. Revisión sin costo.",
          intro="Cambiamos tus pastillas de freno el mismo día y sin cita. Instalación por especialistas con Brembo, Bosch, ATE e Incolbestos. Revisión de frenos sin costo.",
          parrafo="<strong>Cambio de pastillas de freno en Medellín</strong>: revisamos el desgaste, te confirmamos la referencia exacta para tu carro y hacemos la instalación de las pastillas en nuestro taller de la Carrera 50 # 39-87. Al terminar probamos el frenado contigo, para que salgas seguro.",
          pasos_t="Así es el cambio de pastillas",
@@ -64,6 +64,10 @@ SERVICIOS = [
              ("ul", ["<strong>Cerámicas:</strong> frenan suave, hacen poco ruido y sueltan poco polvo en los rines. Suelen durar más y son comunes en carros de uso diario.",
                      "<strong>Semimetálicas:</strong> llevan fibras metálicas que soportan mejor el calor. Son buena opción para camionetas, carros pesados y manejo exigente, aunque pueden ser más ruidosas y gastar un poco más el disco.",
                      "<strong>Orgánicas:</strong> hechas de fibras y resinas, son silenciosas y suaves con el disco, pero se desgastan más rápido y aguantan menos el calor."]),
+             ("tabla", [["Tipo", "Ruido y polvo", "Calor y peso", "Duración", "Ideal para"],
+                        ["Cerámica", "Poco", "Bien", "Alta", "Uso diario en ciudad"],
+                        ["Semimetálica", "Más ruido", "Muy bien", "Media", "Camionetas, carga y lomas"],
+                        ["Orgánica", "Poco", "Menos", "Baja", "Manejo suave"]]),
              ("h2", "¿Cómo elegir las pastillas correctas?"),
              ("p", "La pastilla correcta depende de tu carro y de cómo lo usas. Esto es lo que revisamos contigo:"),
              ("ul", ["La referencia exacta para la marca, el modelo y el año de tu vehículo.",
@@ -72,6 +76,8 @@ SERVICIOS = [
                      "Si prefieres el repuesto original o uno homologado de <a href=\"{s}marcas/\">marcas premium</a>."]),
              ("h2", "Señales de desgaste"),
              ("p", "El chillido al frenar suele ser el primer aviso de que la pastilla se está acabando. Si el ruido ya es metálico, es probable que esté rayando el disco y que también toque cambiarlo. Otras señales son la vibración en el pedal, que el carro se vaya hacia un lado o que necesite más distancia para detenerse."),
+             ("h2", "¿Cada cuánto se cambian las pastillas de freno?"),
+             ("p", "No hay un kilometraje fijo: como referencia general, muchas duran entre 30.000 y 50.000 km, y en Medellín las lomas y el tráfico de pare y arranque las gastan antes. Lo seguro es revisarlas en cada mantenimiento."),
              ("p", "¿Cuántos kilómetros duran? Lee nuestra guía <a href=\"{s}guias/cada-cuanto-cambiar-pastillas-de-freno/\">¿Cada cuánto se cambian las pastillas de freno?</a>"),
              ("tip", "La revisión de frenos es sin costo: revisamos el desgaste de tus pastillas y te decimos si ya toca cambiarlas."),
          ],
@@ -512,7 +518,7 @@ def inicio():
 
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      {cabeza("Frenos en Medellín", "Reparación y cambio de frenos", "serv-t", "Pastillas, discos, campanas, cilindros y mangueras: todos los frenos para tu carro en Medellín.")}
+      {cabeza("Frenos en Medellín", "Frenos para carros: reparación y cambio", "serv-t", "Pastillas, discos, campanas, cilindros y mangueras: todos los frenos para tu carro en Medellín.")}
       <div class="tiles">{tiles}</div>
     </div>
   </section>
@@ -547,6 +553,7 @@ def inicio():
         <p class="eyebrow">Taller de frenos en Medellín</p>
         <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
         <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
+        <p>Trabajamos <strong>frenos para carros</strong> de todas las marcas: particulares, camionetas y <a href="{s}blindados/">blindados</a>. Muchos carros frenan con discos adelante y campanas atrás; otros llevan discos en las cuatro ruedas. Revisamos todo el sistema, de las pastillas al líquido y las mangueras, y te decimos qué necesita antes de cambiar cualquier pieza. ¿No sabes si ya toca? Lee <a href="{s}guias/senales-de-frenos-desgastados/">las 7 señales de que tus frenos necesitan revisión</a>.</p>
         <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>
       <ul class="chips">
@@ -750,6 +757,9 @@ def cuerpo_html(bloques, s):
         if tipo == "h2": html.append(f"<h2>{val}</h2>")
         elif tipo == "p": html.append(f"<p>{val.format(s=s)}</p>")
         elif tipo == "ul": html.append("<ul>" + "".join(f"<li>{ic('check')}<span>{i.format(s=s)}</span></li>" for i in val) + "</ul>")
+        elif tipo == "tabla":
+            fila = lambda r, t: "<tr>" + "".join(f"<{t}>{c}</{t}>" for c in r) + "</tr>"
+            html.append(f'<div class="tabla-wrap"><table><thead>{fila(val[0], "th")}</thead><tbody>{"".join(fila(r, "td") for r in val[1:])}</tbody></table></div>')
         elif tipo == "tip": html.append(f'<aside class="guia-tip">{ic("bolt")}<p>{val.format(s=s)}</p></aside>')
     return "".join(html)
 
