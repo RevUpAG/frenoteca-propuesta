@@ -40,49 +40,100 @@ def wa(servicio=None, code="INI"):
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
-         title="Cambio de pastillas de freno en Medellín | Brembo, Bosch, ATE e Incolbestos",
-         intro="Cambio de pastillas de freno Brembo, Bosch, Incolbestos, ATE e importadas para todo tipo de vehículo, con revisión de frenos sin costo.",
+         title="Cambio de Pastillas de Freno en Medellín | Mismo Día, Sin Cita · Frenoteca",
+         h1="Cambio de pastillas de freno", mismo_dia=True,
+         alt="Cambio de pastillas de freno en Medellín",
+         desc="Cambio de pastillas de freno en Medellín el mismo día y sin cita. Instalación por especialistas con Brembo, Bosch, ATE e Incolbestos. Revisión sin costo.",
+         intro="Cambiamos tus pastillas de freno el mismo día y sin cita. Instalación por especialistas con Brembo, Bosch, ATE e Incolbestos. Revisión de frenos sin costo.",
+         parrafo="<strong>Cambio de pastillas de freno en Medellín</strong>: revisamos el desgaste, te confirmamos la referencia exacta para tu carro y hacemos la instalación de las pastillas en nuestro taller de la Carrera 50 # 39-87. Al terminar probamos el frenado contigo, para que salgas seguro.",
+         pasos_t="Así es el cambio de pastillas",
+         pasos=[("search", "Revisamos tus frenos", "Medimos el desgaste de pastillas y discos, sin costo."),
+                ("chat", "Te cotizamos según tu carro", "Referencia exacta para tu marca, modelo y año."),
+                ("wrench", "Instalamos las pastillas", "Instalación de pastillas de freno por especialistas."),
+                ("shield", "Probamos y te entregamos", "Probamos el frenado y te entregamos el carro.")],
+         resenas=[("Santiago Mesa", "El servicio es excelente, te atienden rápidamente y realizan el mantenimiento rápido."),
+                  ("Felipe Mejía Uribe", "Muy buen servicio, el joven Alejandro me atendió con mucha disposición y los frenos quedaron excelentes."),
+                  ("Carlos Santiago Villa Duque", "El mejor lugar para cambiar frenos de todo Medellín.")],
          senales_t="¿Cuándo revisarlas?",
          senales=["Chillido o ruido metálico al frenar", "Mayor distancia para detener el vehículo", "Testigo de frenos encendido en el tablero"],
-         faq=[("¿Cada cuánto se deben cambiar?", "Depende del uso y del tipo de vehículo. En nuestro taller revisamos su desgaste y te indicamos el momento adecuado para el cambio.")]),
+         # Texto propio de la categoría (mismos bloques que las guías): la página que responde a «pastillas de freno»
+         texto=[
+             ("h2", "Cambio de pastillas de freno para tu carro"),
+             ("p", "Las pastillas de freno son la pieza que más trabaja en el sistema de frenos: cada vez que pisas el pedal, se aprietan contra el disco para detener el carro. Por eso también son la que más rápido se desgasta. En Frenoteca hacemos el cambio y la instalación de pastillas de freno con el repuesto y el taller en un solo lugar, con marcas como Brembo, Bosch, Incolbestos y ATE, en referencias originales y homologadas."),
+             ("h2", "Tipos de pastillas de freno"),
+             ("ul", ["<strong>Cerámicas:</strong> frenan suave, hacen poco ruido y sueltan poco polvo en los rines. Suelen durar más y son comunes en carros de uso diario.",
+                     "<strong>Semimetálicas:</strong> llevan fibras metálicas que soportan mejor el calor. Son buena opción para camionetas, carros pesados y manejo exigente, aunque pueden ser más ruidosas y gastar un poco más el disco.",
+                     "<strong>Orgánicas:</strong> hechas de fibras y resinas, son silenciosas y suaves con el disco, pero se desgastan más rápido y aguantan menos el calor."]),
+             ("h2", "¿Cómo elegir las pastillas correctas?"),
+             ("p", "La pastilla correcta depende de tu carro y de cómo lo usas. Esto es lo que revisamos contigo:"),
+             ("ul", ["La referencia exacta para la marca, el modelo y el año de tu vehículo.",
+                     "Cómo y por dónde manejas: ciudad, carretera o las lomas de Medellín.",
+                     "El peso: camionetas, carros con carga o <a href=\"{s}blindados/\">carros blindados</a>.",
+                     "Si prefieres el repuesto original o uno homologado de <a href=\"{s}marcas/\">marcas premium</a>."]),
+             ("h2", "Señales de desgaste"),
+             ("p", "El chillido al frenar suele ser el primer aviso de que la pastilla se está acabando. Si el ruido ya es metálico, es probable que esté rayando el disco y que también toque cambiarlo. Otras señales son la vibración en el pedal, que el carro se vaya hacia un lado o que necesite más distancia para detenerse."),
+             ("p", "¿Cuántos kilómetros duran? Lee nuestra guía <a href=\"{s}guias/cada-cuanto-cambiar-pastillas-de-freno/\">¿Cada cuánto se cambian las pastillas de freno?</a>"),
+             ("tip", "La revisión de frenos es sin costo: revisamos el desgaste de tus pastillas y te decimos si ya toca cambiarlas."),
+         ],
+         faq=[("¿Cuánto se demora el cambio de pastillas?", "En la mayoría de carros el cambio de pastillas queda listo el mismo día. No necesitas cita: te atendemos en orden de llegada."),
+              ("¿Cada cuánto se cambian las pastillas?", "Como referencia general, muchas duran entre 30.000 y 50.000 km, pero depende del carro, del tipo de pastilla y de cómo y por dónde manejas. En nuestro taller revisamos su desgaste sin costo y te indicamos el momento adecuado para el cambio."),
+              ("¿Qué pastillas son mejores: cerámicas, semimetálicas u orgánicas?", "Depende del uso. Las cerámicas son silenciosas y duraderas para el día a día; las semimetálicas aguantan mejor el calor y el peso; las orgánicas son suaves, pero se gastan más rápido. Te asesoramos según tu carro y tu forma de manejar."),
+              ("¿Qué marcas de pastillas de freno manejan?", "Brembo, Bosch, Incolbestos, ATE e importadas, en referencias originales y homologadas para todo tipo de vehículo."),
+              ("¿Venden las pastillas o también las instalan?", "Las dos cosas. Tenemos el repuesto y el taller que lo instala en un solo lugar, en la Carrera 50 # 39-87, Medellín."),
+              ("¿Necesito cita para el cambio de pastillas?", "No. Atendemos en orden de llegada. Si quieres confirmar la referencia para tu carro antes de venir, escríbenos por WhatsApp con marca, modelo y año.")]),
     dict(slug="discos", nombre="Discos de freno", msg="discos de freno", code="DIS", img="discos", icon="disc",
-         title="Discos de freno en Medellín | Frenos y discos para tu carro",
+         title="Discos de freno en Medellín | Frenos y discos",
+         parrafo="<strong>Discos de freno en Medellín</strong>: medimos el espesor y el estado de tus discos y solo recomendamos cambiarlos cuando hace falta. Trabajamos discos nacionales, importados y de equipo original, con marcas como Brembo y Fremax. Lee también <a href=\"{s}guias/cuando-cambiar-discos-de-freno/\">¿rectificar o cambiar los discos?</a>",
          intro="Discos de freno nacionales, importados y de equipo original para todo tipo de vehículo, fabricados bajo altos estándares de calidad.",
          senales_t="¿Cuándo revisarlos?",
          senales=["Vibración en el timón o en el pedal al frenar", "Rayas o surcos visibles en el disco", "El vehículo se desvía al frenar"],
          faq=[("¿Siempre se cambian junto con las pastillas?", "No necesariamente. Evaluamos el espesor y el estado del disco y recomendamos el cambio solo cuando es necesario.")]),
     dict(slug="campanas-y-zapatas", nombre="Campanas y zapatas", msg="campanas o zapatas de freno", code="CAM", img="campanas-y-zapatas", icon="drum",
-         title="Campanas y zapatas de freno en Medellín | Livianos y pesados",
+         title="Campanas y zapatas de freno en Medellín",
          intro="Campanas y zapatas originales para vehículos livianos y pesados, fabricadas bajo altos estándares de calidad.",
+         parrafo="<strong>Campanas y zapatas de freno en Medellín</strong>: muchos carros frenan con discos adelante y campanas atrás. Revisamos el desgaste de las zapatas, el estado de la campana y el freno de mano, y te confirmamos la referencia para tu vehículo.",
          senales_t="¿Cuándo revisarlas?",
          senales=["El freno de mano no sostiene el vehículo", "Ruido de roce en las ruedas traseras", "El pedal baja más de lo habitual"],
          faq=[("¿Mi carro usa campanas o discos atrás?", "Muchos vehículos usan discos adelante y campanas atrás. Cuéntanos marca, modelo y año, y te confirmamos la referencia.")]),
     dict(slug="cilindros", nombre="Cilindros de freno", msg="un cilindro de freno", code="CIL", img="cilindros", icon="cylinder",
-         title="Cilindros de freno en Medellín | Bomba de frenos y cilindros de rueda",
+         title="Cilindros de freno en Medellín | Bomba y rueda",
          intro="Cilindro maestro (bomba de frenos) y cilindros de rueda en referencias originales y homologadas de marcas reconocidas.",
+         parrafo="<strong>Cilindros de freno en Medellín</strong>: si el pedal se va al fondo o ves líquido cerca de las ruedas, revisamos el cilindro maestro y los cilindros de rueda y te decimos qué hay que reemplazar antes de que el frenado falle.",
          senales_t="¿Cuándo revisarlos?",
          senales=["El pedal se va hasta el fondo", "Manchas de líquido cerca de las ruedas", "Disminuye el nivel del líquido de frenos"],
          faq=[("¿Se puede reparar un cilindro de rueda?", "Por seguridad recomendamos su reemplazo. Contamos con referencias originales y homologadas para cada vehículo.")]),
     dict(slug="mangueras", nombre="Mangueras de freno", msg="mangueras de freno", code="MAN", img="mangueras", icon="hose",
-         title="Mangueras de freno en Medellín | Para todo tipo de vehículo",
+         title="Mangueras de freno en Medellín",
          intro="Contamos con mangueras de alta calidad para todos los vehículos. Estas piezas de seguridad del sistema de frenos cumplen un papel fundamental dentro de su funcionamiento.",
+         parrafo="<strong>Mangueras de freno en Medellín</strong>: una manguera reseca o con fuga deja el pedal blando. Revisamos todo el circuito hidráulico y cambiamos las mangueras por referencias de alta calidad para tu carro.",
          senales_t="¿Cuándo revisarlas?",
          senales=["Manguera reseca o agrietada", "Humedad o fuga de líquido de frenos", "Pedal de freno blando"],
          faq=[]),
 ]
 EXTRAS = [
     dict(slug="blindados", nombre="Frenos para carros blindados", msg="frenos para un carro blindado", code="BLI", img="blindados", icon="shield",
-         title="Frenos para carros blindados en Medellín | Pastillas y discos reforzados",
+         title="Frenos para carros blindados en Medellín",
          intro="Repuestos de freno para carros blindados en marcas de alto desempeño, con la asesoría de especialistas en sistemas de frenos.",
+         parrafo="<strong>Frenos para carros blindados en Medellín</strong>: el peso del blindaje exige más a pastillas, discos y líquido. Elegimos referencias de alto desempeño pensadas para el peso real de tu vehículo y te recomendamos cada cuánto revisarlas. Más detalles en nuestra <a href=\"{s}guias/frenos-para-carros-blindados/\">guía de frenos para blindados</a>.",
          senales_t="¿Por qué revisarlos con más frecuencia?",
          senales=["El peso adicional exige más del sistema de frenos", "Pastillas y discos se desgastan más rápido", "Una revisión a tiempo mantiene un frenado seguro"],
          faq=[]),
     dict(slug="marcas", nombre="Frenos premium", msg="frenos premium (Brembo, Bosch, ATE u otra marca)", code="MAR", img="marcas", icon="award",
-         title="Frenos premium en Medellín | Brembo, Bosch, ATE y Fremax",
-         intro="Frenos premium en Medellín con Brembo, Bosch, ATE, Incolbestos y Fremax, en repuestos originales y homologados instalados por especialistas.",
+         title="Frenos Brembo en Medellín | Instalación de Frenos Premium · Frenoteca",
+         h1="Frenos Brembo y premium", mismo_dia=True,
+         alt="Disco de freno Brembo en el taller Frenoteca, Medellín",
+         foto="galeria/taller-05",
+         desc="Instalación de frenos Brembo, Bosch y ATE en Medellín, el mismo día y sin cita. Especialistas en frenos de alto desempeño con más de 40 años.",
+         intro="Instalamos frenos Brembo, Bosch y ATE en Medellín, el mismo día y sin cita. Especialistas en frenos de alto desempeño.",
+         parrafo="<strong>Instalación de frenos Brembo en Medellín</strong>: no solo vendemos la pieza, la instalamos. Elegimos la referencia Brembo, Bosch o ATE correcta para tu carro, hacemos la instalación de los frenos premium en nuestro taller y probamos el frenado antes de entregártelo.",
+         carros_t="Frenos para tu carro",
+         carros=["Toyota", "Mazda", "BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Ford", "Jeep", "Tesla"],
+         resenas=[("Luis Eduardo Alvarez Vera", "Me atrevería a decir que es el mejor lugar para hacer revisión y mantenimiento a cualquier tipo de auto en frenos. Buena atención, repuestos originales y precios justos."),
+                  ("Simón Díez", "Excelente atención y servicio, muy buena calidad de insumos.")],
          marcas=True, senales_t="Te asesoramos para elegir",
          senales=["Original: la misma referencia con la que salió tu carro de fábrica", "Homologado: cumple las especificaciones del fabricante con la misma seguridad"],
-         faq=[("¿Qué son los frenos premium?", "Son pastillas, discos y demás piezas de marcas de alto desempeño como Brembo, Bosch o ATE: mejor frenado, menos ruido y mayor duración. En Frenoteca te asesoramos según tu carro y tu forma de manejar."),
+         faq=[("¿Instalan frenos Brembo en Medellín?", "Sí. Hacemos la instalación de frenos Brembo, Bosch y ATE en nuestro taller de la Carrera 50 # 39-87. En la mayoría de carros queda listo el mismo día y no necesitas cita."),
+              ("¿Qué son los frenos premium?", "Son pastillas, discos y demás piezas de marcas de alto desempeño como Brembo, Bosch o ATE: mejor frenado, menos ruido y mayor duración. En Frenoteca te asesoramos según tu carro y tu forma de manejar."),
               ("¿Dónde compro frenos premium en Medellín?", "En Frenoteca, Carrera 50 # 39-87, Medellín. Tenemos el repuesto y el taller que lo instala en un solo lugar.")]),
 ]
 TODOS = SERVICIOS + EXTRAS
@@ -353,6 +404,7 @@ def tile(x, s, a):
 
 FAQ = [
     ("¿Hacen cambio y mantenimiento de frenos en Medellín?", "Sí. Hacemos cambio de pastillas, discos, campanas, zapatas, cilindros y mangueras, y mantenimiento completo del sistema de frenos de tu carro, con revisión sin costo."),
+    ("¿Cuánto se demora el cambio de frenos?", "En la mayoría de carros queda listo el mismo día. No necesitas cita."),
     ("¿Necesito cita para ser atendido?", "No. Atendemos en orden de llegada dentro de nuestro horario. Si quieres confirmar disponibilidad antes de venir, escríbenos por WhatsApp."),
     ("¿La revisión de frenos tiene costo?", "No. La revisión de frenos es sin costo: revisamos pastillas, discos, campanas, líquido y mangueras y te decimos qué necesita tu carro antes de hacer cualquier cambio."),
     ("¿Cómo saber si mis frenos necesitan revisión?", "Ruidos al frenar, vibración en el pedal o en el timón, un pedal blando o una mayor distancia de frenado son señales para revisar el sistema cuanto antes."),
@@ -377,10 +429,10 @@ def faq_html(items, titulo=None):
 
 
 GALERIA = [
-    ("taller-01", "Entrada a la sede de Frenoteca vista desde arriba"),
-    ("taller-03", "Camioneta en el elevador del taller"),
+    ("taller-01", "Taller de frenos en Medellín – Frenoteca, vista de la sede"),
+    ("taller-03", "Revisión de frenos Medellín: camioneta en el elevador del taller"),
     ("taller-05", "Disco de freno Brembo en exhibición"),
-    ("taller-02", "Entrada principal con el aviso de Frenoteca"),
+    ("taller-02", "Taller de frenos en Medellín – Frenoteca, entrada principal"),
     ("taller-04", "Vehículo comercial en revisión"),
     ("taller-06", "Automóvil en el patio del taller"),
     ("taller-07", "Camioneta con el capó abierto en revisión"),
@@ -437,8 +489,8 @@ def inicio():
       <img src="{a}assets/img/hero-movil.webp" width="768" height="1024" alt="Taller de frenos Frenoteca en Medellín con carros listos para entregar" fetchpriority="high">
     </picture>
     <div class="wrap hero-in">
-      <h1 class="hero-t"><span class="eyebrow hero-eyebrow">{ic("pin")} Frenos en Medellín</span>Tu seguridad, en las mejores manos</h1>
-      <p class="lead">Cambio y mantenimiento de frenos con más de 40 años cuidando carros en Medellín.</p>
+      <h1 class="hero-t"><span class="eyebrow hero-eyebrow">{ic("pin")} Taller de frenos en Medellín</span>Tu seguridad, en las mejores manos</h1>
+      <p class="lead">Revisión, reparación y cambio de frenos en Medellín. Más de 40 años cuidando tu carro, sin cita y listo el mismo día.</p>
       <div class="btn-col hero-btns">
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
       </div>
@@ -460,7 +512,7 @@ def inicio():
 
   <section class="section" id="servicios" aria-labelledby="serv-t">
     <div class="wrap">
-      {cabeza("Frenos en Medellín", "¿Qué necesitas?", "serv-t", "Pastillas, discos, campanas, cilindros y mangueras: todos los frenos para tu carro en Medellín.")}
+      {cabeza("Frenos en Medellín", "Reparación y cambio de frenos", "serv-t", "Pastillas, discos, campanas, cilindros y mangueras: todos los frenos para tu carro en Medellín.")}
       <div class="tiles">{tiles}</div>
     </div>
   </section>
@@ -493,8 +545,8 @@ def inicio():
     <div class="wrap seo-local-in reveal">
       <div>
         <p class="eyebrow">Taller de frenos en Medellín</p>
-        <h2 class="title" id="local-t">Taller de frenos en Medellín cerca de ti</h2>
-        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">cambio de pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
+        <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
+        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
         <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>
       <ul class="chips">
@@ -513,7 +565,7 @@ def inicio():
       <button class="btn btn-borde btn-lg gal-all" type="button" data-gal-open>{ic("image")} Ver las {len(GALERIA)} fotos</button>
     </div>
     <dialog class="lightbox" aria-label="Fotos del taller">
-      <img alt="">
+      <img alt="Foto del taller de frenos Frenoteca en Medellín">
       <button class="lb-btn lb-close" type="button" aria-label="Cerrar">{ic("close")}</button>
       <button class="lb-btn lb-prev" type="button" aria-label="Foto anterior">{ic("arrow-l")}</button>
       <button class="lb-btn lb-next" type="button" aria-label="Foto siguiente">{ic("arrow")}</button>
@@ -542,12 +594,47 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Frenos en Medellín | Taller de frenos premium cerca de ti · Frenoteca",
-        desc="Taller de frenos en Medellín con más de 40 años. Revisión de frenos sin costo, cambio de pastillas, discos y más con Brembo, Bosch y ATE. Escríbenos por WhatsApp.",
+        title="Taller de Frenos en Medellín | Revisión y Cambio de Frenos · Frenoteca",
+        desc="Taller de frenos en Medellín con más de 40 años. Revisión de frenos sin costo, reparación y cambio de pastillas y discos. Sin cita. Escríbenos por WhatsApp.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 
 # ---------------------------------------------------------------- Sitio: páginas de servicio
+def franja(x):
+    """Franja de confianza bajo el texto principal. «Listo el mismo día» solo donde aplica (no en blindados)."""
+    items = [f'{ic("star")} <strong>4,6</strong> · 360 opiniones en Google'] + ([f'{ic("clock")} Listo el mismo día'] if x.get("mismo_dia") else []) + [f'{ic("check")} Sin cita', f'{ic("award")} +40 años']
+    return '<ul class="franja-svc">' + "".join(f"<li>{i}</li>" for i in items) + "</ul>"
+
+
+def pasos_html(x):
+    if not x.get("pasos"):
+        return ""
+    lis = "".join(f'<li class="reveal"><span class="paso-ico">{ic(i)}</span><strong>{t}</strong><span>{d}</span></li>' for i, t, d in x["pasos"])
+    return f'''<section class="section pasos-sec" aria-labelledby="pasos-t">
+    <div class="wrap">{cabeza("Paso a paso", x["pasos_t"], "pasos-t")}<ol class="pasos pasos-4">{lis}</ol></div>
+  </section>'''
+
+
+def carros_html(x):
+    if not x.get("carros"):
+        return ""
+    chips = "".join(f'<li>{ic("car")} Frenos {c}</li>' for c in x["carros"])
+    return f'''<section class="section section-tight bg-gris seo-local" aria-labelledby="carros-t">
+    <div class="wrap reveal"><h2 class="title" id="carros-t">{x["carros_t"]}</h2>
+    <p>Instalamos frenos Brembo y premium para estas marcas y muchas más:</p><ul class="chips">{chips}</ul></div>
+  </section>'''
+
+
+def resenas_html(x):
+    if not x.get("resenas"):
+        return ""
+    cards = "".join(f'<figure class="resena reveal"><span class="stars" aria-label="5 estrellas">{ic("star") * 5}</span><blockquote>«{t}»</blockquote><figcaption>{n} · Google</figcaption></figure>' for n, t in x["resenas"])
+    return f'''<section class="section section-tight" aria-labelledby="resenas-t">
+    <div class="wrap">{cabeza("Opiniones reales", "Lo que dicen nuestros clientes", "resenas-t")}<div class="resenas">{cards}</div>
+    <a class="btn btn-borde btn-lg gal-all" href="{RESENAS}" target="_blank" rel="noopener">Ver las 360 opiniones en Google {ic("arrow")}</a></div>
+  </section>'''
+
+
 def servicio(x):
     s, a = (BASE, ASSETS[:-7]) if WP else ("../", "../")
     senales = "".join(f"<li>{ic('check' if x.get('marcas') else 'alert')}<span>{i}</span></li>" for i in x["senales"])
@@ -562,13 +649,14 @@ def servicio(x):
       <div class="svc-hero-grid">
         <div>
           <p class="eyebrow">{ic("pin")} Frenoteca · Medellín</p>
-          <h1 class="svc-h1">{x["nombre"]} <span class="svc-h1-city">en Medellín</span></h1>
+          <h1 class="svc-h1">{x.get("h1", x["nombre"])} <span class="svc-h1-city">en Medellín</span></h1>
           <p class="lead">{x["intro"]}</p>
+          {franja(x)}
           <div class="btn-col">
             <a class="btn btn-wa btn-xl" href="{wa(x["msg"], x["code"])}">{ic("wa")} Escríbenos por WhatsApp</a>
           </div>
         </div>
-        <figure class="svc-hero-img{"" if x["img"] else " svc-hero-ico"}">{f'<img src="{a}assets/img/servicios/{x["img"]}.webp" width="1200" height="675" alt="{x["nombre"]} en Medellín, Frenoteca" fetchpriority="high">' if x["img"] else ic(x["icon"])}</figure>
+        <figure class="svc-hero-img{"" if x["img"] else " svc-hero-ico"}">{f'<img src="{a}assets/img/{x.get("foto", "servicios/" + x["img"])}.webp" width="1200" height="675" alt="{x.get("alt", x["nombre"] + " en Medellín, Frenoteca")}" fetchpriority="high">' if x["img"] else ic(x["icon"])}</figure>
       </div>
     </div>
   </section>
@@ -582,8 +670,12 @@ def servicio(x):
     </div>
   </section>
   <section class="section section-tight seo-local" aria-label="{x["nombre"]} en Medellín">
-    <div class="wrap reveal"><p><strong>{x["nombre"]} en Medellín</strong> en Frenoteca, tu taller de frenos con más de 40 años en la Carrera 50 # 39-87. Repuesto e instalación en un solo lugar, marcas premium y cotización sin costo por WhatsApp.</p></div>
+    <div class="wrap reveal"><p>{x["parrafo"].format(s=s)}</p></div>
   </section>
+  {pasos_html(x)}
+  {carros_html(x)}
+  {resenas_html(x)}
+  {f'<section class="section section-tight"><div class="wrap guia-wrap"><div class="guia-body reveal">{cuerpo_html(x["texto"], s)}</div></div></section>' if x.get("texto") else ""}
   {faq_html(x["faq"])}
   {cotizar(x["slug"])}
   <section class="section" aria-labelledby="otros-t">
@@ -601,8 +693,8 @@ def servicio(x):
     srv = ld({"@context": "https://schema.org", "@type": "Service", "name": f'{x["nombre"]} en Medellín', "serviceType": x["nombre"],
               "description": x["intro"], "url": f'{BASE}{x["slug"]}/', "areaServed": {"@type": "City", "name": "Medellín"},
               "provider": {"@id": BASE + "#negocio", "@type": "AutoRepair", "name": "Frenoteca S.A.S."}})
-    desc = x["intro"] if len(x["intro"]) <= 158 else x["intro"][:155].rsplit(" ", 1)[0] + "…"
-    return documento(title=f'{x["title"]} | Frenoteca', desc=desc, ruta=f'{x["slug"]}/',
+    desc = x.get("desc") or (x["intro"] if len(x["intro"]) <= 158 else x["intro"][:155].rsplit(" ", 1)[0] + "…")
+    return documento(title=x["title"] if "Frenoteca" in x["title"] else f'{x["title"]} | Frenoteca', desc=desc, ruta=f'{x["slug"]}/',
                      css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=migas + srv + ld_faq(x["faq"]))
 
 
@@ -646,19 +738,24 @@ def guias_indice():
     migas = ld({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Frenos en Medellín", "item": BASE},
         {"@type": "ListItem", "position": 2, "name": "Guías de frenos", "item": BASE + "guias/"}]})
-    return documento(title="Guías de frenos | Consejos de expertos en frenos en Medellín · Frenoteca",
+    return documento(title="Guías de frenos en Medellín | Frenoteca",
                      desc="Guías de frenos de Frenoteca: cuándo cambiar pastillas y discos, señales de desgaste y cómo cuidar los frenos en Medellín.",
                      ruta="guias/", css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=migas)
 
 
-def guia(g):
-    s, a = (BASE, ASSETS[:-7]) if WP else ("../../", "../../")
+def cuerpo_html(bloques, s):
+    """Bloques de texto (guías y texto de categoría) → HTML; {s} en el texto = prefijo hasta la raíz del sitio."""
     html = []
-    for tipo, val in g["cuerpo"]:
+    for tipo, val in bloques:
         if tipo == "h2": html.append(f"<h2>{val}</h2>")
         elif tipo == "p": html.append(f"<p>{val.format(s=s)}</p>")
-        elif tipo == "ul": html.append("<ul>" + "".join(f"<li>{ic('check')}<span>{i}</span></li>" for i in val) + "</ul>")
+        elif tipo == "ul": html.append("<ul>" + "".join(f"<li>{ic('check')}<span>{i.format(s=s)}</span></li>" for i in val) + "</ul>")
         elif tipo == "tip": html.append(f'<aside class="guia-tip">{ic("bolt")}<p>{val.format(s=s)}</p></aside>')
+    return "".join(html)
+
+
+def guia(g):
+    s, a = (BASE, ASSETS[:-7]) if WP else ("../../", "../../")
     srv = next((x for x in TODOS if x["slug"] == g["servicio"]), None)
     relacionado = f'<div class="tiles tiles-3 guia-rel">{tile(srv, s, a)}</div>' if srv else ""
     otras = "".join(tile(guia_tile(o), s, a) for o in [o for o in GUIAS if o["slug"] != g["slug"]][:3])
@@ -671,7 +768,7 @@ def guia(g):
       <p class="eyebrow">{ic(g["icon"])} Guía de frenos · Medellín</p>
       <h1 class="svc-h1 guia-h1">{g["titulo"]}</h1>
       <p class="guia-meta">{ic("calendar")} {fecha_txt(g["fecha"])} · {ic("clock")} {g["lectura"]} min de lectura · Por especialistas de Frenoteca</p>
-      <div class="guia-body">{"".join(html)}</div>
+      <div class="guia-body">{cuerpo_html(g["cuerpo"], s)}</div>
       <div class="guia-cta">
         <p><strong>¿Dudas con tus frenos?</strong> Escríbenos y te asesoramos. Estamos en la Carrera 50 # 39-87, Medellín.</p>
         <a class="btn btn-wa btn-lg" href="{wa(None, "GUI")}">{ic("wa")} Escríbenos por WhatsApp</a>
@@ -689,7 +786,7 @@ def guia(g):
 </main>
 {pie(s, a, "GUI")}"""
     art = ld({"@context": "https://schema.org", "@type": "BlogPosting", "headline": g["titulo"], "description": g["desc"],
-              "datePublished": g["fecha"], "dateModified": g["fecha"], "inLanguage": "es-CO", "mainEntityOfPage": url,
+              "datePublished": g["fecha"], "dateModified": g.get("actualizado", g["fecha"]), "inLanguage": "es-CO", "mainEntityOfPage": url,
               "image": (ASSETS or BASE + "assets/") + "img/og-sitio.jpg",
               "author": {"@type": "Organization", "name": "Frenoteca S.A.S.", "url": BASE},
               "publisher": {"@id": BASE + "#negocio", "@type": "AutoRepair", "name": "Frenoteca S.A.S."}})

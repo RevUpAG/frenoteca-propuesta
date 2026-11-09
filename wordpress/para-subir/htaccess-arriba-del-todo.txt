@@ -1,0 +1,10 @@
+# BEGIN Frenoteca: una sola dirección (https://www) en un solo salto
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTP_HOST} ^(www\.)?frenoteca\.com$ [NC]
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^ https://www.frenoteca.com%{REQUEST_URI} [L,R=301]
+</IfModule>
+# END Frenoteca
