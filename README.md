@@ -57,3 +57,9 @@ El sitio se monta con el plugin propio **Frenoteca 2026** (`wordpress/frenoteca-
 3. **Ajustes → Frenoteca 2026**: vista previa solo para administradores (`/?f26=1`, salir con `/?f26=0`) y el interruptor que lo enciende para todos (purga LiteSpeed).
 4. Con el sitio encendido, las URL anteriores redirigen (301): campanas, zapatas-de-frenos → campanas-y-zapatas; cilindro-maestro, cilindro-de-rueda → cilindros; taller, contáctenos, quiénes-somos, inicio → inicio. Mapa del sitio propio: `/frenoteca-sitemap.xml`.
 5. Para volver al sitio anterior: apagar el interruptor o desactivar el plugin.
+
+### Estado del servidor (9 nov 2026)
+- Plugin Frenoteca 2026 **1.2.0** instalado por cPanel → Administrador de archivos (no hay usuario de WordPress del sitio real).
+- `public_html/robots.txt`: archivo físico (antes de Yoast) con `Sitemap: https://www.frenoteca.com/frenoteca-sitemap.xml`.
+- `public_html/.htaccess`: bloque «BEGIN Frenoteca» arriba del todo (redirección a https://www en un salto + `CacheLookup on`). Copia en `wordpress/para-subir/`.
+- cPanel → Dominios → **Force HTTPS Redirect apagado** a propósito (si se enciende, vuelven los 2 saltos).

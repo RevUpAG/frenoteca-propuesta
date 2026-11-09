@@ -7,4 +7,8 @@ RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^ https://www.frenoteca.com%{REQUEST_URI} [L,R=301]
 </IfModule>
+# Caché de páginas de LiteSpeed (lo usa el plugin Frenoteca 2026)
+<IfModule LiteSpeed>
+CacheLookup on
+</IfModule>
 # END Frenoteca
