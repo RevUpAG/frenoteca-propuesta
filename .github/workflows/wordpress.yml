@@ -1,9 +1,9 @@
 # Publica el plugin Frenoteca 2026 en www.frenoteca.com cada vez que se sube algo a main.
 # 1. Genera las páginas con rutas de frenoteca.com (python3 herramientas/generar.py --wp).
 # 2. Copia assets/ dentro del plugin.
-# 3. Sube wordpress/frenoteca-2026/ por FTPS a la carpeta del plugin en el hosting (Dongee / cPanel).
-# Se activa al crear en GitHub la variable FTP_SERVIDOR y los secretos FTP_USUARIO y FTP_CLAVE
-# (cPanel → Cuentas FTP). FTP_RUTA_PLUGIN es opcional; por defecto la ruta de una cuenta cPanel principal.
+# 3. Sube wordpress/frenoteca-2026/ a la carpeta del plugin por la API de cPanel (HTTPS 2083).
+#    El FTP no sirve: el firewall de Dongee bloquea los puertos de datos desde GitHub.
+# Se activa con el secreto CPANEL_TOKEN (cPanel → Seguridad → Administrar tokens de API).
 # Después de subir, purgar la caché de LiteSpeed si una página no cambia (Ajustes → Frenoteca 2026).
 name: Publicar en WordPress
 
@@ -23,6 +23,8 @@ permissions:
 jobs:
   publicar:
     runs-on: ubuntu-latest
+    env:
+      CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,16 +38,15 @@ jobs:
           cp -R assets wordpress/frenoteca-2026/assets
           test -s wordpress/frenoteca-2026/paginas/index.html
           grep -q '<h1' wordpress/frenoteca-2026/paginas/index.html
-      - name: Sin FTP configurado
-        if: vars.FTP_SERVIDOR == ''
-        run: echo "::warning::Falta la variable FTP_SERVIDOR (y los secretos FTP_USUARIO/FTP_CLAVE); el plugin se generó pero no se subió."
-      - name: Subir el plugin por FTPS
-        if: vars.FTP_SERVIDOR != ''
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ vars.FTP_SERVIDOR }}
-          username: ${{ secrets.FTP_USUARIO }}
-          password: ${{ secrets.FTP_CLAVE }}
-          protocol: ftps
-          local-dir: wordpress/frenoteca-2026/
-          server-dir: ${{ vars.FTP_RUTA_PLUGIN || 'public_html/wp-content/plugins/frenoteca-2026/' }}
+      - name: Comprobar acceso a cPanel (HTTPS 2083)
+        run: curl -sS -o /dev/null -m 20 -w "cPanel responde %{http_code}\n" "https://${{ vars.CPANEL_HOST || 'frenoteca.com' }}:2083/"
+      - name: Subir el plugin por la API de cPanel
+        if: env.CPANEL_TOKEN != ''
+        env:
+          CPANEL_HOST: ${{ vars.CPANEL_HOST || 'frenoteca.com' }}
+          CPANEL_USUARIO: ${{ vars.CPANEL_USUARIO || 'frenoteca' }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+        run: herramientas/subir_cpanel.sh wordpress/frenoteca-2026 "${{ vars.RUTA_PLUGIN || 'public_html/wp-content/plugins/frenoteca-2026' }}"
+      - name: Sin token de cPanel
+        if: env.CPANEL_TOKEN == ''
+        run: echo "::warning::Falta el secreto CPANEL_TOKEN; el plugin se generó pero no se subió."
