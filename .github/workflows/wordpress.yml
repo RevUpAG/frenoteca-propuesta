@@ -50,3 +50,13 @@ jobs:
       - name: Sin token de cPanel
         if: env.CPANEL_TOKEN == ''
         run: echo "::warning::Falta el secreto CPANEL_TOKEN; el plugin se generó pero no se subió."
+      - name: Publicar la clave de IndexNow en la raíz del sitio
+        if: env.CPANEL_TOKEN != ''
+        env:
+          CPANEL_HOST: ${{ vars.CPANEL_HOST || 'frenoteca.com' }}
+          CPANEL_USUARIO: ${{ vars.CPANEL_USUARIO || 'frenoteca' }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+        run: herramientas/subir_cpanel.sh wordpress/raiz public_html
+      - name: Avisar a buscadores (IndexNow)
+        if: env.CPANEL_TOKEN != ''
+        run: python3 .github/indexnow.py www.frenoteca.com https://www.frenoteca.com/frenoteca-sitemap.xml b137cf497313917f241aefca58c47edd
