@@ -39,6 +39,74 @@ def wa(servicio=None, code="INI"):
 
 # Tono: cercano, trato de «tú». Posicionamiento premium: nunca «económico», «barato» ni «descuento».
 SERVICIOS = [
+    dict(slug="revision-de-frenos", nombre="Revisión de frenos", msg="una revisión de frenos", code="REV", img="revision-de-frenos", icon="search",
+         title="Revisión de Frenos en Medellín Sin Costo | Frenoteca",
+         h1="Revisión de frenos sin costo", mismo_dia=True,
+         alt="Revisión de frenos en Medellín: camioneta en el elevador del taller Frenoteca",
+         desc="Revisión de frenos sin costo en Medellín: pastillas, discos, campanas, líquido y mangueras. Sin cita, te decimos qué necesita tu carro antes de cambiar nada.",
+         intro="Revisamos tus frenos sin costo y sin cita: pastillas, discos, campanas, líquido y mangueras. Te mostramos qué encontramos antes de cambiar cualquier pieza.",
+         parrafo="<strong>Revisión de frenos en Medellín</strong>: en Frenoteca la revisión es sin costo. Mientras otros talleres la cobran, nosotros revisamos todo el sistema, te explicamos el estado de cada pieza y solo cotizamos lo que de verdad hace falta. Estamos en la Carrera 50 # 39-87, cerca de ti, con más de 40 años como taller de frenos.",
+         senales_t="¿Cuándo hacer una revisión de frenos?",
+         senales=["Chillido o ruido metálico al frenar", "Vibración en el pedal o en el timón", "El pedal se siente blando o se va al fondo", "Testigo de frenos encendido en el tablero", "Antes de un viaje largo por carretera"],
+         pasos_t="Así es la revisión de frenos",
+         pasos=[("car", "Llegas sin cita", "Te atendemos en orden de llegada, de lunes a sábado."),
+                ("search", "Revisamos el sistema", "Pastillas, discos, campanas, cilindros, mangueras y líquido."),
+                ("chat", "Te mostramos el estado", "Te explicamos qué está bien y qué necesita cambio."),
+                ("shield", "Tú decides", "La revisión no tiene costo, cambies o no alguna pieza.")],
+         resenas=[("Luis Eduardo Alvarez Vera", "Me atrevería a decir que es el mejor lugar para hacer revisión y mantenimiento a cualquier tipo de auto en frenos. Buena atención, repuestos originales y precios justos."),
+                  ("Ferney Posada", "Muy buena atención, buen espacio, con recepción para espera y muy puntuales en el tiempo de atención."),
+                  ("Valentina Gomez", "Servicio excelente. Me sentí muy segura en dejar mi carro y me lo devolvieron en condición excelente.")],
+         texto=[
+             ("h2", "¿Qué incluye la revisión de frenos?"),
+             ("ul", ["<strong>Pastillas y discos:</strong> medimos el desgaste de las pastillas y el espesor de los discos.",
+                     "<strong>Campanas y zapatas:</strong> revisamos el freno trasero en los carros que lo usan, y el freno de mano.",
+                     "<strong>Circuito hidráulico:</strong> buscamos fugas en <a href=\"{s}cilindros/\">cilindros</a> y <a href=\"{s}mangueras/\">mangueras</a> y revisamos el nivel y el estado del líquido.",
+                     "<strong>Prueba del pedal:</strong> comprobamos que el pedal esté firme y que el carro frene parejo, sin irse hacia un lado."]),
+             ("h2", "Revisión de frenos cerca de ti, sin cita"),
+             ("p", "No necesitas reservar: llega a la Carrera 50 # 39-87, en La Candelaria, de lunes a viernes de 8:00 a. m. a 5:00 p. m. o los sábados de 8:00 a. m. a 1:00 p. m. Tenemos sala de espera mientras revisamos tu carro. Si quieres, escríbenos antes por WhatsApp con la marca, el modelo y el año."),
+             ("h2", "¿Cada cuánto revisar los frenos?"),
+             ("p", "Como referencia, en cada mantenimiento del carro o cada 10.000 km, y siempre que notes una de las señales de arriba. Si manejas mucho en las lomas de Medellín, en tráfico pesado o tienes un <a href=\"{s}blindados/\">carro blindado</a>, conviene revisarlos con más frecuencia. Lee también <a href=\"{s}guias/senales-de-frenos-desgastados/\">7 señales de que tus frenos necesitan revisión</a>."),
+             ("tip", "Si después de la revisión tu carro necesita cambio de pastillas o discos, en la mayoría de los casos queda listo el mismo día. Mira la <a href=\"{s}reparacion-de-frenos/\">reparación y cambio de frenos</a>."),
+         ],
+         faq=[("¿La revisión de frenos tiene costo?", "No. En Frenoteca la revisión de frenos es sin costo, cambies o no alguna pieza."),
+              ("¿Necesito cita para la revisión de frenos?", "No. Te atendemos en orden de llegada, de lunes a viernes de 8:00 a. m. a 5:00 p. m. y los sábados de 8:00 a. m. a 1:00 p. m."),
+              ("¿Qué revisan en los frenos?", "Pastillas, discos, campanas y zapatas, cilindros, mangueras, líquido de frenos y el funcionamiento del pedal y del freno de mano."),
+              ("¿Dónde hay un taller de revisión de frenos cerca de mí en Medellín?", "Frenoteca está en la Carrera 50 # 39-87, La Candelaria, Medellín, de fácil acceso desde cualquier barrio de la ciudad.")]),
+    dict(slug="reparacion-de-frenos", nombre="Reparación de frenos", msg="una reparación de frenos", code="REP", img="reparacion-de-frenos", icon="wrench",
+         title="Reparación y Cambio de Frenos en Medellín | Frenoteca",
+         h1="Reparación y cambio de frenos", mismo_dia=True,
+         alt="Reparación de frenos en Medellín: camioneta en revisión en el taller Frenoteca",
+         desc="Reparación, arreglo y cambio de frenos en Medellín: pastillas, discos, campanas, cilindros y mangueras. Listo el mismo día, sin cita y con revisión sin costo.",
+         intro="Reparación, arreglo y cambio de frenos para todo tipo de carro, con repuestos de marcas premium. En la mayoría de casos queda listo el mismo día y sin cita.",
+         parrafo="<strong>Reparación de frenos en Medellín</strong>: primero hacemos la <a href=\"{s}revision-de-frenos/\">revisión de frenos sin costo</a> y luego reparamos solo lo que hace falta. Tenemos el repuesto y el taller en un solo lugar, con la maquinaria para rectificar discos y campanas, y más de 40 años como especialistas en frenos.",
+         senales_t="Señales de que tus frenos necesitan reparación",
+         senales=["Ruido metálico o chillido al frenar", "El carro tarda más en detenerse", "Vibración al frenar", "Pedal blando o que se va al fondo", "Manchas de líquido cerca de las ruedas"],
+         pasos_t="Así es la reparación de frenos",
+         pasos=[("search", "Revisión sin costo", "Encontramos la causa del problema."),
+                ("chat", "Cotización clara", "Te explicamos qué hay que reparar y con qué repuesto."),
+                ("wrench", "Reparamos", "Cambio o rectificado por especialistas en frenos."),
+                ("shield", "Prueba y entrega", "Probamos el frenado y te entregamos el carro.")],
+         resenas=[("Juan Felipe Laverde Botero", "Expertos en frenos de toda clase de vehículos, con gran disponibilidad de repuestos y la maquinaria necesaria para rectificado de discos y campanas. Atención oportuna y rápida."),
+                  ("Andres Orozco", "Excelente servicio y asesoría. Muy rápidos en los trabajos que realizan."),
+                  ("Carlos Santiago Villa Duque", "El mejor lugar para cambiar frenos de todo Medellín.")],
+         texto=[
+             ("h2", "Qué reparamos en el sistema de frenos"),
+             ("ul", ["<a href=\"{s}pastillas/\">Cambio de pastillas de freno</a>, la reparación más común.",
+                     "<a href=\"{s}discos/\">Discos de freno</a>: rectificado cuando el disco tiene espesor suficiente o cambio cuando no.",
+                     "<a href=\"{s}campanas-y-zapatas/\">Campanas y zapatas</a> del freno trasero y ajuste del freno de mano.",
+                     "<a href=\"{s}cilindros/\">Cilindro maestro (bomba de frenos) y cilindros de rueda</a>.",
+                     "<a href=\"{s}mangueras/\">Mangueras de freno</a> resecas o con fuga.",
+                     "<a href=\"{s}blindados/\">Frenos para carros blindados</a> y <a href=\"{s}marcas/\">frenos Brembo y premium</a>."]),
+             ("h2", "Arreglo de frenos el mismo día"),
+             ("p", "En la mayoría de carros, el cambio de pastillas o de discos queda listo el mismo día. Trabajos más grandes, como un cilindro maestro o repuestos que hay que pedir, pueden tomar más tiempo: te lo decimos desde la cotización para que sepas cuándo recoges tu carro."),
+             ("h2", "Repuestos originales y homologados"),
+             ("p", "Trabajamos con Brembo, Bosch, ATE, Incolbestos, Fremax e Icer, en referencias originales (las mismas con las que salió tu carro de fábrica) y homologadas (que cumplen las especificaciones del fabricante). Te asesoramos según tu carro y tu forma de manejar."),
+             ("tip", "¿No sabes qué tiene tu carro? Empieza por la revisión: es sin costo y te decimos exactamente qué necesita."),
+         ],
+         faq=[("¿Cuánto se demora la reparación de frenos?", "En la mayoría de carros el cambio de pastillas o discos queda listo el mismo día. Si hay que pedir un repuesto, te avisamos el tiempo desde la cotización."),
+              ("¿Rectifican discos y campanas?", "Sí. Si el disco o la campana tiene espesor suficiente, se puede rectificar; si no, recomendamos cambiarlo por seguridad."),
+              ("¿Necesito cita para arreglar los frenos?", "No. Te atendemos en orden de llegada y la revisión es sin costo."),
+              ("¿Qué marcas de repuestos usan?", "Brembo, Bosch, ATE, Incolbestos, Fremax, Icer y repuestos originales, según tu carro.")]),
     dict(slug="pastillas", nombre="Pastillas de freno", msg="pastillas de freno", code="PAS", img="pastillas", icon="pad",
          title="Pastillas de Freno Medellín: Cambio el Mismo Día | Frenoteca",
          h1="Cambio de pastillas de freno", mismo_dia=True,
@@ -79,7 +147,7 @@ SERVICIOS = [
              ("h2", "¿Cada cuánto se cambian las pastillas de freno?"),
              ("p", "No hay un kilometraje fijo: como referencia general, muchas duran entre 30.000 y 50.000 km, y en Medellín las lomas y el tráfico de pare y arranque las gastan antes. Lo seguro es revisarlas en cada mantenimiento."),
              ("p", "¿Cuántos kilómetros duran? Lee nuestra guía <a href=\"{s}guias/cada-cuanto-cambiar-pastillas-de-freno/\">¿Cada cuánto se cambian las pastillas de freno?</a>"),
-             ("tip", "La revisión de frenos es sin costo: revisamos el desgaste de tus pastillas y te decimos si ya toca cambiarlas."),
+             ("tip", "La <a href=\"{s}revision-de-frenos/\">revisión de frenos es sin costo</a>: revisamos el desgaste de tus pastillas y te decimos si ya toca cambiarlas."),
          ],
          faq=[("¿Cuánto se demora el cambio de pastillas?", "En la mayoría de carros el cambio de pastillas queda listo el mismo día. No necesitas cita: te atendemos en orden de llegada."),
               ("¿Cada cuánto se cambian las pastillas?", "Como referencia general, muchas duran entre 30.000 y 50.000 km, pero depende del carro, del tipo de pastilla y de cómo y por dónde manejas. En nuestro taller revisamos su desgaste sin costo y te indicamos el momento adecuado para el cambio."),
@@ -332,7 +400,7 @@ def franja_txt(h):
 def cotizar(preseleccion=""):
     """Agenda paso a paso → mensaje de WhatsApp. En Frenoteca no se reservan citas (orden de llegada):
     el cliente cuenta qué necesita y cuándo piensa venir, y se le responde por WhatsApp."""
-    servicios = [x for x in TODOS if x["slug"] != "marcas"]
+    servicios = [x for x in TODOS if x["slug"] not in ("marcas", "revision-de-frenos")]  # «No estoy seguro» ya pide la revisión
     opciones = "".join(
         f'<label class="opcion"><input type="radio" name="servicio" value="{x["nombre"]}" required{" checked" if x["slug"] == preseleccion else ""}>{ic(x["icon"])}<span>{x["nombre"]}</span></label>'
         for x in servicios) + f'<label class="opcion"><input type="radio" name="servicio" value="Revisión de frenos sin costo" required>{ic("search")}<span>No estoy seguro</span></label>'
@@ -376,6 +444,7 @@ def pie(s, a, code="INI", msg=None):
     <div>
       <a href="{s}" aria-label="Frenoteca, inicio">{logo(a)}</a>
       <p>Especialistas en frenos en Medellín. Más de 40 años en el mercado.</p>
+      <p class="footer-links"><a href="{s}revision-de-frenos/">Revisión de frenos sin costo</a> · <a href="{s}reparacion-de-frenos/">Reparación de frenos</a> · <a href="{s}pastillas/">Cambio de pastillas</a></p>
     </div>
     <div class="footer-contact">
       <a href="{TEL_HREF}">{ic("phone")} {TEL}</a>
@@ -501,7 +570,7 @@ def inicio():
         <a class="btn btn-wa btn-xl" href="{wa()}">{ic("wa")} Escríbenos por WhatsApp</a>
       </div>
       <div class="hero-meta">
-        <span class="hero-badge">{ic("check")} Revisión de frenos sin costo</span>
+        <a class="hero-badge" href="{s}revision-de-frenos/">{ic("check")} Revisión de frenos sin costo</a>
         <a class="hero-rating" href="{RESENAS}" target="_blank" rel="noopener"><span class="stars">{estrellas}</span><span><strong>4,6</strong> · 360 opiniones en Google</span></a>
       </div>
     </div>
@@ -552,7 +621,7 @@ def inicio():
       <div>
         <p class="eyebrow">Taller de frenos en Medellín</p>
         <h2 class="title" id="local-t">Frenos en Medellín, cerca de ti</h2>
-        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <strong>revisión de frenos sin costo</strong>: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
+        <p>Frenoteca es una empresa de <strong>frenos en Medellín</strong> con más de 40 años. Repuesto y taller en un solo lugar, con <a href="{s}revision-de-frenos/"><strong>revisión de frenos sin costo</strong></a> y <a href="{s}reparacion-de-frenos/">reparación y cambio de frenos</a>: <a href="{s}pastillas/">pastillas de freno</a>, <a href="{s}discos/">frenos y discos</a>, <a href="{s}campanas-y-zapatas/">campanas y zapatas</a>, <a href="{s}cilindros/">cilindros de freno</a>, <a href="{s}mangueras/">mangueras de freno</a> y <a href="{s}blindados/">frenos para carros blindados</a>, con <a href="{s}marcas/">marcas</a> como Brembo, Bosch, ATE e Incolbestos.</p>
         <p>Trabajamos <strong>frenos para carros</strong> de todas las marcas: particulares, camionetas y <a href="{s}blindados/">blindados</a>. Muchos carros frenan con discos adelante y campanas atrás; otros llevan discos en las cuatro ruedas. Revisamos todo el sistema, de las pastillas al líquido y las mangueras, y te decimos qué necesita antes de cambiar cualquier pieza. ¿No sabes si ya toca? Lee <a href="{s}guias/senales-de-frenos-desgastados/">las 7 señales de que tus frenos necesitan revisión</a>.</p>
         <p>Si buscas <strong>talleres de frenos en Medellín</strong> o <strong>frenos premium en Medellín</strong>, trabajamos con marcas de alto desempeño instaladas por especialistas. Cotiza sin costo por WhatsApp.</p>
       </div>
@@ -601,8 +670,8 @@ def inicio():
 </main>
 {pie(s, a)}"""
     return documento(
-        title="Taller de Frenos en Medellín | Revisión y Cambio · Frenoteca",
-        desc="Taller de frenos en Medellín con más de 40 años. Revisión de frenos sin costo, reparación y cambio de pastillas y discos. Sin cita. Escríbenos por WhatsApp.",
+        title="Taller de Frenos en Medellín | Revisión Sin Costo · Frenoteca",
+        desc="Frenos en Medellín con revisión sin costo y sin cita. Taller de frenos con más de 40 años: reparación y cambio de pastillas y discos, listo el mismo día.",
         css="sitio.css", body=body, a=a, og="og-sitio.jpg", body_class="sitio", extra_head=jsonld() + ld_faq(FAQ))
 
 

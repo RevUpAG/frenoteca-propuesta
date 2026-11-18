@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Frenoteca 2026
  * Description: Sitio nuevo de Frenoteca (inicio + páginas de servicio). Se enciende en Ajustes → Frenoteca 2026. Desactivar el plugin devuelve el sitio anterior.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Rev Up Agency Group
  * Requires PHP: 7.4
  */
 
 defined('ABSPATH') || exit;
 
-const F26_PAGINAS = ['', 'pastillas', 'discos', 'campanas-y-zapatas', 'cilindros', 'mangueras', 'blindados', 'marcas'];
+const F26_PAGINAS = ['', 'revision-de-frenos', 'reparacion-de-frenos', 'pastillas', 'discos', 'campanas-y-zapatas', 'cilindros', 'mangueras', 'blindados', 'marcas'];
 // Direcciones del sitio anterior → página nueva (301, solo con el sitio nuevo encendido)
 const F26_REDIRECCIONES = [
     'campanas' => 'campanas-y-zapatas/', 'zapatas-de-frenos' => 'campanas-y-zapatas/',

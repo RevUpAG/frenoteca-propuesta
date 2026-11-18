@@ -74,7 +74,7 @@ GUIAS = [
             ("p", "La luz de frenos en el tablero puede indicar nivel bajo de líquido o desgaste de pastillas. No la ignores."),
             ("h2", "7. Manchas de líquido cerca de las ruedas"),
             ("p", "Un líquido aceitoso cerca de una rueda puede ser una fuga en el sistema de frenos."),
-            ("tip", "Si notas cualquiera de estas señales, escríbenos por WhatsApp: atendemos en orden de llegada y revisamos todo el sistema de frenos."),
+            ("tip", "Si notas cualquiera de estas señales, ven a una <a href=\"{s}revision-de-frenos/\">revisión de frenos en Medellín</a>: es sin costo, sin cita, y revisamos todo el sistema."),
         ],
         faq=[("¿Es peligroso manejar con el pedal blando?", "Sí. Un pedal blando puede indicar aire o una fuga en el sistema. Lo recomendable es revisarlo antes de seguir manejando.")],
     ),
